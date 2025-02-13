@@ -1,6 +1,6 @@
 {
   "name": "create-bruce-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Template package for JS apps on Bruce",
   "keywords": [
     "bruce",
@@ -19,7 +19,7 @@
     "prompts": "^2.4.2",
     "replace-in-file": "^8.2.0"
   },
-  "main": "index.js",
+  "bin": "index.js",
   "bugs": {
     "url": "https://github.com/Tawank/bruce-js-tooling/issues"
   },

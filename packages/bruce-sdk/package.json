@@ -1,6 +1,6 @@
 {
   "name": "bruce-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Type declarations and documentation for native JS modules available on Bruce",
   "keywords": [
     "bruce",
@@ -13,6 +13,7 @@
   "author": "Bruce",
   "types": "bruce.d.ts",
   "main": "sdk.js",
+  "bin": "sdk.js",
   "license": "GPL-3.0-only",
   "repository": {
     "type": "git",

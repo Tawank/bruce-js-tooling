@@ -2,11 +2,10 @@
   "name": "<app_name>",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc && node node_modules/bruce-sdk/sdk.js build",
-    "start": "tsc && node node_modules/bruce-sdk/sdk.js start",
-    "optimise": "google-closure-compiler --js bundle/bruce-app.js --js_output_file bundle/bruce-app.out.js",
+    "build": "tsc && npx bruce-sdk build",
+    "start": "tsc && npx bruce-sdk start",
+    "upload": "tsc && npx bruce-sdk upload",
     "dev": "npm-watch",
-    "upload": "tsc && node node_modules/bruce-sdk/sdk.js upload",
     "test": "vitest"
   },
   "watch": {
@@ -21,13 +20,11 @@
     }
   },
   "devDependencies": {
-    "bruce-sdk": "^0.0.1",
-    "google-closure-compiler": "^20240317.0.0",
+    "bruce-sdk": "^0.0.2",
     "npm-watch": "^0.13.0",
     "typescript": "^5.7.2",
     "vitest": "^3.0.5"
   },
   "dependencies": {
-    "jsnes": "^1.2.1"
   }
 }
