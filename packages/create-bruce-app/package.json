@@ -11,7 +11,7 @@
   "license": "GPL-3.0-only",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tawank/bruce-js.git",
+    "url": "git+https://github.com/Tawank/bruce-js-tooling.git",
     "directory": "packages/create-bruce-app"
   },
   "type": "module",
