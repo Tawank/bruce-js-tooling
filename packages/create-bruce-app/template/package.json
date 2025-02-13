@@ -2,10 +2,10 @@
   "name": "<app_name>",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc && npx bruce-sdk build",
-    "start": "tsc && npx bruce-sdk start",
-    "upload": "tsc && npx bruce-sdk upload",
+    "build": "tsc && node node_modules/bruce-sdk/sdk.js build",
+    "start": "tsc && node node_modules/bruce-sdk/sdk.js start",
     "dev": "npm-watch",
+    "upload": "tsc && node node_modules/bruce-sdk/sdk.js upload",
     "test": "vitest"
   },
   "watch": {
