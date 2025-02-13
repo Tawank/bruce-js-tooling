@@ -7,7 +7,7 @@ The Bruce JavaScript tooling provides tools and type definitions to help you bui
 To create a new Bruce application with **TypeScript support** and **modern JavaScript (ES6+) features**, use the interactive setup wizard (you need to have [node.js](https://nodejs.org/en) installed):
 
 ```sh
-npx @bruce/create-bruce-app@latest
+npx create-bruce-app@latest
 ```
 
 Once the setup is complete, navigate to your project folder and start the application:
@@ -21,7 +21,7 @@ You can use `pnpm` or `yarn` instead of `npm` if preferred.
 
 ### Important: JavaScript Compatibility
 
-If you **use the setup wizard (`npx @bruce/create-bruce-app@latest`)**, your project will support **TypeScript** and **modern JavaScript features** like:
+If you **use the setup wizard (`npx create-bruce-app@latest`)**, your project will support **TypeScript** and **modern JavaScript features** like:
 
 - ✅ **TypeScript support** – Write safer, more maintainable code.
 - ✅ **Function IntelliSense** – See available functions, expected parameters, and documentation directly in your editor.

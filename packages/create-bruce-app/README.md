@@ -5,7 +5,7 @@ This package includes an interactive wizard to help you set up a JavaScript appl
 Create your application using the interactive wizard:
 
 ```sh
-npx @bruce/create-bruce-app@latest
+npx create-bruce-app@latest
 ```
 
 Then, enter the directory with your application and launch it:
@@ -19,7 +19,7 @@ You are free to use `pnpm` or `yarn` instead of `npm`.
 
 ### Important: JavaScript Compatibility
 
-If you **use the setup wizard (`npx @bruce/create-bruce-app@latest`)**, your project will support **TypeScript** and **modern JavaScript features** like:
+If you **use the setup wizard (`npx create-bruce-app@latest`)**, your project will support **TypeScript** and **modern JavaScript features** like:
 - ✅ **TypeScript support** – Write safer, more maintainable code.
 - ✅ **Function IntelliSense** – See available functions, expected parameters, and documentation directly in your editor.
 - ✅ **Error checking** – Get warnings and errors when using functions incorrectly.
