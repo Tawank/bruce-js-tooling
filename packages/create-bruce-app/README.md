@@ -4,7 +4,7 @@ This package includes an interactive wizard to help you set up a JavaScript appl
 ## Getting started
 Create your application using the interactive wizard:
 ```shell
-npx @bruce/create-bruce-app@latest
+npx create-bruce-app@latest
 ```
 
 Then, enter the directory with your application and launch it:
