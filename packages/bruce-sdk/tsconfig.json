@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "noLib": true,
+  },
+  "include": [
+    "./types/globals.d.ts",
+    "./**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+  ]
+}

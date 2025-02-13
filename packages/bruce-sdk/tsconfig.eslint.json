@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "noLib": true,
+
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": true
+  },
+  "extends": "./tsconfig.json",
+  "include": [
+    "./types/globals.d.ts",
+    "./**/*.d.ts",
+    "./sdk.js",
+    "./eslint.config.js",
+    "./typedoc.mjs",
+    "docs-cleanup.mjs"
+  ]
+}

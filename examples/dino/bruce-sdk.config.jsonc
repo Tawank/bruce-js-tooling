@@ -1,0 +1,19 @@
+{
+  "build": {
+    // Where the compiled file will be saved on your computer.
+    "output": "bundle/dino.js",
+
+    // Shrinks the final file size if set to `true`, but makes it harder to read
+    // and debug (error messages might be less clear).
+    "minify": true
+  },
+
+  "upload": {
+    // The file to upload from your computer. If you're not doing extra processing
+    // after building, this should be the same as `build.output`.
+    "input": "bundle/dino.js",
+
+    // Where the file will be stored on the device.
+    "output": "/scripts/dino.js"
+  }
+}

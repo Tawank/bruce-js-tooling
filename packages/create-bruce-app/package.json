@@ -1,0 +1,22 @@
+{
+  "name": "create-bruce-app",
+  "version": "0.0.1",
+  "description": "Template package for JS apps on Bruce",
+  "keywords": [
+    "bruce",
+    "m5stack",
+    "esp32"
+  ],
+  "author": "Bruce",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tawank/bruce-js.git",
+    "directory": "packages/create-bruce-app"
+  },
+  "type": "module",
+  "dependencies": {
+    "prompts": "^2.4.2",
+    "replace-in-file": "^8.2.0"
+  }
+}
