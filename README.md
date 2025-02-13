@@ -58,3 +58,5 @@ When uploading scripts to Bruce, keep in mind:
 If you need **TypeScript** or **modern JavaScript features**, always create your project using the setup wizard.
 
 ## Documentation
+
+https://github.com/Tawank/bruce-js-tooling/blob/master/packages/bruce-sdk/DOCS.md

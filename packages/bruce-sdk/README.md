@@ -56,3 +56,7 @@ If you need **TypeScript** or **modern JavaScript features**, always create your
 ### Code Examples in Documentation
 
 - **All code examples in this documentation will run directly on Bruce.** No need to compile it.
+
+## Documentation
+
+https://github.com/Tawank/bruce-js-tooling/blob/master/packages/bruce-sdk/DOCS.md
