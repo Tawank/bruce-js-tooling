@@ -66,4 +66,4 @@ fs.writeFileSync(
   }),
 );
 
-fs.copyFileSync('./DOCS.md', '../../README.md');
+// fs.copyFileSync('./DOCS.md', '../../README.md');

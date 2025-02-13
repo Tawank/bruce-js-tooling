@@ -21,27 +21,51 @@ console.log("File content:", content);
 <!-- index-start -->
 ## storage functions
 
-- [storage.read()](#storageread)
+- [storage.read()](#read)
 - [storage.write()](#storagewrite)
 <!-- index-end -->
 
 ## storage.read()
 
+### Call Signature
+
 ```ts
-storage.read(path: string): string;
+storage.read(path: string, binary?: false): string;
 ```
 
 Reads the content of a file.
 
-### Parameters
+#### Parameters
 
 | Parameter | Type     | Description                            |
 | --------- | -------- | -------------------------------------- |
 | `path`    | `string` | The file path (e.g., "/data/log.txt"). |
+| `binary`? | `false`  | -                                      |
 
-### Returns
+#### Returns
 
 `string`
+
+The file content as a string.
+
+### Call Signature
+
+```ts
+storage.read(path: string, binary: true): Uint8Array;
+```
+
+Reads the content of a file.
+
+#### Parameters
+
+| Parameter | Type     | Description                            |
+| --------- | -------- | -------------------------------------- |
+| `path`    | `string` | The file path (e.g., "/data/log.txt"). |
+| `binary`  | `true`   | -                                      |
+
+#### Returns
+
+`Uint8Array`
 
 The file content as a string.
 

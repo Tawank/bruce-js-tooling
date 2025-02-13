@@ -43,7 +43,7 @@ Plays an audio file from storage.
 audio.tone(
   frequency: number,
   durationMs: number,
-  nonBlocking: boolean,
+  nonBlocking?: boolean,
 ): void;
 ```
 
@@ -51,11 +51,11 @@ Plays a tone at the specified frequency for a given duration.
 
 ### Parameters
 
-| Parameter     | Type      | Description                                                               |
-| ------------- | --------- | ------------------------------------------------------------------------- |
-| `frequency`   | `number`  | Frequency in Hz.                                                          |
-| `durationMs`  | `number`  | Duration in milliseconds.                                                 |
-| `nonBlocking` | `boolean` | If true, the function will not play the tone if it would block execution. |
+| Parameter      | Type      | Description                                                               |
+| -------------- | --------- | ------------------------------------------------------------------------- |
+| `frequency`    | `number`  | Frequency in Hz.                                                          |
+| `durationMs`   | `number`  | Duration in milliseconds.                                                 |
+| `nonBlocking`? | `boolean` | If true, the function will not play the tone if it would block execution. |
 
 ### Returns
 

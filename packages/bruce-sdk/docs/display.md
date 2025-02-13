@@ -23,6 +23,7 @@ delay(2000);
 - [display.color()](#displaycolor)
 - [display.fill()](#displayfill)
 - [display.setTextColor()](#displaysettextcolor)
+- [display.setTextAlign()](#displaysettextalign)
 - [display.setTextSize()](#displaysettextsize)
 - [display.drawText()](#displaydrawtext)
 - [display.drawString()](#displaydrawstring)
@@ -105,6 +106,34 @@ Sets the text color.
 
 ---
 
+## display.setTextAlign()
+
+```ts
+display.setTextAlign(align: 0 | 1 | 2, baseline?: 0 | 1 | 2 | 3): void;
+```
+
+Sets the text alignment and baseline for rendering text.
+
+### Example
+
+```js
+display.setTextAlign(1, 2); // Center align, bottom baseline
+display.drawText(50, 50, "Hello!");
+```
+
+### Parameters
+
+| Parameter   | Type                     | Description                                                                                           |
+| ----------- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `align`     | `0` \| `1` \| `2`        | Horizontal alignment of the text: - `0` - Left - `1` - Center - `2` - Right                           |
+| `baseline`? | `0` \| `1` \| `2` \| `3` | Vertical alignment of the text: - `0` - Top - `1` - Middle - `2` - Bottom - `3` - Alphabetic baseline |
+
+### Returns
+
+`void`
+
+---
+
 ## display.setTextSize()
 
 ```ts
@@ -115,9 +144,9 @@ Sets the text size.
 
 ### Parameters
 
-| Parameter | Type     | Description           |
-| --------- | -------- | --------------------- |
-| `size`    | `number` | Text size multiplier. |
+| Parameter | Type     | Description |
+| --------- | -------- | ----------- |
+| `size`    | `number` | Text size.  |
 
 ### Returns
 

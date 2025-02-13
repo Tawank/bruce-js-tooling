@@ -61,6 +61,10 @@ If you need **TypeScript** or **modern JavaScript features**, always create your
 
 - **All code examples in this documentation will run directly on Bruce.** No need to compile it.
 
+## Documentation
+
+https://github.com/Tawank/bruce-js-tooling/blob/master/packages/bruce-sdk/DOCS.md
+
 ## Modules
 
 | Module                          | Description                                           |
@@ -418,7 +422,7 @@ Plays an audio file from storage.
 audio.tone(
   frequency: number,
   durationMs: number,
-  nonBlocking: boolean,
+  nonBlocking?: boolean,
 ): void;
 ```
 
@@ -426,11 +430,11 @@ Plays a tone at the specified frequency for a given duration.
 
 ### Parameters
 
-| Parameter     | Type      | Description                                                               |
-| ------------- | --------- | ------------------------------------------------------------------------- |
-| `frequency`   | `number`  | Frequency in Hz.                                                          |
-| `durationMs`  | `number`  | Duration in milliseconds.                                                 |
-| `nonBlocking` | `boolean` | If true, the function will not play the tone if it would block execution. |
+| Parameter      | Type      | Description                                                               |
+| -------------- | --------- | ------------------------------------------------------------------------- |
+| `frequency`    | `number`  | Frequency in Hz.                                                          |
+| `durationMs`   | `number`  | Duration in milliseconds.                                                 |
+| `nonBlocking`? | `boolean` | If true, the function will not play the tone if it would block execution. |
 
 ### Returns
 
@@ -941,6 +945,7 @@ delay(2000);
 - [display.color()](#displaycolor)
 - [display.fill()](#displayfill)
 - [display.setTextColor()](#displaysettextcolor)
+- [display.setTextAlign()](#displaysettextalign)
 - [display.setTextSize()](#displaysettextsize)
 - [display.drawText()](#displaydrawtext)
 - [display.drawString()](#displaydrawstring)
@@ -1023,6 +1028,34 @@ Sets the text color.
 
 ---
 
+## display.setTextAlign()
+
+```ts
+display.setTextAlign(align: 0 | 1 | 2, baseline?: 0 | 1 | 2 | 3): void;
+```
+
+Sets the text alignment and baseline for rendering text.
+
+### Example
+
+```js
+display.setTextAlign(1, 2); // Center align, bottom baseline
+display.drawText(50, 50, "Hello!");
+```
+
+### Parameters
+
+| Parameter   | Type                     | Description                                                                                           |
+| ----------- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `align`     | `0` \| `1` \| `2`        | Horizontal alignment of the text: - `0` - Left - `1` - Center - `2` - Right                           |
+| `baseline`? | `0` \| `1` \| `2` \| `3` | Vertical alignment of the text: - `0` - Top - `1` - Middle - `2` - Bottom - `3` - Alphabetic baseline |
+
+### Returns
+
+`void`
+
+---
+
 ## display.setTextSize()
 
 ```ts
@@ -1033,9 +1066,9 @@ Sets the text size.
 
 ### Parameters
 
-| Parameter | Type     | Description           |
-| --------- | -------- | --------------------- |
-| `size`    | `number` | Text size multiplier. |
+| Parameter | Type     | Description |
+| --------- | -------- | ----------- |
+| `size`    | `number` | Text size.  |
 
 ### Returns
 
@@ -2050,27 +2083,51 @@ console.log("File content:", content);
 <!-- index-start -->
 ## storage functions
 
-- [storage.read()](#storageread)
+- [storage.read()](#read)
 - [storage.write()](#storagewrite)
 <!-- index-end -->
 
-## storage.read()
+## read()
+
+### Call Signature
 
 ```ts
-storage.read(path: string): string;
+storage.read(path: string, binary?: false): string;
 ```
 
 Reads the content of a file.
 
-### Parameters
+#### Parameters
 
 | Parameter | Type     | Description                            |
 | --------- | -------- | -------------------------------------- |
 | `path`    | `string` | The file path (e.g., "/data/log.txt"). |
+| `binary`? | `false`  | -                                      |
 
-### Returns
+#### Returns
 
 `string`
+
+The file content as a string.
+
+### Call Signature
+
+```ts
+storage.read(path: string, binary: true): Uint8Array;
+```
+
+Reads the content of a file.
+
+#### Parameters
+
+| Parameter | Type     | Description                            |
+| --------- | -------- | -------------------------------------- |
+| `path`    | `string` | The file path (e.g., "/data/log.txt"). |
+| `binary`  | `true`   | -                                      |
+
+#### Returns
+
+`Uint8Array`
 
 The file content as a string.
 
