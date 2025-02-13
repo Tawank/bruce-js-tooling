@@ -1,5 +1,5 @@
 {
-  "name": "<app_name>",
+  "name": "nes-emulator-bruce",
   "version": "1.0.0",
   "scripts": {
     "build": "tsc && node node_modules/bruce-sdk/sdk.js build",
@@ -21,13 +21,12 @@
     }
   },
   "devDependencies": {
-    "bruce-sdk": "^0.0.1",
+    "bruce-sdk": "^0.0.4",
     "google-closure-compiler": "^20240317.0.0",
     "npm-watch": "^0.13.0",
     "typescript": "^5.7.2",
     "vitest": "^3.0.5"
   },
   "dependencies": {
-    "jsnes": "^1.2.1"
   }
 }
