@@ -417,24 +417,30 @@ export default class PPU {
     return this.frameAvailable;
   }
 
-  isBrightFramePixel(x, y) {
-    if (y < this.scanline - 5 || y >= this.scanline) {
-      return false; // Screen luminance decreases in time
-    }
-    const [r, g, b] = unpackColor(this.frameBuffer[(y * VIDEO_WIDTH) + x]);
-    return r > 0x12 || g > 0x12 || b > 0x12;
-  }
+  // isBrightFramePixel(x, y) {
+  //   if (y < this.scanline - 5 || y >= this.scanline) {
+  //     return false; // Screen luminance decreases in time
+  //   }
+  //   const [r, g, b] = unpackColor(this.frameBuffer[(y * VIDEO_WIDTH) + x]);
+  //   return r > 0x12 || g > 0x12 || b > 0x12;
+  // }
 
   setFramePixel(color) {
-    this.frameBuffer[this.framePosition++] = this.palette[color & 0x3F]; // Only 64 colors
+    const x = this.framePosition % VIDEO_WIDTH;
+    const y = Math.floor(this.framePosition / VIDEO_WIDTH);
+    this.frameBuffer.drawPixel(x, y, this.palette[color & 0x3F]); // Only 64 colors
+    this.framePosition++;
   }
 
   setFramePixelOnPosition(x, y, color) {
-    this.frameBuffer[(y * VIDEO_WIDTH) + x] = this.palette[color & 0x3F]; // Only 64 colors
+    this.frameBuffer.drawPixel(x, y, this.palette[color & 0x3F]); // Only 64 colors
   }
 
   clearFramePixel() {
-    this.frameBuffer[this.framePosition++] = BLACK_COLOR;
+    const x = this.framePosition % VIDEO_WIDTH;
+    const y = Math.floor(this.framePosition / VIDEO_WIDTH);
+    this.frameBuffer.drawPixel(x, y, BLACK_COLOR);
+    this.framePosition++;
   }
 
   //=========================================================

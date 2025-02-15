@@ -56,9 +56,9 @@ function decodePalette(base64) {
   const palette = new Uint32Array(PALETTE_LENGTH);
   for (let i = 0; i < PALETTE_LENGTH; i++) {
     const pos = 3 * i;
-    const r = data.charCodeAt(pos);
-    const g = data.charCodeAt(pos + 1);
-    const b = data.charCodeAt(pos + 2);
+    const r = data[pos];
+    const g = data[pos + 1];
+    const b = data[pos + 2];
     palette[i] = packColor(r, g, b);
   }
   return palette;

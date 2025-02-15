@@ -99,6 +99,9 @@ async function build(config) {
     await new Promise((resolve) => {
       new googleClosure.compiler({
         js: config.output,
+        js_output_file: config.output,
+        language_in: 'ECMASCRIPT5',
+        language_out: 'ECMASCRIPT5',
         compilation_level: 'ADVANCED',
       }).run(() => resolve(null));
     });

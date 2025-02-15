@@ -10,13 +10,7 @@ export function detectEndianness() {
 }
 
 export function decodeBase64(input) {
-  if (typeof window !== 'undefined' && typeof window.atob === 'function') {
-    return window.atob(input);
-  }
-  if (typeof Buffer === 'function') {
-    return Buffer.from(input, 'base64').toString('binary');
-  }
-  throw new Error('Unable to decode base64 string');
+  return Duktape.dec('base64', input);
 }
 
 export function formatSize(size) {

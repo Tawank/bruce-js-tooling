@@ -186,12 +186,13 @@ export default class NES {
 
   renderWhiteNoise(buffer) {
     for (let y = 0; y < 135; y++) {
+      // const r = (random(0, 256));
+      // const g = (random(0, 256));
+      // const b = (random(0, 256));
       for (let x = 0; x < 240; x++) {
-        // Calculate the index in the original buffer
-        let i = y * VIDEO_WIDTH + x; // Skip the extra width pixels
-        const singleColor = (random(0, 256));
-        let color = ((singleColor & 0xF8) << 8) | ((singleColor & 0xFC) << 3) | (singleColor >> 3);
-        display.drawPixel(x, y, color);
+        // let color = ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
+        const color = ~~(0xFF * Math.random());
+        buffer.drawPixel(x, y, packColor(color, color, color));
       }
     }
   }

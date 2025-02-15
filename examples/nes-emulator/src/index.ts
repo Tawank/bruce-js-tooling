@@ -2,15 +2,15 @@ import display from 'display';
 import keyboard from 'keyboard';
 import {
   NES,
-  createCartridge, readCartridge,
+  createCartridge,
   createPalette, VIDEO_WIDTH, VIDEO_HEIGHT,
   Joypad, Button,
 } from './cfxnes-core/index.js';
 import storage from 'storage';
-import serial from 'serial';
 
-function fill(value, start, end) {
-  var array = Object( this );
+// Array.fill polyfill
+function fill<T>(value: T[], start, end) {
+  var array = this.valueOf() as T[];
 
   var length = array.length;
   start = parseInt(start, 10) || 0;
@@ -32,11 +32,11 @@ function fill(value, start, end) {
   }
 
   for (; i < l; i++) {
-    array[i] = value;
+    array[i] = value as T;
   }
 
   return array;
-};
+}
 // @ts-ignore
 if (!Array.prototype.fill)  {
   // @ts-ignore
@@ -54,16 +54,10 @@ if (!Uint32Array.prototype.fill)  {
 // I am putting all code in function to optimise, if variables are outside
 // functions they are put in global namespace, and it's slower to get
 function main() {
-  console.log('init nes');
   const nes = new NES();
 
-  console.log('rom load');
-
   const romData = storage.read('/Super Mario Bros (E).nes', true);
-  console.log('cartridge1');
-  console.log(romData);
   const cartridge1 = createCartridge(romData);
-  console.log('nes.setCartridge');
   nes.setCartridge(cartridge1);
 
   let getNextPressDown = false;
@@ -71,11 +65,12 @@ function main() {
   const joypad = new Joypad;
   nes.setInputDevice(1, joypad);
 
-  console.log('videoBuffer');
-  const videoBuffer = new Uint8Array(VIDEO_WIDTH * VIDEO_HEIGHT);
+  const palette = createPalette('fceux'); // Predefined palette
+  nes.setPalette(palette);
+  const videoSprite = display.createSprite(VIDEO_WIDTH, VIDEO_HEIGHT, 16);
+  nes.setRegion(null);
 
   let time = now();
-
   while (true) {
     if (keyboard.getNextPress()) {
       joypad.setButtonPressed(Button.LEFT, true);
@@ -93,16 +88,19 @@ function main() {
       getSelPressDown = false;
     }
 
-    console.log('nes.renderFrame');
-    nes.renderFrame(videoBuffer);
+    if (keyboard.getPrevPress()) {
+      break;
+    }
 
-    console.log(videoBuffer[0]);
+    nes.renderFrame(videoSprite);
+
+    videoSprite.pushSprite();
+
+    console.log('nes.renderFrame time:');
     console.log(now() - time);
     time = now();
 
-    delay(1);
-
+    // delay(1);
   }
-
 }
 main();

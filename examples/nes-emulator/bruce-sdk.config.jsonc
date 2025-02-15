@@ -5,7 +5,8 @@
 
     // Shrinks the final file size if set to `true`, but makes it harder to read
     // and debug (error messages might be less clear).
-    "minify": false
+    "minify": true,
+    "optimise": true
   },
 
   "upload": {

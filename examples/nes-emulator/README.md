@@ -1,5 +1,7 @@
 # NES Emulator
+
 Not working for now :(
+One frame is rendering for 80 seconds and drawing it on screen 
 
 ## Project setup
 ```
