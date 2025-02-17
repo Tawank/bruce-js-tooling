@@ -44,10 +44,16 @@ An array of key names.
 ## keyboard.getPrevPress()
 
 ```ts
-keyboard.getPrevPress(): boolean;
+keyboard.getPrevPress(hold?: boolean): boolean;
 ```
 
 Checks if the "previous" button was pressed.
+
+### Parameters
+
+| Parameter | Type      | Description                                                                                                                                                 |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hold`?   | `boolean` | If `true`, returns `true` as long as any button is held down. If `false` or omitted, returns `true` only on press and repeats every X ms. Default: `false`. |
 
 ### Returns
 
@@ -60,10 +66,16 @@ Checks if the "previous" button was pressed.
 ## keyboard.getSelPress()
 
 ```ts
-keyboard.getSelPress(): boolean;
+keyboard.getSelPress(hold?: boolean): boolean;
 ```
 
 Checks if the "select" button was pressed.
+
+### Parameters
+
+| Parameter | Type      | Description                                                                                                                                                 |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hold`?   | `boolean` | If `true`, returns `true` as long as any button is held down. If `false` or omitted, returns `true` only on press and repeats every X ms. Default: `false`. |
 
 ### Returns
 
@@ -76,10 +88,16 @@ Checks if the "select" button was pressed.
 ## keyboard.getNextPress()
 
 ```ts
-keyboard.getNextPress(): boolean;
+keyboard.getNextPress(hold?: boolean): boolean;
 ```
 
 Checks if the "next" button was pressed.
+
+### Parameters
+
+| Parameter | Type      | Description                                                                                                                                                 |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hold`?   | `boolean` | If `true`, returns `true` as long as any button is held down. If `false` or omitted, returns `true` only on press and repeats every X ms. Default: `false`. |
 
 ### Returns
 
@@ -92,10 +110,16 @@ Checks if the "next" button was pressed.
 ## keyboard.getAnyPress()
 
 ```ts
-keyboard.getAnyPress(): boolean;
+keyboard.getAnyPress(hold?: boolean): boolean;
 ```
 
 Checks if any button was pressed.
+
+### Parameters
+
+| Parameter | Type      | Description                                                                                                                                                 |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hold`?   | `boolean` | If `true`, returns `true` as long as any button is held down. If `false` or omitted, returns `true` only on press and repeats every X ms. Default: `false`. |
 
 ### Returns
 

@@ -18,14 +18,22 @@ replaceInFileSync({
 // Remove "function" prefix and replace it with filename
 replaceInFileSync({
   files: 'docs/*',
-  from: /\n## ([^(]+?)\(\)\n\n```ts\nfunction /g,
-  ignore: 'docs/globals.md',
+  from: /\n## (\S+)/g, //```ts\nfunction
+  ignore: ['docs/globals.md', 'docs/README.md'],
   to: (...args) => {
-    return `\n## ${getModuleName(args.at(-1))}.${args[1]}()\n\n\`\`\`ts\n${getModuleName(args.at(-1))}.`;
+    return `\n## ${getModuleName(args.at(-1))}.${args[1]}`;
+  },
+});
+replaceInFileSync({
+  files: 'docs/*',
+  from: /\n```ts\nfunction /g,
+  ignore: ['docs/globals.md', 'docs/README.md'],
+  to: (...args) => {
+    return `\n\`\`\`ts\n${getModuleName(args.at(-1))}.`;
   },
 });
 
-// Remove "function" prefix and replace it with nothing
+// // Remove "function" prefix and replace it with nothing
 replaceInFileSync({
   files: 'docs/globals.md',
   from: /\n\n```ts\nfunction /g,

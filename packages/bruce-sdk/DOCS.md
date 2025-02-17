@@ -109,6 +109,8 @@ println(__dirname); // prints current dirname
 <!-- index-start -->
 ## globals functions
 
+- [Path](#path)
+- [FileSystem](#filesystem)
 - [BRUCE_VERSION](#bruce_version)
 - [now()](#now)
 - [delay()](#delay)
@@ -121,6 +123,40 @@ println(__dirname); // prints current dirname
 - [println()](#println)
 - [require()](#require)
 <!-- index-end -->
+
+## Path
+
+Represents a file path along with its storage location.
+
+### Example
+
+```js
+const dialog = require("dialog");
+dialog.pickFile({ fs: "user", path: "/" });
+```
+
+### Properties
+
+| Property                   | Type                                  | Description                                      |
+| -------------------------- | ------------------------------------- | ------------------------------------------------ |
+| <a id="fs"></a> `fs`       | [`FileSystem`](#filesystem) | The storage medium where the file is located     |
+| <a id="path-1"></a> `path` | `string`                              | The file path within the selected storage medium |
+
+---
+
+## FileSystem
+
+```ts
+type FileSystem = "sd" | "littlefs" | null;
+```
+
+Represents the storage medium where a file is located.
+
+- `'sd'` - File stored on SD card.
+- `'littlefs'` - File stored on LittleFS.
+- `null` - Automatically choose between SD card (if available) and LittleFS as a fallback.
+
+---
 
 ## \_\_dirname
 
@@ -1337,10 +1373,10 @@ Draws a monochrome bitmap (X Bitmap) at the specified position on the screen.
 
 ```ts
 display.drawJpg(
-  filesystem: FileSystem,
-  filename: string,
-  x: number,
-  y: number,
+  path: string | Path,
+  x?: number,
+  y?: number,
+  center?: boolean,
 ): void;
 ```
 
@@ -1348,12 +1384,12 @@ Draws a JPG image on the display.
 
 ### Parameters
 
-| Parameter    | Type         | Description                             |
-| ------------ | ------------ | --------------------------------------- |
-| `filesystem` | `FileSystem` | File source (e.g., `sd` or `littlefs`). |
-| `filename`   | `string`     | Image file path.                        |
-| `x`          | `number`     | X-coordinate.                           |
-| `y`          | `number`     | Y-coordinate.                           |
+| Parameter | Type                                  | Description                                                                                                                                                      |
+| --------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`    | `string` \| [`Path`](#path) | The path to the JPG file. Supports: - A string path (e.g., "/images/photo.jpg"). - A `Path` object specifying storage \{ fs: "sd", path: "/images/photo.jpg" \}. |
+| `x`?      | `number`                              | X-coordinate.                                                                                                                                                    |
+| `y`?      | `number`                              | Y-coordinate.                                                                                                                                                    |
+| `center`? | `boolean`                             | -                                                                                                                                                                |
 
 ### Returns
 
@@ -1365,12 +1401,11 @@ Draws a JPG image on the display.
 
 ```ts
 display.drawGif(
-  filesystem: FileSystem,
-  filename: string,
-  x: number,
-  y: number,
-  center: boolean,
-  playDurationMs: number,
+  path: string | Path,
+  x?: number,
+  y?: number,
+  center?: boolean,
+  playDurationMs?: number,
 ): void;
 ```
 
@@ -1378,14 +1413,13 @@ Draws a GIF image on the display.
 
 ### Parameters
 
-| Parameter        | Type         | Description                             |
-| ---------------- | ------------ | --------------------------------------- |
-| `filesystem`     | `FileSystem` | File source (e.g., `sd` or `littlefs`). |
-| `filename`       | `string`     | Image file path.                        |
-| `x`              | `number`     | X-coordinate.                           |
-| `y`              | `number`     | Y-coordinate.                           |
-| `center`         | `boolean`    | Whether to center the image.            |
-| `playDurationMs` | `number`     | Duration to play the GIF.               |
+| Parameter         | Type                                  | Description                                                                                                                                                    |
+| ----------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`            | `string` \| [`Path`](#path) | The path to the GIF file. Supports: - A string path (e.g., "/images/anim.gif"). - A `Path` object specifying storage \{ fs: "sd", path: "/images/anim.gif" \}. |
+| `x`?              | `number`                              | X-coordinate.                                                                                                                                                  |
+| `y`?              | `number`                              | Y-coordinate.                                                                                                                                                  |
+| `center`?         | `boolean`                             | Whether to center the image.                                                                                                                                   |
+| `playDurationMs`? | `number`                              | Duration to play the GIF.                                                                                                                                      |
 
 ### Returns
 
@@ -1396,17 +1430,16 @@ Draws a GIF image on the display.
 ## display.gifOpen()
 
 ```ts
-display.gifOpen(filesystem: FileSystem, path: string): Gif;
+display.gifOpen(path: string | Path): Gif;
 ```
 
 Opens a GIF for manual frame playback.
 
 ### Parameters
 
-| Parameter    | Type         | Description                             |
-| ------------ | ------------ | --------------------------------------- |
-| `filesystem` | `FileSystem` | File source (e.g., `sd` or `littlefs`). |
-| `path`       | `string`     | File path.                              |
+| Parameter | Type                                  | Description                                                                                                                                                    |
+| --------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`    | `string` \| [`Path`](#path) | The path to the GIF file. Supports: - A string path (e.g., "/images/anim.gif"). - A `Path` object specifying storage \{ fs: "sd", path: "/images/anim.gif" \}. |
 
 ### Returns
 
@@ -1847,10 +1880,16 @@ An array of key names.
 ## keyboard.getPrevPress()
 
 ```ts
-keyboard.getPrevPress(): boolean;
+keyboard.getPrevPress(hold?: boolean): boolean;
 ```
 
 Checks if the "previous" button was pressed.
+
+### Parameters
+
+| Parameter | Type      | Description                                                                                                                                                 |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hold`?   | `boolean` | If `true`, returns `true` as long as any button is held down. If `false` or omitted, returns `true` only on press and repeats every X ms. Default: `false`. |
 
 ### Returns
 
@@ -1863,10 +1902,16 @@ Checks if the "previous" button was pressed.
 ## keyboard.getSelPress()
 
 ```ts
-keyboard.getSelPress(): boolean;
+keyboard.getSelPress(hold?: boolean): boolean;
 ```
 
 Checks if the "select" button was pressed.
+
+### Parameters
+
+| Parameter | Type      | Description                                                                                                                                                 |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hold`?   | `boolean` | If `true`, returns `true` as long as any button is held down. If `false` or omitted, returns `true` only on press and repeats every X ms. Default: `false`. |
 
 ### Returns
 
@@ -1879,10 +1924,16 @@ Checks if the "select" button was pressed.
 ## keyboard.getNextPress()
 
 ```ts
-keyboard.getNextPress(): boolean;
+keyboard.getNextPress(hold?: boolean): boolean;
 ```
 
 Checks if the "next" button was pressed.
+
+### Parameters
+
+| Parameter | Type      | Description                                                                                                                                                 |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hold`?   | `boolean` | If `true`, returns `true` as long as any button is held down. If `false` or omitted, returns `true` only on press and repeats every X ms. Default: `false`. |
 
 ### Returns
 
@@ -1895,10 +1946,16 @@ Checks if the "next" button was pressed.
 ## keyboard.getAnyPress()
 
 ```ts
-keyboard.getAnyPress(): boolean;
+keyboard.getAnyPress(hold?: boolean): boolean;
 ```
 
 Checks if any button was pressed.
+
+### Parameters
+
+| Parameter | Type      | Description                                                                                                                                                 |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hold`?   | `boolean` | If `true`, returns `true` as long as any button is held down. If `false` or omitted, returns `true` only on press and repeats every X ms. Default: `false`. |
 
 ### Returns
 
@@ -2064,6 +2121,8 @@ The received string.
 
 File storage operations.
 
+This module provides functions for reading, writing, listing, renaming, and deleting files on different storage types.
+
 ### Example
 
 ```js
@@ -2078,81 +2137,272 @@ if (success) {
 // Read data from a file
 const content = storage.read("/data/log.txt");
 console.log("File content:", content);
+
+// Rename a file
+const renamed = storage.rename("/data/log.txt", "/data/log_old.txt");
+console.log("Rename successful:", renamed);
+
+// Delete a file
+const deleted = storage.delete("/data/log_old.txt");
+console.log("Delete successful:", deleted);
+
+// List directory contents
+const files = storage.readdir("/data", { withFileTypes: true });
+console.log("Files:\n", JSON.stringify(files, null, 2));
+
+// Create a new directory
+storage.mkdir("/data/newdir");
+
+// Remove a directory
+storage.rmdir("/data/newdir");
 ```
 
 <!-- index-start -->
 ## storage functions
 
-- [storage.read()](#read)
+- [storage.Dirent](#storagedirent)
+- [storage.read()](#storageread)
 - [storage.write()](#storagewrite)
+- [storage.readdir()](#storagereaddir)
+- [storage.rename()](#storagerename)
+- [storage.remove()](#storageremove)
+- [storage.mkdir()](#storagemkdir)
+- [storage.rmdir()](#storagermdir)
 <!-- index-end -->
 
-## read()
+## storage.Dirent
+
+Directory entry representing a file or directory.
+
+### Properties
+
+| Property                               | Type      |
+| -------------------------------------- | --------- |
+| <a id="name"></a> `name`               | `string`  |
+| <a id="size"></a> `size`               | `number`  |
+| <a id="isdirectory"></a> `isDirectory` | `boolean` |
+
+---
+
+## storage.read()
 
 ### Call Signature
 
 ```ts
-storage.read(path: string, binary?: false): string;
+storage.read(path: string | Path, binary?: false): string;
 ```
 
 Reads the content of a file.
 
 #### Parameters
 
-| Parameter | Type     | Description                            |
-| --------- | -------- | -------------------------------------- |
-| `path`    | `string` | The file path (e.g., "/data/log.txt"). |
-| `binary`? | `false`  | -                                      |
+| Parameter | Type                                  | Description                                                                                                                                    |
+| --------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`    | `string` \| [`Path`](#path) | The path to the file. Supports: - A string path (e.g., `"/file.txt"`). - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`. |
+| `binary`? | `false`                               | If `true`, returns the file content as a `Uint8Array` (default: `false`).                                                                      |
 
 #### Returns
 
 `string`
 
-The file content as a string.
+The file content as:
+
+- A `string` if `binary` is `false` or omitted.
+- A `Uint8Array` if `binary` is `true`.
 
 ### Call Signature
 
 ```ts
-storage.read(path: string, binary: true): Uint8Array;
+storage.read(path: string | Path, binary: true): Uint8Array;
 ```
 
 Reads the content of a file.
 
 #### Parameters
 
-| Parameter | Type     | Description                            |
-| --------- | -------- | -------------------------------------- |
-| `path`    | `string` | The file path (e.g., "/data/log.txt"). |
-| `binary`  | `true`   | -                                      |
+| Parameter | Type                                  | Description                                                                                                                                    |
+| --------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`    | `string` \| [`Path`](#path) | The path to the file. Supports: - A string path (e.g., `"/file.txt"`). - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`. |
+| `binary`  | `true`                                | If `true`, returns the file content as a `Uint8Array` (default: `false`).                                                                      |
 
 #### Returns
 
 `Uint8Array`
 
-The file content as a string.
+The file content as:
+
+- A `string` if `binary` is `false` or omitted.
+- A `Uint8Array` if `binary` is `true`.
 
 ---
 
 ## storage.write()
 
 ```ts
-storage.write(path: string, data: string): boolean;
+storage.write(path: string | Path, data: string | Uint8Array): boolean;
 ```
 
 Writes data to a file.
 
 ### Parameters
 
-| Parameter | Type     | Description                            |
-| --------- | -------- | -------------------------------------- |
-| `path`    | `string` | The file path (e.g., "/data/log.txt"). |
-| `data`    | `string` | The string data to write.              |
+| Parameter | Type                                  | Description                                                                                                                                    |
+| --------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`    | `string` \| [`Path`](#path) | The path to the file. Supports: - A string path (e.g., `"/file.txt"`). - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`. |
+| `data`    | `string` \| `Uint8Array`              | The data to write. Supports both `string` and `Uint8Array`.                                                                                    |
 
 ### Returns
 
 `boolean`
 
 `true` if the write operation was successful, otherwise `false`.
+
+---
+
+## storage.readdir()
+
+### Call Signature
+
+```ts
+storage.readdir(
+  path: string | Path,
+  options?: {
+    withFileTypes: false;
+  },
+): string[];
+```
+
+Lists the contents of a directory.
+
+#### Parameters
+
+| Parameter                | Type                                  | Description                                                                                                                                  |
+| ------------------------ | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`                   | `string` \| [`Path`](#path) | The directory path. Supports: - A string path (e.g., `"/file.txt"`). - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`. |
+| `options`?               | \{ `withFileTypes`: `false`; \}       | -                                                                                                                                            |
+| `options.withFileTypes`? | `false`                               | -                                                                                                                                            |
+
+#### Returns
+
+`string`[]
+
+An array of files and directories names in the directory.
+
+### Call Signature
+
+```ts
+storage.readdir(
+  path: string | Path,
+  options: {
+    withFileTypes: true;
+  },
+): Dirent[];
+```
+
+Lists the contents of a directory.
+
+#### Parameters
+
+| Parameter               | Type                                  | Description                                                                                                                                  |
+| ----------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`                  | `string` \| [`Path`](#path) | The directory path. Supports: - A string path (e.g., `"/file.txt"`). - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`. |
+| `options`               | \{ `withFileTypes`: `true`; \}        | If `{ withFileTypes: true }`, returns an array of `Dirent` objects with file type info.                                                      |
+| `options.withFileTypes` | `true`                                | -                                                                                                                                            |
+
+#### Returns
+
+[`Dirent`](#dirent)[]
+
+An array of filenames or `Dirent` objects if `withFileTypes` is `true`.
+
+---
+
+## storage.rename()
+
+```ts
+storage.rename(oldPath: string | Path, newPath: string): boolean;
+```
+
+Renames a file or directory.
+
+### Parameters
+
+| Parameter | Type                                  | Description                                                                                                                                                         |
+| --------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `oldPath` | `string` \| [`Path`](#path) | The current path of the file or directory. Supports: - A string path (e.g., `"/file.txt"`). - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`. |
+| `newPath` | `string`                              | The new path.                                                                                                                                                       |
+
+### Returns
+
+`boolean`
+
+`true` if the rename operation was successful, otherwise `false`.
+
+---
+
+## storage.remove()
+
+```ts
+storage.remove(path: string | Path): boolean;
+```
+
+Deletes a file or directory.
+
+### Parameters
+
+| Parameter | Type                                  | Description                                                                                                                                                           |
+| --------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`    | `string` \| [`Path`](#path) | The path of the file or directory to delete. Supports: - A string path (e.g., `"/file.txt"`). - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`. |
+
+### Returns
+
+`boolean`
+
+`true` if the delete operation was successful, otherwise `false`.
+
+---
+
+## storage.mkdir()
+
+```ts
+storage.mkdir(path: string | Path): boolean;
+```
+
+Creates a directory, including parent directories if necessary.
+
+### Parameters
+
+| Parameter | Type                                  | Description                |
+| --------- | ------------------------------------- | -------------------------- |
+| `path`    | `string` \| [`Path`](#path) | The path to the directory. |
+
+### Returns
+
+`boolean`
+
+`true` if the directory was successfully created, otherwise `false`.
+
+---
+
+## storage.rmdir()
+
+```ts
+storage.rmdir(path: string | Path): boolean;
+```
+
+Removes an empty directory.
+
+### Parameters
+
+| Parameter | Type                                  | Description                |
+| --------- | ------------------------------------- | -------------------------- |
+| `path`    | `string` \| [`Path`](#path) | The path to the directory. |
+
+### Returns
+
+`boolean`
+
+`true` if the directory was successfully removed, otherwise `false`.
 
 
 <a name="subghzmd"></a>

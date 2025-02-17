@@ -4,6 +4,7 @@
 # Bruce JavaScript tooling
 
 The Bruce JavaScript tooling provides tools and type definitions to help you build applications for the Bruce platform.
+https://github.com/pr3y/Bruce
 
 ## Getting Started
 

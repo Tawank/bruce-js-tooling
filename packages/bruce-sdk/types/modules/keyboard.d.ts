@@ -23,27 +23,39 @@ declare module 'keyboard' {
 
   /**
    * Checks if the "previous" button was pressed.
+   * @param hold If `true`, returns `true` as long as any button is held down.
+   *             If `false` or omitted, returns `true` only on press and repeats every X ms.
+   *             Default: `false`.
    * @returns `true` if the button was pressed, otherwise `false`.
    */
-  export function getPrevPress(): boolean;
+  export function getPrevPress(hold?: boolean): boolean;
 
   /**
    * Checks if the "select" button was pressed.
+   * @param hold If `true`, returns `true` as long as any button is held down.
+   *             If `false` or omitted, returns `true` only on press and repeats every X ms.
+   *             Default: `false`.
    * @returns `true` if the button was pressed, otherwise `false`.
    */
-  export function getSelPress(): boolean;
+  export function getSelPress(hold?: boolean): boolean;
 
   /**
    * Checks if the "next" button was pressed.
+   * @param hold If `true`, returns `true` as long as any button is held down.
+   *             If `false` or omitted, returns `true` only on press and repeats every X ms.
+   *             Default: `false`.
    * @returns `true` if the button was pressed, otherwise `false`.
    */
-  export function getNextPress(): boolean;
+  export function getNextPress(hold?: boolean): boolean;
 
   /**
    * Checks if any button was pressed.
+   * @param hold If `true`, returns `true` as long as any button is held down.
+   *             If `false` or omitted, returns `true` only on press and repeats every X ms.
+   *             Default: `false`.
    * @returns `true` if any button was pressed, otherwise `false`.
    */
-  export function getAnyPress(): boolean;
+  export function getAnyPress(hold?: boolean): boolean;
 
   /**
    * Opens an on-screen keyboard for user input.

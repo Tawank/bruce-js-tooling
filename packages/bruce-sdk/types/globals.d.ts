@@ -138,9 +138,29 @@ declare type Mode =
   | typeof INPUT_PULLDOWN;
 
 /**
- * @ignore
+ * Represents the storage medium where a file is located.
+ *
+ * - `'sd'` - File stored on SD card.
+ * - `'littlefs'` - File stored on LittleFS.
+ * - `null` - Automatically choose between SD card (if available) and LittleFS as a fallback.
  */
-declare type FileSystem = 'sd' | 'littlefs';
+declare type FileSystem = 'sd' | 'littlefs' | null;
+
+/**
+ * Represents a file path along with its storage location.
+ * ### Example
+ * ```js
+ * const dialog = require("dialog");
+ * dialog.pickFile({ fs: "user", path: "/" });
+ * ```
+ */
+declare interface Path {
+  /** The storage medium where the file is located */
+  fs: FileSystem;
+
+  /** The file path within the selected storage medium */
+  path: string;
+}
 
 /**
  * @ignore

@@ -20,6 +20,8 @@ println(__dirname); // prints current dirname
 <!-- index-start -->
 ## globals functions
 
+- [Path](#path)
+- [FileSystem](#filesystem)
 - [BRUCE_VERSION](#bruce_version)
 - [now()](#now)
 - [delay()](#delay)
@@ -32,6 +34,40 @@ println(__dirname); // prints current dirname
 - [println()](#println)
 - [require()](#require)
 <!-- index-end -->
+
+## Path
+
+Represents a file path along with its storage location.
+
+### Example
+
+```js
+const dialog = require("dialog");
+dialog.pickFile({ fs: "user", path: "/" });
+```
+
+### Properties
+
+| Property                   | Type                                  | Description                                      |
+| -------------------------- | ------------------------------------- | ------------------------------------------------ |
+| <a id="fs"></a> `fs`       | [`FileSystem`](globals.md#filesystem) | The storage medium where the file is located     |
+| <a id="path-1"></a> `path` | `string`                              | The file path within the selected storage medium |
+
+---
+
+## FileSystem
+
+```ts
+type FileSystem = "sd" | "littlefs" | null;
+```
+
+Represents the storage medium where a file is located.
+
+- `'sd'` - File stored on SD card.
+- `'littlefs'` - File stored on LittleFS.
+- `null` - Automatically choose between SD card (if available) and LittleFS as a fallback.
+
+---
 
 ## \_\_dirname
 

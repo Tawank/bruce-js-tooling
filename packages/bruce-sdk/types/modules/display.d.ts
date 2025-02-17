@@ -190,43 +190,45 @@ declare module 'display' {
 
   /**
    * Draws a JPG image on the display.
-   * @param filesystem File source (e.g., `sd` or `littlefs`).
-   * @param filename Image file path.
+   * @param path The path to the JPG file. Supports:
+   *   - A string path (e.g., "/images/photo.jpg").
+   *   - A `Path` object specifying storage { fs: "sd", path: "/images/photo.jpg" }.
    * @param x X-coordinate.
    * @param y Y-coordinate.
    */
   export function drawJpg(
-    filesystem: FileSystem,
-    filename: string,
-    x: number,
-    y: number,
+    path: string | Path,
+    x?: number,
+    y?: number,
+    center?: boolean,
   ): void;
 
   /**
    * Draws a GIF image on the display.
-   * @param filesystem File source (e.g., `sd` or `littlefs`).
-   * @param filename Image file path.
+   * @param path The path to the GIF file. Supports:
+   *   - A string path (e.g., "/images/anim.gif").
+   *   - A `Path` object specifying storage { fs: "sd", path: "/images/anim.gif" }.
    * @param x X-coordinate.
    * @param y Y-coordinate.
    * @param center Whether to center the image.
    * @param playDurationMs Duration to play the GIF.
    */
   export function drawGif(
-    filesystem: FileSystem,
-    filename: string,
-    x: number,
-    y: number,
-    center: boolean,
-    playDurationMs: number,
+    path: string | Path,
+    x?: number,
+    y?: number,
+    center?: boolean,
+    playDurationMs?: number,
   ): void;
 
   /**
    * Opens a GIF for manual frame playback.
-   * @param filesystem File source (e.g., `sd` or `littlefs`).
-   * @param path File path.
+   * @param path The path to the GIF file. Supports:
+   *   - A string path (e.g., "/images/anim.gif").
+   *   - A `Path` object specifying storage { fs: "sd", path: "/images/anim.gif" }.
    * @returns A `Gif` object for controlling playback.
    */
-  export function gifOpen(filesystem: FileSystem, path: string): Gif;
+  export function gifOpen(path: string | Path): Gif;
 
   /**
    * Gets the display width.
@@ -308,8 +310,11 @@ interface Gif {
    * Plays the next frame of the GIF.
    * @param x X-coordinate.
    * @param y Y-coordinate.
+   * @param sync If `false`, the frame will be played as fast as possible, ignoring any frame delays.
+   *             If `true` or omitted, the frame will follow the GIF’s natural timing.
+   *             Default: `true`.
    */
-  playFrame(x: number, y: number): void;
+  playFrame(x?: number, y?: number, sync?: boolean): void;
 
   /**
    * Gets the dimensions of the GIF.

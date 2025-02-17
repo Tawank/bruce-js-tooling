@@ -415,10 +415,10 @@ Draws a monochrome bitmap (X Bitmap) at the specified position on the screen.
 
 ```ts
 display.drawJpg(
-  filesystem: FileSystem,
-  filename: string,
-  x: number,
-  y: number,
+  path: string | Path,
+  x?: number,
+  y?: number,
+  center?: boolean,
 ): void;
 ```
 
@@ -426,12 +426,12 @@ Draws a JPG image on the display.
 
 ### Parameters
 
-| Parameter    | Type         | Description                             |
-| ------------ | ------------ | --------------------------------------- |
-| `filesystem` | `FileSystem` | File source (e.g., `sd` or `littlefs`). |
-| `filename`   | `string`     | Image file path.                        |
-| `x`          | `number`     | X-coordinate.                           |
-| `y`          | `number`     | Y-coordinate.                           |
+| Parameter | Type                                  | Description                                                                                                                                                      |
+| --------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`    | `string` \| [`Path`](globals.md#path) | The path to the JPG file. Supports: - A string path (e.g., "/images/photo.jpg"). - A `Path` object specifying storage \{ fs: "sd", path: "/images/photo.jpg" \}. |
+| `x`?      | `number`                              | X-coordinate.                                                                                                                                                    |
+| `y`?      | `number`                              | Y-coordinate.                                                                                                                                                    |
+| `center`? | `boolean`                             | -                                                                                                                                                                |
 
 ### Returns
 
@@ -443,12 +443,11 @@ Draws a JPG image on the display.
 
 ```ts
 display.drawGif(
-  filesystem: FileSystem,
-  filename: string,
-  x: number,
-  y: number,
-  center: boolean,
-  playDurationMs: number,
+  path: string | Path,
+  x?: number,
+  y?: number,
+  center?: boolean,
+  playDurationMs?: number,
 ): void;
 ```
 
@@ -456,14 +455,13 @@ Draws a GIF image on the display.
 
 ### Parameters
 
-| Parameter        | Type         | Description                             |
-| ---------------- | ------------ | --------------------------------------- |
-| `filesystem`     | `FileSystem` | File source (e.g., `sd` or `littlefs`). |
-| `filename`       | `string`     | Image file path.                        |
-| `x`              | `number`     | X-coordinate.                           |
-| `y`              | `number`     | Y-coordinate.                           |
-| `center`         | `boolean`    | Whether to center the image.            |
-| `playDurationMs` | `number`     | Duration to play the GIF.               |
+| Parameter         | Type                                  | Description                                                                                                                                                    |
+| ----------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`            | `string` \| [`Path`](globals.md#path) | The path to the GIF file. Supports: - A string path (e.g., "/images/anim.gif"). - A `Path` object specifying storage \{ fs: "sd", path: "/images/anim.gif" \}. |
+| `x`?              | `number`                              | X-coordinate.                                                                                                                                                  |
+| `y`?              | `number`                              | Y-coordinate.                                                                                                                                                  |
+| `center`?         | `boolean`                             | Whether to center the image.                                                                                                                                   |
+| `playDurationMs`? | `number`                              | Duration to play the GIF.                                                                                                                                      |
 
 ### Returns
 
@@ -474,17 +472,16 @@ Draws a GIF image on the display.
 ## display.gifOpen()
 
 ```ts
-display.gifOpen(filesystem: FileSystem, path: string): Gif;
+display.gifOpen(path: string | Path): Gif;
 ```
 
 Opens a GIF for manual frame playback.
 
 ### Parameters
 
-| Parameter    | Type         | Description                             |
-| ------------ | ------------ | --------------------------------------- |
-| `filesystem` | `FileSystem` | File source (e.g., `sd` or `littlefs`). |
-| `path`       | `string`     | File path.                              |
+| Parameter | Type                                  | Description                                                                                                                                                    |
+| --------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`    | `string` \| [`Path`](globals.md#path) | The path to the GIF file. Supports: - A string path (e.g., "/images/anim.gif"). - A `Path` object specifying storage \{ fs: "sd", path: "/images/anim.gif" \}. |
 
 ### Returns
 
