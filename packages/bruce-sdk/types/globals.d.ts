@@ -90,6 +90,21 @@ declare const __filename: string;
 declare const BRUCE_VERSION: string;
 
 /**
+ * Primary color from the config
+ */
+declare const BRUCE_PRICOLOR: number;
+
+/**
+ * Secondary color from the config
+ */
+declare const BRUCE_SECCOLOR: number;
+
+/**
+ * Background color from the config
+ */
+declare const BRUCE_BGCOLOR: number;
+
+/**
  * @ignore
  */
 declare const HIGH = 1;

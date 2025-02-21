@@ -24,7 +24,10 @@ dialog.viewFile(filePath);
 - [dialog.error()](#dialogerror)
 - [dialog.choice()](#dialogchoice)
 - [dialog.pickFile()](#dialogpickfile)
+- [dialog.prompt()](#dialogprompt)
 - [dialog.viewFile()](#dialogviewfile)
+- [dialog.viewText()](#dialogviewtext)
+- [dialog.createTextViewer()](#dialogcreatetextviewer)
 <!-- index-end -->
 
 ## dialog.message()
@@ -72,16 +75,16 @@ Displays an error dialog.
 ## dialog.choice()
 
 ```ts
-dialog.choice(values: string[]): string;
+dialog.choice(values: string[] | {}): string;
 ```
 
 Displays a choice dialog and returns the selected option.
 
 ### Parameters
 
-| Parameter | Type       | Description                         |
-| --------- | ---------- | ----------------------------------- |
-| `values`  | `string`[] | An array of options to choose from. |
+| Parameter | Type               | Description                         |
+| --------- | ------------------ | ----------------------------------- |
+| `values`  | `string`[] \| \{\} | An array of options to choose from. |
 
 ### Returns
 
@@ -114,6 +117,30 @@ The selected file path or `null` if no file is chosen.
 
 ---
 
+## dialog.prompt()
+
+```ts
+dialog.prompt(title: string, valueLength: number, value: string): string;
+```
+
+Opens an on-screen keyboard for user input.
+
+### Parameters
+
+| Parameter     | Type     | Description                        |
+| ------------- | -------- | ---------------------------------- |
+| `title`       | `string` | Title of the keyboard prompt.      |
+| `valueLength` | `number` | Maximum length of the input value. |
+| `value`       | `string` | Initial value to display.          |
+
+### Returns
+
+`string`
+
+User input.
+
+---
+
 ## dialog.viewFile()
 
 ```ts
@@ -121,6 +148,8 @@ dialog.viewFile(path: string): void;
 ```
 
 Opens and displays a file in a viewer.
+Displays a window where the user can scroll and exit.
+Blocks execution until the user exits.
 
 ### Parameters
 
@@ -131,3 +160,65 @@ Opens and displays a file in a viewer.
 ### Returns
 
 `void`
+
+---
+
+## dialog.viewText()
+
+```ts
+dialog.viewText(text: string, title?: string): void;
+```
+
+Opens and displays text in a viewer.
+Displays a window where the user can scroll and exit.
+Blocks execution until the user exits.
+
+### Parameters
+
+| Parameter | Type     | Description                              |
+| --------- | -------- | ---------------------------------------- |
+| `text`    | `string` | The text to view.                        |
+| `title`?  | `string` | The optional title of the viewer window. |
+
+### Returns
+
+`void`
+
+---
+
+## dialog.createTextViewer()
+
+```ts
+dialog.createTextViewer(
+  text: string,
+  options?: {
+    fontSize: number;
+    startX: number;
+    startY: number;
+    width: number;
+    height: number;
+  },
+): TextViewer;
+```
+
+Creates a `TextViewer` instance, allowing manual control.
+Unlike `viewText`, this does **not** block execution.
+You must handle scrolling and closing yourself.
+
+### Parameters
+
+| Parameter           | Type                                                                                                       | Description              |
+| ------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `text`              | `string`                                                                                                   | The text to view.        |
+| `options`?          | \{ `fontSize`: `number`; `startX`: `number`; `startY`: `number`; `width`: `number`; `height`: `number`; \} | The text viewer options. |
+| `options.fontSize`? | `number`                                                                                                   | -                        |
+| `options.startX`?   | `number`                                                                                                   | -                        |
+| `options.startY`?   | `number`                                                                                                   | -                        |
+| `options.width`?    | `number`                                                                                                   | -                        |
+| `options.height`?   | `number`                                                                                                   | -                        |
+
+### Returns
+
+[`TextViewer`](dialog.md#textviewer)
+
+A `TextViewer` instance with manual controls.

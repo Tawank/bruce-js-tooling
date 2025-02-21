@@ -132,7 +132,7 @@ Checks if any button was pressed.
 ## keyboard.keyboard()
 
 ```ts
-keyboard.keyboard(title: string, valueLength: number, value: string): void;
+keyboard.keyboard(title: string, valueLength: number, value: string): string;
 ```
 
 Opens an on-screen keyboard for user input.
@@ -147,4 +147,6 @@ Opens an on-screen keyboard for user input.
 
 ### Returns
 
-`void`
+`string`
+
+User input.

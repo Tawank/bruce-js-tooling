@@ -62,10 +62,11 @@ declare module 'keyboard' {
    * @param title Title of the keyboard prompt.
    * @param valueLength Maximum length of the input value.
    * @param value Initial value to display.
+   * @returns User input.
    */
   export function keyboard(
     title: string,
     valueLength: number,
     value: string,
-  ): void;
+  ): string;
 }

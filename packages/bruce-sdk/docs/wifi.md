@@ -134,10 +134,12 @@ An array of available networks, each containing:
 
 ## wifi.httpFetch()
 
+### Call Signature
+
 ```ts
 wifi.httpFetch(
   url: string,
-  options: {
+  options?: {
     method:
       | "GET"
       | "POST"
@@ -149,6 +151,7 @@ wifi.httpFetch(
       | "TRACE"
       | "CONNECT";
     body: string;
+    binaryResponse: false;
     headers: string[] | Record<string, string> | [string, string][];
   },
 ): {
@@ -160,17 +163,18 @@ wifi.httpFetch(
 
 Performs an HTTP request.
 
-### Parameters
+#### Parameters
 
-| Parameter          | Type                                                                                                                                                                                                                                            | Description                                          |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `url`              | `string`                                                                                                                                                                                                                                        | The URL to fetch.                                    |
-| `options`          | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
-| `options.method`   | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                             | -                                                    |
-| `options.body`?    | `string`                                                                                                                                                                                                                                        | -                                                    |
-| `options.headers`? | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                    | -                                                    |
+| Parameter                 | Type                                                                                                                                                                                                                                                                       | Description                                          |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `url`                     | `string`                                                                                                                                                                                                                                                                   | The URL to fetch.                                    |
+| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `false`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
+| `options.method`?         | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                                                        | -                                                    |
+| `options.body`?           | `string`                                                                                                                                                                                                                                                                   | -                                                    |
+| `options.binaryResponse`? | `false`                                                                                                                                                                                                                                                                    | -                                                    |
+| `options.headers`?        | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                                               | -                                                    |
 
-### Returns
+#### Returns
 
 ```ts
 {
@@ -191,3 +195,65 @@ An object containing:
 | `status` | `number`  |
 | `ok`     | `boolean` |
 | `body`   | `string`  |
+
+### Call Signature
+
+```ts
+wifi.httpFetch(
+  url: string,
+  options?: {
+    method:
+      | "GET"
+      | "POST"
+      | "DELETE"
+      | "PATCH"
+      | "PUT"
+      | "HEAD"
+      | "OPTIONS"
+      | "TRACE"
+      | "CONNECT";
+    body: string;
+    binaryResponse: true;
+    headers: string[] | Record<string, string> | [string, string][];
+  },
+): {
+  status: number;
+  ok: boolean;
+  body: Uint8Array;
+};
+```
+
+Performs an HTTP request.
+
+#### Parameters
+
+| Parameter                 | Type                                                                                                                                                                                                                                                                      | Description                                          |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `url`                     | `string`                                                                                                                                                                                                                                                                  | The URL to fetch.                                    |
+| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `true`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
+| `options.method`?         | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                                                       | -                                                    |
+| `options.body`?           | `string`                                                                                                                                                                                                                                                                  | -                                                    |
+| `options.binaryResponse`? | `true`                                                                                                                                                                                                                                                                    | -                                                    |
+| `options.headers`?        | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                                              | -                                                    |
+
+#### Returns
+
+```ts
+{
+  status: number;
+  ok: boolean;
+  body: Uint8Array;
+}
+```
+
+An object containing:
+
+- `status`: The HTTP response status code (e.g., `200`, `404`).
+- `ok`: `true` if the response status is 200-299, otherwise `false`.
+- `body`: The response body as a string.
+
+| Name     | Type         |
+| -------- | ------------ |
+| `status` | `number`     |
+| `ok`     | `boolean`    |
+| `body`   | `Uint8Array` |

@@ -23,6 +23,9 @@ println(__dirname); // prints current dirname
 - [Path](#path)
 - [FileSystem](#filesystem)
 - [BRUCE_VERSION](#bruce_version)
+- [BRUCE_PRICOLOR](#bruce_pricolor)
+- [BRUCE_SECCOLOR](#bruce_seccolor)
+- [BRUCE_BGCOLOR](#bruce_bgcolor)
 - [now()](#now)
 - [delay()](#delay)
 - [parse_int()](#parse_int)
@@ -96,6 +99,36 @@ const BRUCE_VERSION: string;
 ```
 
 Version of the bruce firmware
+
+---
+
+## BRUCE_PRICOLOR
+
+```ts
+const BRUCE_PRICOLOR: number;
+```
+
+Primary color from the config
+
+---
+
+## BRUCE_SECCOLOR
+
+```ts
+const BRUCE_SECCOLOR: number;
+```
+
+Secondary color from the config
+
+---
+
+## BRUCE_BGCOLOR
+
+```ts
+const BRUCE_BGCOLOR: number;
+```
+
+Background color from the config
 
 ---
 

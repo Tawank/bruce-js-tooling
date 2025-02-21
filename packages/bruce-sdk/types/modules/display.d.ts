@@ -33,6 +33,27 @@ declare module 'display' {
   export function fill(color: number): void;
 
   /**
+   * Sets the cursor position for text rendering.
+   * @param x X-coordinate.
+   * @param y Y-coordinate.
+   */
+  export function setCursor(x: number, y: number): void;
+
+  /**
+   * Prints text at the current cursor position.
+   * It also prints text to the Serial Monitor for devices without screen.
+   * @param args Text content.
+   */
+  export function print(...args: any[]): void;
+
+  /**
+   * Prints text followed by a newline at the current cursor position.
+   * It also prints text to the Serial Monitor for devices without screen.
+   * @param args Text content.
+   */
+  export function println(...args: any[]): void;
+
+  /**
    * Sets the text color.
    * @param color Text color (use `display.color(r, g, b)` to generate one).
    */
@@ -47,20 +68,12 @@ declare module 'display' {
    * display.drawText(50, 50, "Hello!");
    * ```
    *
-   * @param align Horizontal alignment of the text:
-   * - `0` - Left
-   * - `1` - Center
-   * - `2` - Right
-   *
-   * @param baseline Vertical alignment of the text:
-   * - `0` - Top
-   * - `1` - Middle
-   * - `2` - Bottom
-   * - `3` - Alphabetic baseline
+   * @param align Horizontal alignment of the text.
+   * @param baseline Vertical alignment of the text.
    */
   export function setTextAlign(
-    align: 0 | 1 | 2,
-    baseline?: 0 | 1 | 2 | 3,
+    align: 'left' | 'center' | 'right',
+    baseline?: 'top' | 'middle' | 'bottom' | 'alphabetic',
   ): void;
 
   /**
@@ -89,27 +102,6 @@ declare module 'display' {
     x: number,
     y: number,
   ): void;
-
-  /**
-   * Sets the cursor position for text rendering.
-   * @param x X-coordinate.
-   * @param y Y-coordinate.
-   */
-  export function setCursor(x: number, y: number): void;
-
-  /**
-   * Prints text at the current cursor position.
-   * It also prints text to the Serial Monitor for devices without screen.
-   * @param args Text content.
-   */
-  export function print(...args: any[]): void;
-
-  /**
-   * Prints text followed by a newline at the current cursor position.
-   * It also prints text to the Serial Monitor for devices without screen.
-   * @param args Text content.
-   */
-  export function println(...args: any[]): void;
 
   /**
    * Draws a single pixel on the display.
@@ -164,6 +156,68 @@ declare module 'display' {
     y: number,
     width: number,
     height: number,
+    color: number,
+  ): void;
+
+  /**
+   * Draws a round rectangle.
+   * @param x X-coordinate.
+   * @param y Y-coordinate.
+   * @param width Rectangle width.
+   * @param height Rectangle height.
+   * @param color Outline color (use `display.color(r, g, b)` to generate one).
+   */
+  export function drawRoundRect(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    color: number,
+  ): void;
+
+  /**
+   * Draws a filled round rectangle.
+   * @param x X-coordinate.
+   * @param y Y-coordinate.
+   * @param width Rectangle width.
+   * @param height Rectangle height.
+   * @param color Outline color (use `display.color(r, g, b)` to generate one).
+   */
+  export function drawFillRoundRect(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    color: number,
+  ): void;
+
+  /**
+   * Draws a circle.
+   * @param x X-coordinate.
+   * @param y Y-coordinate.
+   * @param width Rectangle width.
+   * @param height Rectangle height.
+   * @param color Outline color (use `display.color(r, g, b)` to generate one).
+   */
+  export function drawCircle(
+    x: number,
+    y: number,
+    r: number,
+    color: number,
+  ): void;
+
+  /**
+   * Draws a filled circle.
+   * @param x X-coordinate.
+   * @param y Y-coordinate.
+   * @param width Rectangle width.
+   * @param height Rectangle height.
+   * @param color Outline color (use `display.color(r, g, b)` to generate one).
+   */
+  export function drawFillCircle(
+    x: number,
+    y: number,
+    r: number,
     color: number,
   ): void;
 

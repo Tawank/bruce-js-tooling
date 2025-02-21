@@ -79,7 +79,7 @@ declare module 'wifi' {
    */
   export function httpFetch(
     url: string,
-    options: {
+    options?: {
       method:
         | 'GET'
         | 'POST'
@@ -91,7 +91,27 @@ declare module 'wifi' {
         | 'TRACE'
         | 'CONNECT';
       body?: string;
+      binaryResponse?: false;
       headers?: Record<string, string> | [string, string][] | string[];
     },
   ): { status: number; ok: boolean; body: string };
+
+  export function httpFetch(
+    url: string,
+    options?: {
+      method:
+        | 'GET'
+        | 'POST'
+        | 'DELETE'
+        | 'PATCH'
+        | 'PUT'
+        | 'HEAD'
+        | 'OPTIONS'
+        | 'TRACE'
+        | 'CONNECT';
+      body?: string;
+      binaryResponse: true;
+      headers?: Record<string, string> | [string, string][] | string[];
+    },
+  ): { status: number; ok: boolean; body: Uint8Array };
 }

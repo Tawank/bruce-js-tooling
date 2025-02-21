@@ -112,6 +112,9 @@ println(__dirname); // prints current dirname
 - [Path](#path)
 - [FileSystem](#filesystem)
 - [BRUCE_VERSION](#bruce_version)
+- [BRUCE_PRICOLOR](#bruce_pricolor)
+- [BRUCE_SECCOLOR](#bruce_seccolor)
+- [BRUCE_BGCOLOR](#bruce_bgcolor)
 - [now()](#now)
 - [delay()](#delay)
 - [parse_int()](#parse_int)
@@ -185,6 +188,36 @@ const BRUCE_VERSION: string;
 ```
 
 Version of the bruce firmware
+
+---
+
+## BRUCE_PRICOLOR
+
+```ts
+const BRUCE_PRICOLOR: number;
+```
+
+Primary color from the config
+
+---
+
+## BRUCE_SECCOLOR
+
+```ts
+const BRUCE_SECCOLOR: number;
+```
+
+Secondary color from the config
+
+---
+
+## BRUCE_BGCOLOR
+
+```ts
+const BRUCE_BGCOLOR: number;
+```
+
+Background color from the config
 
 ---
 
@@ -845,7 +878,10 @@ dialog.viewFile(filePath);
 - [dialog.error()](#dialogerror)
 - [dialog.choice()](#dialogchoice)
 - [dialog.pickFile()](#dialogpickfile)
+- [dialog.prompt()](#dialogprompt)
 - [dialog.viewFile()](#dialogviewfile)
+- [dialog.viewText()](#dialogviewtext)
+- [dialog.createTextViewer()](#dialogcreatetextviewer)
 <!-- index-end -->
 
 ## dialog.message()
@@ -893,16 +929,16 @@ Displays an error dialog.
 ## dialog.choice()
 
 ```ts
-dialog.choice(values: string[]): string;
+dialog.choice(values: string[] | {}): string;
 ```
 
 Displays a choice dialog and returns the selected option.
 
 ### Parameters
 
-| Parameter | Type       | Description                         |
-| --------- | ---------- | ----------------------------------- |
-| `values`  | `string`[] | An array of options to choose from. |
+| Parameter | Type               | Description                         |
+| --------- | ------------------ | ----------------------------------- |
+| `values`  | `string`[] \| \{\} | An array of options to choose from. |
 
 ### Returns
 
@@ -935,6 +971,30 @@ The selected file path or `null` if no file is chosen.
 
 ---
 
+## dialog.prompt()
+
+```ts
+dialog.prompt(title: string, valueLength: number, value: string): string;
+```
+
+Opens an on-screen keyboard for user input.
+
+### Parameters
+
+| Parameter     | Type     | Description                        |
+| ------------- | -------- | ---------------------------------- |
+| `title`       | `string` | Title of the keyboard prompt.      |
+| `valueLength` | `number` | Maximum length of the input value. |
+| `value`       | `string` | Initial value to display.          |
+
+### Returns
+
+`string`
+
+User input.
+
+---
+
 ## dialog.viewFile()
 
 ```ts
@@ -942,6 +1002,8 @@ dialog.viewFile(path: string): void;
 ```
 
 Opens and displays a file in a viewer.
+Displays a window where the user can scroll and exit.
+Blocks execution until the user exits.
 
 ### Parameters
 
@@ -952,6 +1014,68 @@ Opens and displays a file in a viewer.
 ### Returns
 
 `void`
+
+---
+
+## dialog.viewText()
+
+```ts
+dialog.viewText(text: string, title?: string): void;
+```
+
+Opens and displays text in a viewer.
+Displays a window where the user can scroll and exit.
+Blocks execution until the user exits.
+
+### Parameters
+
+| Parameter | Type     | Description                              |
+| --------- | -------- | ---------------------------------------- |
+| `text`    | `string` | The text to view.                        |
+| `title`?  | `string` | The optional title of the viewer window. |
+
+### Returns
+
+`void`
+
+---
+
+## dialog.createTextViewer()
+
+```ts
+dialog.createTextViewer(
+  text: string,
+  options?: {
+    fontSize: number;
+    startX: number;
+    startY: number;
+    width: number;
+    height: number;
+  },
+): TextViewer;
+```
+
+Creates a `TextViewer` instance, allowing manual control.
+Unlike `viewText`, this does **not** block execution.
+You must handle scrolling and closing yourself.
+
+### Parameters
+
+| Parameter           | Type                                                                                                       | Description              |
+| ------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `text`              | `string`                                                                                                   | The text to view.        |
+| `options`?          | \{ `fontSize`: `number`; `startX`: `number`; `startY`: `number`; `width`: `number`; `height`: `number`; \} | The text viewer options. |
+| `options.fontSize`? | `number`                                                                                                   | -                        |
+| `options.startX`?   | `number`                                                                                                   | -                        |
+| `options.startY`?   | `number`                                                                                                   | -                        |
+| `options.width`?    | `number`                                                                                                   | -                        |
+| `options.height`?   | `number`                                                                                                   | -                        |
+
+### Returns
+
+[`TextViewer`](#textviewer)
+
+A `TextViewer` instance with manual controls.
 
 
 <a name="displaymd"></a>
@@ -980,18 +1104,22 @@ delay(2000);
 
 - [display.color()](#displaycolor)
 - [display.fill()](#displayfill)
+- [display.setCursor()](#displaysetcursor)
+- [display.print()](#displayprint)
+- [display.println()](#displayprintln)
 - [display.setTextColor()](#displaysettextcolor)
 - [display.setTextAlign()](#displaysettextalign)
 - [display.setTextSize()](#displaysettextsize)
 - [display.drawText()](#displaydrawtext)
 - [display.drawString()](#displaydrawstring)
-- [display.setCursor()](#displaysetcursor)
-- [display.print()](#displayprint)
-- [display.println()](#displayprintln)
 - [display.drawPixel()](#displaydrawpixel)
 - [display.drawLine()](#displaydrawline)
 - [display.drawRect()](#displaydrawrect)
 - [display.drawFillRect()](#displaydrawfillrect)
+- [display.drawRoundRect()](#displaydrawroundrect)
+- [display.drawFillRoundRect()](#displaydrawfillroundrect)
+- [display.drawCircle()](#displaydrawcircle)
+- [display.drawFillCircle()](#displaydrawfillcircle)
 - [display.drawXBitmap()](#displaydrawxbitmap)
 - [display.drawJpg()](#displaydrawjpg)
 - [display.drawGif()](#displaydrawgif)
@@ -1044,6 +1172,69 @@ Fills the entire screen with the specified color.
 
 ---
 
+## display.setCursor()
+
+```ts
+display.setCursor(x: number, y: number): void;
+```
+
+Sets the cursor position for text rendering.
+
+### Parameters
+
+| Parameter | Type     | Description   |
+| --------- | -------- | ------------- |
+| `x`       | `number` | X-coordinate. |
+| `y`       | `number` | Y-coordinate. |
+
+### Returns
+
+`void`
+
+---
+
+## display.print()
+
+```ts
+display.print(...args: any[]): void;
+```
+
+Prints text at the current cursor position.
+It also prints text to the Serial Monitor for devices without screen.
+
+### Parameters
+
+| Parameter | Type    | Description   |
+| --------- | ------- | ------------- |
+| ...`args` | `any`[] | Text content. |
+
+### Returns
+
+`void`
+
+---
+
+## display.println()
+
+```ts
+display.println(...args: any[]): void;
+```
+
+Prints text followed by a newline at the current cursor position.
+It also prints text to the Serial Monitor for devices without screen.
+
+### Parameters
+
+| Parameter | Type    | Description   |
+| --------- | ------- | ------------- |
+| ...`args` | `any`[] | Text content. |
+
+### Returns
+
+`void`
+
+---
+
 ## display.setTextColor()
 
 ```ts
@@ -1067,7 +1258,10 @@ Sets the text color.
 ## display.setTextAlign()
 
 ```ts
-display.setTextAlign(align: 0 | 1 | 2, baseline?: 0 | 1 | 2 | 3): void;
+display.setTextAlign(
+  align: "left" | "center" | "right",
+  baseline?: "top" | "middle" | "bottom" | "alphabetic",
+): void;
 ```
 
 Sets the text alignment and baseline for rendering text.
@@ -1081,10 +1275,10 @@ display.drawText(50, 50, "Hello!");
 
 ### Parameters
 
-| Parameter   | Type                     | Description                                                                                           |
-| ----------- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `align`     | `0` \| `1` \| `2`        | Horizontal alignment of the text: - `0` - Left - `1` - Center - `2` - Right                           |
-| `baseline`? | `0` \| `1` \| `2` \| `3` | Vertical alignment of the text: - `0` - Top - `1` - Middle - `2` - Bottom - `3` - Alphabetic baseline |
+| Parameter   | Type                                                  | Description                       |
+| ----------- | ----------------------------------------------------- | --------------------------------- |
+| `align`     | `"left"` \| `"center"` \| `"right"`                   | Horizontal alignment of the text. |
+| `baseline`? | `"top"` \| `"middle"` \| `"bottom"` \| `"alphabetic"` | Vertical alignment of the text.   |
 
 ### Returns
 
@@ -1153,69 +1347,6 @@ Draws a string at the specified position (alias for `drawText`).
 | `text`    | `string` \| `number` \| `boolean` |
 | `x`       | `number`                          |
 | `y`       | `number`                          |
-
-### Returns
-
-`void`
-
----
-
-## display.setCursor()
-
-```ts
-display.setCursor(x: number, y: number): void;
-```
-
-Sets the cursor position for text rendering.
-
-### Parameters
-
-| Parameter | Type     | Description   |
-| --------- | -------- | ------------- |
-| `x`       | `number` | X-coordinate. |
-| `y`       | `number` | Y-coordinate. |
-
-### Returns
-
-`void`
-
----
-
-## display.print()
-
-```ts
-display.print(...args: any[]): void;
-```
-
-Prints text at the current cursor position.
-It also prints text to the Serial Monitor for devices without screen.
-
-### Parameters
-
-| Parameter | Type    | Description   |
-| --------- | ------- | ------------- |
-| ...`args` | `any`[] | Text content. |
-
-### Returns
-
-`void`
-
----
-
-## display.println()
-
-```ts
-display.println(...args: any[]): void;
-```
-
-Prints text followed by a newline at the current cursor position.
-It also prints text to the Serial Monitor for devices without screen.
-
-### Parameters
-
-| Parameter | Type    | Description   |
-| --------- | ------- | ------------- |
-| ...`args` | `any`[] | Text content. |
 
 ### Returns
 
@@ -1327,6 +1458,112 @@ Draws a filled rectangle.
 | `y`       | `number` | Y-coordinate.                                                 |
 | `width`   | `number` | Rectangle width.                                              |
 | `height`  | `number` | Rectangle height.                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawRoundRect()
+
+```ts
+display.drawRoundRect(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  color: number,
+): void;
+```
+
+Draws a round rectangle.
+
+### Parameters
+
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `width`   | `number` | Rectangle width.                                              |
+| `height`  | `number` | Rectangle height.                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawFillRoundRect()
+
+```ts
+display.drawFillRoundRect(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  color: number,
+): void;
+```
+
+Draws a filled round rectangle.
+
+### Parameters
+
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `width`   | `number` | Rectangle width.                                              |
+| `height`  | `number` | Rectangle height.                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawCircle()
+
+```ts
+display.drawCircle(x: number, y: number, r: number, color: number): void;
+```
+
+Draws a circle.
+
+### Parameters
+
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `r`       | `number` | -                                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawFillCircle()
+
+```ts
+display.drawFillCircle(x: number, y: number, r: number, color: number): void;
+```
+
+Draws a filled circle.
+
+### Parameters
+
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `r`       | `number` | -                                                             |
 | `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
@@ -1968,7 +2205,7 @@ Checks if any button was pressed.
 ## keyboard.keyboard()
 
 ```ts
-keyboard.keyboard(title: string, valueLength: number, value: string): void;
+keyboard.keyboard(title: string, valueLength: number, value: string): string;
 ```
 
 Opens an on-screen keyboard for user input.
@@ -1983,7 +2220,9 @@ Opens an on-screen keyboard for user input.
 
 ### Returns
 
-`void`
+`string`
+
+User input.
 
 
 <a name="notificationmd"></a>
@@ -2664,10 +2903,12 @@ An array of available networks, each containing:
 
 ## wifi.httpFetch()
 
+### Call Signature
+
 ```ts
 wifi.httpFetch(
   url: string,
-  options: {
+  options?: {
     method:
       | "GET"
       | "POST"
@@ -2679,6 +2920,7 @@ wifi.httpFetch(
       | "TRACE"
       | "CONNECT";
     body: string;
+    binaryResponse: false;
     headers: string[] | Record<string, string> | [string, string][];
   },
 ): {
@@ -2690,17 +2932,18 @@ wifi.httpFetch(
 
 Performs an HTTP request.
 
-### Parameters
+#### Parameters
 
-| Parameter          | Type                                                                                                                                                                                                                                            | Description                                          |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `url`              | `string`                                                                                                                                                                                                                                        | The URL to fetch.                                    |
-| `options`          | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
-| `options.method`   | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                             | -                                                    |
-| `options.body`?    | `string`                                                                                                                                                                                                                                        | -                                                    |
-| `options.headers`? | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                    | -                                                    |
+| Parameter                 | Type                                                                                                                                                                                                                                                                       | Description                                          |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `url`                     | `string`                                                                                                                                                                                                                                                                   | The URL to fetch.                                    |
+| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `false`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
+| `options.method`?         | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                                                        | -                                                    |
+| `options.body`?           | `string`                                                                                                                                                                                                                                                                   | -                                                    |
+| `options.binaryResponse`? | `false`                                                                                                                                                                                                                                                                    | -                                                    |
+| `options.headers`?        | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                                               | -                                                    |
 
-### Returns
+#### Returns
 
 ```ts
 {
@@ -2721,3 +2964,65 @@ An object containing:
 | `status` | `number`  |
 | `ok`     | `boolean` |
 | `body`   | `string`  |
+
+### Call Signature
+
+```ts
+wifi.httpFetch(
+  url: string,
+  options?: {
+    method:
+      | "GET"
+      | "POST"
+      | "DELETE"
+      | "PATCH"
+      | "PUT"
+      | "HEAD"
+      | "OPTIONS"
+      | "TRACE"
+      | "CONNECT";
+    body: string;
+    binaryResponse: true;
+    headers: string[] | Record<string, string> | [string, string][];
+  },
+): {
+  status: number;
+  ok: boolean;
+  body: Uint8Array;
+};
+```
+
+Performs an HTTP request.
+
+#### Parameters
+
+| Parameter                 | Type                                                                                                                                                                                                                                                                      | Description                                          |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `url`                     | `string`                                                                                                                                                                                                                                                                  | The URL to fetch.                                    |
+| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `true`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
+| `options.method`?         | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                                                       | -                                                    |
+| `options.body`?           | `string`                                                                                                                                                                                                                                                                  | -                                                    |
+| `options.binaryResponse`? | `true`                                                                                                                                                                                                                                                                    | -                                                    |
+| `options.headers`?        | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                                              | -                                                    |
+
+#### Returns
+
+```ts
+{
+  status: number;
+  ok: boolean;
+  body: Uint8Array;
+}
+```
+
+An object containing:
+
+- `status`: The HTTP response status code (e.g., `200`, `404`).
+- `ok`: `true` if the response status is 200-299, otherwise `false`.
+- `body`: The response body as a string.
+
+| Name     | Type         |
+| -------- | ------------ |
+| `status` | `number`     |
+| `ok`     | `boolean`    |
+| `body`   | `Uint8Array` |

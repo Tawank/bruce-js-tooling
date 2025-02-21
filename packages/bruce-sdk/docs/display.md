@@ -22,18 +22,22 @@ delay(2000);
 
 - [display.color()](#displaycolor)
 - [display.fill()](#displayfill)
+- [display.setCursor()](#displaysetcursor)
+- [display.print()](#displayprint)
+- [display.println()](#displayprintln)
 - [display.setTextColor()](#displaysettextcolor)
 - [display.setTextAlign()](#displaysettextalign)
 - [display.setTextSize()](#displaysettextsize)
 - [display.drawText()](#displaydrawtext)
 - [display.drawString()](#displaydrawstring)
-- [display.setCursor()](#displaysetcursor)
-- [display.print()](#displayprint)
-- [display.println()](#displayprintln)
 - [display.drawPixel()](#displaydrawpixel)
 - [display.drawLine()](#displaydrawline)
 - [display.drawRect()](#displaydrawrect)
 - [display.drawFillRect()](#displaydrawfillrect)
+- [display.drawRoundRect()](#displaydrawroundrect)
+- [display.drawFillRoundRect()](#displaydrawfillroundrect)
+- [display.drawCircle()](#displaydrawcircle)
+- [display.drawFillCircle()](#displaydrawfillcircle)
 - [display.drawXBitmap()](#displaydrawxbitmap)
 - [display.drawJpg()](#displaydrawjpg)
 - [display.drawGif()](#displaydrawgif)
@@ -86,6 +90,69 @@ Fills the entire screen with the specified color.
 
 ---
 
+## display.setCursor()
+
+```ts
+display.setCursor(x: number, y: number): void;
+```
+
+Sets the cursor position for text rendering.
+
+### Parameters
+
+| Parameter | Type     | Description   |
+| --------- | -------- | ------------- |
+| `x`       | `number` | X-coordinate. |
+| `y`       | `number` | Y-coordinate. |
+
+### Returns
+
+`void`
+
+---
+
+## display.print()
+
+```ts
+display.print(...args: any[]): void;
+```
+
+Prints text at the current cursor position.
+It also prints text to the Serial Monitor for devices without screen.
+
+### Parameters
+
+| Parameter | Type    | Description   |
+| --------- | ------- | ------------- |
+| ...`args` | `any`[] | Text content. |
+
+### Returns
+
+`void`
+
+---
+
+## display.println()
+
+```ts
+display.println(...args: any[]): void;
+```
+
+Prints text followed by a newline at the current cursor position.
+It also prints text to the Serial Monitor for devices without screen.
+
+### Parameters
+
+| Parameter | Type    | Description   |
+| --------- | ------- | ------------- |
+| ...`args` | `any`[] | Text content. |
+
+### Returns
+
+`void`
+
+---
+
 ## display.setTextColor()
 
 ```ts
@@ -109,7 +176,10 @@ Sets the text color.
 ## display.setTextAlign()
 
 ```ts
-display.setTextAlign(align: 0 | 1 | 2, baseline?: 0 | 1 | 2 | 3): void;
+display.setTextAlign(
+  align: "left" | "center" | "right",
+  baseline?: "top" | "middle" | "bottom" | "alphabetic",
+): void;
 ```
 
 Sets the text alignment and baseline for rendering text.
@@ -123,10 +193,10 @@ display.drawText(50, 50, "Hello!");
 
 ### Parameters
 
-| Parameter   | Type                     | Description                                                                                           |
-| ----------- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `align`     | `0` \| `1` \| `2`        | Horizontal alignment of the text: - `0` - Left - `1` - Center - `2` - Right                           |
-| `baseline`? | `0` \| `1` \| `2` \| `3` | Vertical alignment of the text: - `0` - Top - `1` - Middle - `2` - Bottom - `3` - Alphabetic baseline |
+| Parameter   | Type                                                  | Description                       |
+| ----------- | ----------------------------------------------------- | --------------------------------- |
+| `align`     | `"left"` \| `"center"` \| `"right"`                   | Horizontal alignment of the text. |
+| `baseline`? | `"top"` \| `"middle"` \| `"bottom"` \| `"alphabetic"` | Vertical alignment of the text.   |
 
 ### Returns
 
@@ -195,69 +265,6 @@ Draws a string at the specified position (alias for `drawText`).
 | `text`    | `string` \| `number` \| `boolean` |
 | `x`       | `number`                          |
 | `y`       | `number`                          |
-
-### Returns
-
-`void`
-
----
-
-## display.setCursor()
-
-```ts
-display.setCursor(x: number, y: number): void;
-```
-
-Sets the cursor position for text rendering.
-
-### Parameters
-
-| Parameter | Type     | Description   |
-| --------- | -------- | ------------- |
-| `x`       | `number` | X-coordinate. |
-| `y`       | `number` | Y-coordinate. |
-
-### Returns
-
-`void`
-
----
-
-## display.print()
-
-```ts
-display.print(...args: any[]): void;
-```
-
-Prints text at the current cursor position.
-It also prints text to the Serial Monitor for devices without screen.
-
-### Parameters
-
-| Parameter | Type    | Description   |
-| --------- | ------- | ------------- |
-| ...`args` | `any`[] | Text content. |
-
-### Returns
-
-`void`
-
----
-
-## display.println()
-
-```ts
-display.println(...args: any[]): void;
-```
-
-Prints text followed by a newline at the current cursor position.
-It also prints text to the Serial Monitor for devices without screen.
-
-### Parameters
-
-| Parameter | Type    | Description   |
-| --------- | ------- | ------------- |
-| ...`args` | `any`[] | Text content. |
 
 ### Returns
 
@@ -369,6 +376,112 @@ Draws a filled rectangle.
 | `y`       | `number` | Y-coordinate.                                                 |
 | `width`   | `number` | Rectangle width.                                              |
 | `height`  | `number` | Rectangle height.                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawRoundRect()
+
+```ts
+display.drawRoundRect(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  color: number,
+): void;
+```
+
+Draws a round rectangle.
+
+### Parameters
+
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `width`   | `number` | Rectangle width.                                              |
+| `height`  | `number` | Rectangle height.                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawFillRoundRect()
+
+```ts
+display.drawFillRoundRect(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  color: number,
+): void;
+```
+
+Draws a filled round rectangle.
+
+### Parameters
+
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `width`   | `number` | Rectangle width.                                              |
+| `height`  | `number` | Rectangle height.                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawCircle()
+
+```ts
+display.drawCircle(x: number, y: number, r: number, color: number): void;
+```
+
+Draws a circle.
+
+### Parameters
+
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `r`       | `number` | -                                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawFillCircle()
+
+```ts
+display.drawFillCircle(x: number, y: number, r: number, color: number): void;
+```
+
+Draws a filled circle.
+
+### Parameters
+
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `r`       | `number` | -                                                             |
 | `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
