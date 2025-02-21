@@ -1,0 +1,32 @@
+{
+  "name": "browser-bruce",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc && node node_modules/bruce-sdk/sdk.js build",
+    "start": "tsc && node node_modules/bruce-sdk/sdk.js start",
+    "dev": "npm-watch",
+    "upload": "tsc && node node_modules/bruce-sdk/sdk.js upload",
+    "test": "vitest"
+  },
+  "watch": {
+    "start": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "ts,js",
+      "quiet": true,
+      "legacyWatch": false,
+      "runOnChangeOnly": false
+    }
+  },
+  "devDependencies": {
+    "bruce-sdk": "^0.1.0",
+    "npm-watch": "^0.13.0",
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.5"
+  },
+  "dependencies": {
+    "html-to-md": "^0.8.6",
+    "turndown": "^7.2.0"
+  }
+}

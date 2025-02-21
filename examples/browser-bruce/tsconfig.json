@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "checkJs": true,
+    "module": "CommonJS",
+    "moduleResolution": "node10", // Bruce does not support ECMAScript imports
+    "noLib": true,
+    "target": "es5",
+    "types": [],
+
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": false,
+    "skipLibCheck": true,
+  
+    "resolveJsonModule": true,
+
+    "noUncheckedSideEffectImports": true
+  },
+  "files": [
+    "./node_modules/bruce-sdk/bruce.d.ts"
+  ],
+  "include": [
+      "./**/*.ts",
+      "./**/*.js",
+  ],
+  "exclude": [
+      "./node_modules/**/*",
+      "dist/**/*",
+      "bundle/**/*",
+      "./test/*"
+  ]
+}
