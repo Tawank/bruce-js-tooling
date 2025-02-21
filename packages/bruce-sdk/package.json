@@ -1,6 +1,6 @@
 {
   "name": "bruce-sdk",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Type declarations and documentation for native JS modules available on Bruce",
   "keywords": [
     "bruce",
