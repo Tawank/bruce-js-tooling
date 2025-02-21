@@ -114,4 +114,23 @@ declare module 'wifi' {
       headers?: Record<string, string> | [string, string][] | string[];
     },
   ): { status: number; ok: boolean; body: Uint8Array };
+
+  export function httpFetch(
+    url: string,
+    options?: {
+      method:
+        | 'GET'
+        | 'POST'
+        | 'DELETE'
+        | 'PATCH'
+        | 'PUT'
+        | 'HEAD'
+        | 'OPTIONS'
+        | 'TRACE'
+        | 'CONNECT';
+      body?: string;
+      binaryResponse: boolean;
+      headers?: Record<string, string> | [string, string][] | string[];
+    },
+  ): { status: number; ok: boolean; body: string | Uint8Array };
 }

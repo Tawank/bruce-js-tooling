@@ -257,3 +257,65 @@ An object containing:
 | `status` | `number`     |
 | `ok`     | `boolean`    |
 | `body`   | `Uint8Array` |
+
+### Call Signature
+
+```ts
+wifi.httpFetch(
+  url: string,
+  options?: {
+    method:
+      | "GET"
+      | "POST"
+      | "DELETE"
+      | "PATCH"
+      | "PUT"
+      | "HEAD"
+      | "OPTIONS"
+      | "TRACE"
+      | "CONNECT";
+    body: string;
+    binaryResponse: boolean;
+    headers: string[] | Record<string, string> | [string, string][];
+  },
+): {
+  status: number;
+  ok: boolean;
+  body: string | Uint8Array;
+};
+```
+
+Performs an HTTP request.
+
+#### Parameters
+
+| Parameter                 | Type                                                                                                                                                                                                                                                                         | Description                                          |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `url`                     | `string`                                                                                                                                                                                                                                                                     | The URL to fetch.                                    |
+| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `boolean`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
+| `options.method`?         | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                                                          | -                                                    |
+| `options.body`?           | `string`                                                                                                                                                                                                                                                                     | -                                                    |
+| `options.binaryResponse`? | `boolean`                                                                                                                                                                                                                                                                    | -                                                    |
+| `options.headers`?        | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                                                 | -                                                    |
+
+#### Returns
+
+```ts
+{
+  status: number;
+  ok: boolean;
+  body: string | Uint8Array;
+}
+```
+
+An object containing:
+
+- `status`: The HTTP response status code (e.g., `200`, `404`).
+- `ok`: `true` if the response status is 200-299, otherwise `false`.
+- `body`: The response body as a string.
+
+| Name     | Type                     |
+| -------- | ------------------------ |
+| `status` | `number`                 |
+| `ok`     | `boolean`                |
+| `body`   | `string` \| `Uint8Array` |
