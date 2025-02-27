@@ -21,10 +21,24 @@ declare module 'dialog' {
   /**
    * Displays a message dialog.
    *
+   * ### Example
+   * ```js
+   * const dialog = require('dialog');
+   * dialog.message("Hello!"); // Just displays the message
+   * dialog.message("Press any key...", true); // Blocks until a key is pressed
+   * const choice = dialog.message("Choose:", { left: "No", center: "Maybe", right: "Yes" });
+   * if (choice === "right") console.log("User chose Yes!");
+   * ```
+   *
    * @param message The message to display.
-   * @param waitForKeyPress If `true`, waits for a key press before closing (default: `false`).
+   * @param options If `true`, waits for a key press before closing (default: `false`).
+   *                If an object, displays up to three buttons with custom labels.
+   * @returns The button pressed (`"left"`, `"center"`, or `"right"`), or `void` if no buttons are used.
    */
-  export function message(message: string, waitForKeyPress?: boolean): void;
+  export function message(
+    message: string,
+    options?: boolean | { left?: string; center?: string; right?: string },
+  ): 'left' | 'center' | 'right' | void;
 
   /**
    * Displays an error dialog.

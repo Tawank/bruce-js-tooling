@@ -33,21 +33,46 @@ dialog.viewFile(filePath);
 ## dialog.message()
 
 ```ts
-dialog.message(message: string, waitForKeyPress?: boolean): void;
+dialog.message(
+  message: string,
+  options?:
+    | boolean
+    | {
+        left: string;
+        center: string;
+        right: string;
+      },
+): void | "left" | "center" | "right";
 ```
 
 Displays a message dialog.
 
+### Example
+
+```js
+const dialog = require("dialog");
+dialog.message("Hello!"); // Just displays the message
+dialog.message("Press any key...", true); // Blocks until a key is pressed
+const choice = dialog.message("Choose:", {
+  left: "No",
+  center: "Maybe",
+  right: "Yes",
+});
+if (choice === "right") console.log("User chose Yes!");
+```
+
 ### Parameters
 
-| Parameter          | Type      | Description                                                         |
-| ------------------ | --------- | ------------------------------------------------------------------- |
-| `message`          | `string`  | The message to display.                                             |
-| `waitForKeyPress`? | `boolean` | If `true`, waits for a key press before closing (default: `false`). |
+| Parameter  | Type                                                                           | Description                                                                                                                        |
+| ---------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `message`  | `string`                                                                       | The message to display.                                                                                                            |
+| `options`? | \| `boolean` \| \{ `left`: `string`; `center`: `string`; `right`: `string`; \} | If `true`, waits for a key press before closing (default: `false`). If an object, displays up to three buttons with custom labels. |
 
 ### Returns
 
-`void`
+`void` \| `"left"` \| `"center"` \| `"right"`
+
+The button pressed (`"left"`, `"center"`, or `"right"`), or `void` if no buttons are used.
 
 ---
 

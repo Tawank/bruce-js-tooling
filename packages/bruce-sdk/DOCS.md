@@ -887,21 +887,46 @@ dialog.viewFile(filePath);
 ## dialog.message()
 
 ```ts
-dialog.message(message: string, waitForKeyPress?: boolean): void;
+dialog.message(
+  message: string,
+  options?:
+    | boolean
+    | {
+        left: string;
+        center: string;
+        right: string;
+      },
+): void | "left" | "center" | "right";
 ```
 
 Displays a message dialog.
 
+### Example
+
+```js
+const dialog = require("dialog");
+dialog.message("Hello!"); // Just displays the message
+dialog.message("Press any key...", true); // Blocks until a key is pressed
+const choice = dialog.message("Choose:", {
+  left: "No",
+  center: "Maybe",
+  right: "Yes",
+});
+if (choice === "right") console.log("User chose Yes!");
+```
+
 ### Parameters
 
-| Parameter          | Type      | Description                                                         |
-| ------------------ | --------- | ------------------------------------------------------------------- |
-| `message`          | `string`  | The message to display.                                             |
-| `waitForKeyPress`? | `boolean` | If `true`, waits for a key press before closing (default: `false`). |
+| Parameter  | Type                                                                           | Description                                                                                                                        |
+| ---------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `message`  | `string`                                                                       | The message to display.                                                                                                            |
+| `options`? | \| `boolean` \| \{ `left`: `string`; `center`: `string`; `right`: `string`; \} | If `true`, waits for a key press before closing (default: `false`). If an object, displays up to three buttons with custom labels. |
 
 ### Returns
 
-`void`
+`void` \| `"left"` \| `"center"` \| `"right"`
+
+The button pressed (`"left"`, `"center"`, or `"right"`), or `void` if no buttons are used.
 
 ---
 
@@ -1116,11 +1141,13 @@ delay(2000);
 - [display.drawLine()](#displaydrawline)
 - [display.drawRect()](#displaydrawrect)
 - [display.drawFillRect()](#displaydrawfillrect)
+- [display.drawFillRectGradient()](#displaydrawfillrectgradient)
 - [display.drawRoundRect()](#displaydrawroundrect)
 - [display.drawFillRoundRect()](#displaydrawfillroundrect)
 - [display.drawCircle()](#displaydrawcircle)
 - [display.drawFillCircle()](#displaydrawfillcircle)
 - [display.drawXBitmap()](#displaydrawxbitmap)
+- [display.drawBitmap()](#displaydrawbitmap)
 - [display.drawJpg()](#displaydrawjpg)
 - [display.drawGif()](#displaydrawgif)
 - [display.gifOpen()](#displaygifopen)
@@ -1452,13 +1479,47 @@ Draws a filled rectangle.
 
 ### Parameters
 
-| Parameter | Type     | Description                                                   |
-| --------- | -------- | ------------------------------------------------------------- |
-| `x`       | `number` | X-coordinate.                                                 |
-| `y`       | `number` | Y-coordinate.                                                 |
-| `width`   | `number` | Rectangle width.                                              |
-| `height`  | `number` | Rectangle height.                                             |
-| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+| Parameter | Type     | Description                                           |
+| --------- | -------- | ----------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                         |
+| `y`       | `number` | Y-coordinate.                                         |
+| `width`   | `number` | Rectangle width.                                      |
+| `height`  | `number` | Rectangle height.                                     |
+| `color`   | `number` | Color (use `display.color(r, g, b)` to generate one). |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawFillRectGradient()
+
+```ts
+display.drawFillRectGradient(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  color1: number,
+  color2: number,
+  direction: "horizontal" | "vertical",
+): void;
+```
+
+Draws a filled gradient rectangle.
+
+### Parameters
+
+| Parameter   | Type                           | Description                                             |
+| ----------- | ------------------------------ | ------------------------------------------------------- |
+| `x`         | `number`                       | X-coordinate.                                           |
+| `y`         | `number`                       | Y-coordinate.                                           |
+| `width`     | `number`                       | Rectangle width.                                        |
+| `height`    | `number`                       | Rectangle height.                                       |
+| `color1`    | `number`                       | Color 1 (use `display.color(r, g, b)` to generate one). |
+| `color2`    | `number`                       | Color 2 (use `display.color(r, g, b)` to generate one). |
+| `direction` | `"horizontal"` \| `"vertical"` | `'horizontal'` or `'vertical'`.                         |
 
 ### Returns
 
@@ -1474,6 +1535,7 @@ display.drawRoundRect(
   y: number,
   width: number,
   height: number,
+  radius: number,
   color: number,
 ): void;
 ```
@@ -1488,6 +1550,7 @@ Draws a round rectangle.
 | `y`       | `number` | Y-coordinate.                                                 |
 | `width`   | `number` | Rectangle width.                                              |
 | `height`  | `number` | Rectangle height.                                             |
+| `radius`  | `number` | Rectangle radius.                                             |
 | `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
@@ -1504,6 +1567,7 @@ display.drawFillRoundRect(
   y: number,
   width: number,
   height: number,
+  radius: number,
   color: number,
 ): void;
 ```
@@ -1512,13 +1576,14 @@ Draws a filled round rectangle.
 
 ### Parameters
 
-| Parameter | Type     | Description                                                   |
-| --------- | -------- | ------------------------------------------------------------- |
-| `x`       | `number` | X-coordinate.                                                 |
-| `y`       | `number` | Y-coordinate.                                                 |
-| `width`   | `number` | Rectangle width.                                              |
-| `height`  | `number` | Rectangle height.                                             |
-| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+| Parameter | Type     | Description                                           |
+| --------- | -------- | ----------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                         |
+| `y`       | `number` | Y-coordinate.                                         |
+| `width`   | `number` | Rectangle width.                                      |
+| `height`  | `number` | Rectangle height.                                     |
+| `radius`  | `number` | Rectangle radius.                                     |
+| `color`   | `number` | Color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
 
@@ -1529,19 +1594,26 @@ Draws a filled round rectangle.
 ## display.drawCircle()
 
 ```ts
-display.drawCircle(x: number, y: number, r: number, color: number): void;
+display.drawCircle(
+  x: number,
+  y: number,
+  r: number,
+  color: number,
+  smooth?: boolean,
+): void;
 ```
 
 Draws a circle.
 
 ### Parameters
 
-| Parameter | Type     | Description                                                   |
-| --------- | -------- | ------------------------------------------------------------- |
-| `x`       | `number` | X-coordinate.                                                 |
-| `y`       | `number` | Y-coordinate.                                                 |
-| `r`       | `number` | -                                                             |
-| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+| Parameter | Type      | Description                                                   |
+| --------- | --------- | ------------------------------------------------------------- |
+| `x`       | `number`  | X-coordinate.                                                 |
+| `y`       | `number`  | Y-coordinate.                                                 |
+| `r`       | `number`  | -                                                             |
+| `color`   | `number`  | Outline color (use `display.color(r, g, b)` to generate one). |
+| `smooth`? | `boolean` | -                                                             |
 
 ### Returns
 
@@ -1559,12 +1631,12 @@ Draws a filled circle.
 
 ### Parameters
 
-| Parameter | Type     | Description                                                   |
-| --------- | -------- | ------------------------------------------------------------- |
-| `x`       | `number` | X-coordinate.                                                 |
-| `y`       | `number` | Y-coordinate.                                                 |
-| `r`       | `number` | -                                                             |
-| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
+| Parameter | Type     | Description                                           |
+| --------- | -------- | ----------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                         |
+| `y`       | `number` | Y-coordinate.                                         |
+| `r`       | `number` | -                                                     |
+| `color`   | `number` | Color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
 
@@ -1586,19 +1658,55 @@ display.drawXBitmap(
 ): void;
 ```
 
-Draws a monochrome bitmap (X Bitmap) at the specified position on the screen.
+Draws a monochrome bitmap (XBM Bitmap) at the specified position on the screen.
+You can convert images to this format using this online converter:
+https://www.online-utility.org/image/convert/to/XBM
 
 ### Parameters
 
-| Parameter  | Type          | Description                                                        |
-| ---------- | ------------- | ------------------------------------------------------------------ |
-| `x`        | `number`      | X-coordinate for the bitmap.                                       |
-| `y`        | `number`      | Y-coordinate for the bitmap.                                       |
-| `bitmap`   | `ArrayBuffer` | The bitmap data stored in an ArrayBuffer (1-bit per pixel).        |
-| `width`    | `number`      | The width of the bitmap in pixels.                                 |
-| `height`   | `number`      | The height of the bitmap in pixels.                                |
-| `fgColor`  | `number`      | The foreground color (used for `1` bits in the bitmap).            |
-| `bgColor`? | `number`      | (Optional) The background color (used for `0` bits in the bitmap). |
+| Parameter  | Type          | Description                                                                                                            |
+| ---------- | ------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `x`        | `number`      | X-coordinate for the bitmap.                                                                                           |
+| `y`        | `number`      | Y-coordinate for the bitmap.                                                                                           |
+| `bitmap`   | `ArrayBuffer` | The bitmap data stored in an ArrayBuffer (1-bit per pixel).                                                            |
+| `width`    | `number`      | The width of the bitmap in pixels.                                                                                     |
+| `height`   | `number`      | The height of the bitmap in pixels.                                                                                    |
+| `fgColor`  | `number`      | The foreground color (used for `1` bits in the bitmap).                                                                |
+| `bgColor`? | `number`      | (Optional) The background color (used for `0` bits in the bitmap). If not provided then the background is transparent. |
+
+### Returns
+
+`void`
+
+---
+
+## display.drawBitmap()
+
+```ts
+display.drawBitmap(
+  x: number,
+  y: number,
+  bitmap: ArrayBuffer,
+  width: number,
+  height: number,
+  bpp: 1 | 4 | 8 | 16,
+  palette?: ArrayBuffer,
+): void;
+```
+
+Draws a bitmap at the specified position on the screen.
+
+### Parameters
+
+| Parameter  | Type                      | Description                                                                                                                                                                                                                                                                                                                                     |
+| ---------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `x`        | `number`                  | X-coordinate for the bitmap.                                                                                                                                                                                                                                                                                                                    |
+| `y`        | `number`                  | Y-coordinate for the bitmap.                                                                                                                                                                                                                                                                                                                    |
+| `bitmap`   | `ArrayBuffer`             | The bitmap data stored in an `ArrayBuffer`. The format depends on `bpp`: - `16 bpp`: Each pixel is a 16-bit color value (RGB565). - `8 bpp`: Each pixel is an 8-bit color value (RGB332). - `4 bpp`: Each pixel is a 4-bit index into `palette` (2 pixels per byte). - `1 bpp`: Each pixel is a 1-bit index into `palette` (8 pixels per byte). |
+| `width`    | `number`                  | The width of the bitmap in pixels.                                                                                                                                                                                                                                                                                                              |
+| `height`   | `number`                  | The height of the bitmap in pixels.                                                                                                                                                                                                                                                                                                             |
+| `bpp`      | `1` \| `4` \| `8` \| `16` | Bits per pixel (16, 8, 4, or 1).                                                                                                                                                                                                                                                                                                                |
+| `palette`? | `ArrayBuffer`             | A color palette used **only** when `bpp` is 4 or 1. Each entry is a 16-bit color (RGB565).                                                                                                                                                                                                                                                      |
 
 ### Returns
 
@@ -2478,23 +2586,30 @@ The file content as:
 ## storage.write()
 
 ```ts
-storage.write(path: string | Path, data: string | Uint8Array): boolean;
+storage.write(
+  path: string | Path,
+  data: string | Uint8Array,
+  mode?: "write" | "append",
+  position?: string | number,
+): boolean;
 ```
 
-Writes data to a file.
+Writes data to a file, optionally inserting at a specific position.
 
 ### Parameters
 
-| Parameter | Type                                  | Description                                                                                                                                    |
-| --------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `path`    | `string` \| [`Path`](#path) | The path to the file. Supports: - A string path (e.g., `"/file.txt"`). - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`. |
-| `data`    | `string` \| `Uint8Array`              | The data to write. Supports both `string` and `Uint8Array`.                                                                                    |
+| Parameter   | Type                                  | Description                                                                                                                                                                                      |
+| ----------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `path`      | `string` \| [`Path`](#path) | The file path. Supports: - A string like `"/file.txt"`. - A `Path` object like `{ fs: "sd", path: "/file.txt" }`.                                                                                |
+| `data`      | `string` \| `Uint8Array`              | The content to write. Can be a `string` or `Uint8Array`.                                                                                                                                         |
+| `mode`?     | `"write"` \| `"append"`               | How to write: - `"write"` (default): Replace the file content. - `"append"`: Add to the end of the file.                                                                                         |
+| `position`? | `string` \| `number`                  | Where to insert the data: - A `number`: Insert at this byte position. - A `string`: Insert **before** the first time this text appears. - `"end"`: Add to the end (default for `"append"` mode). |
 
 ### Returns
 
 `boolean`
 
-`true` if the write operation was successful, otherwise `false`.
+`true` if writing was successful, otherwise `false`.
 
 ---
 

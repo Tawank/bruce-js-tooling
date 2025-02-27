@@ -149,7 +149,7 @@ declare module 'display' {
    * @param y Y-coordinate.
    * @param width Rectangle width.
    * @param height Rectangle height.
-   * @param color Outline color (use `display.color(r, g, b)` to generate one).
+   * @param color Color (use `display.color(r, g, b)` to generate one).
    */
   export function drawFillRect(
     x: number,
@@ -160,11 +160,32 @@ declare module 'display' {
   ): void;
 
   /**
+   * Draws a filled gradient rectangle.
+   * @param x X-coordinate.
+   * @param y Y-coordinate.
+   * @param width Rectangle width.
+   * @param height Rectangle height.
+   * @param color1 Color 1 (use `display.color(r, g, b)` to generate one).
+   * @param color2 Color 2 (use `display.color(r, g, b)` to generate one).
+   * @param direction `'horizontal'` or `'vertical'`.
+   */
+  export function drawFillRectGradient(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    color1: number,
+    color2: number,
+    direction: 'horizontal' | 'vertical',
+  ): void;
+
+  /**
    * Draws a round rectangle.
    * @param x X-coordinate.
    * @param y Y-coordinate.
    * @param width Rectangle width.
    * @param height Rectangle height.
+   * @param radius Rectangle radius.
    * @param color Outline color (use `display.color(r, g, b)` to generate one).
    */
   export function drawRoundRect(
@@ -172,6 +193,7 @@ declare module 'display' {
     y: number,
     width: number,
     height: number,
+    radius: number,
     color: number,
   ): void;
 
@@ -181,13 +203,15 @@ declare module 'display' {
    * @param y Y-coordinate.
    * @param width Rectangle width.
    * @param height Rectangle height.
-   * @param color Outline color (use `display.color(r, g, b)` to generate one).
+   * @param radius Rectangle radius.
+   * @param color Color (use `display.color(r, g, b)` to generate one).
    */
   export function drawFillRoundRect(
     x: number,
     y: number,
     width: number,
     height: number,
+    radius: number,
     color: number,
   ): void;
 
@@ -204,6 +228,7 @@ declare module 'display' {
     y: number,
     r: number,
     color: number,
+    smooth?: boolean,
   ): void;
 
   /**
@@ -212,7 +237,7 @@ declare module 'display' {
    * @param y Y-coordinate.
    * @param width Rectangle width.
    * @param height Rectangle height.
-   * @param color Outline color (use `display.color(r, g, b)` to generate one).
+   * @param color Color (use `display.color(r, g, b)` to generate one).
    */
   export function drawFillCircle(
     x: number,
@@ -222,7 +247,9 @@ declare module 'display' {
   ): void;
 
   /**
-   * Draws a monochrome bitmap (X Bitmap) at the specified position on the screen.
+   * Draws a monochrome bitmap (XBM Bitmap) at the specified position on the screen.
+   * You can convert images to this format using this online converter:
+   * https://www.online-utility.org/image/convert/to/XBM
    *
    * @param x X-coordinate for the bitmap.
    * @param y Y-coordinate for the bitmap.
@@ -231,6 +258,7 @@ declare module 'display' {
    * @param height The height of the bitmap in pixels.
    * @param fgColor The foreground color (used for `1` bits in the bitmap).
    * @param bgColor (Optional) The background color (used for `0` bits in the bitmap).
+   *                If not provided then the background is transparent.
    */
   export function drawXBitmap(
     x: number,
@@ -240,6 +268,31 @@ declare module 'display' {
     height: number,
     fgColor: number,
     bgColor?: number,
+  ): void;
+
+  /**
+   * Draws a bitmap at the specified position on the screen.
+   *
+   * @param x X-coordinate for the bitmap.
+   * @param y Y-coordinate for the bitmap.
+   * @param bitmap The bitmap data stored in an `ArrayBuffer`. The format depends on `bpp`:
+   *   - `16 bpp`: Each pixel is a 16-bit color value (RGB565).
+   *   - `8 bpp`: Each pixel is an 8-bit color value (RGB332).
+   *   - `4 bpp`: Each pixel is a 4-bit index into `palette` (2 pixels per byte).
+   *   - `1 bpp`: Each pixel is a 1-bit index into `palette` (8 pixels per byte).
+   * @param width The width of the bitmap in pixels.
+   * @param height The height of the bitmap in pixels.
+   * @param bpp Bits per pixel (16, 8, 4, or 1).
+   * @param palette A color palette used **only** when `bpp` is 4 or 1. Each entry is a 16-bit color (RGB565).
+   */
+  export function drawBitmap(
+    x: number,
+    y: number,
+    bitmap: ArrayBuffer,
+    width: number,
+    height: number,
+    bpp: 16 | 8 | 4 | 1,
+    palette?: ArrayBuffer, // Only used for 4 bpp and 1 bpp
   ): void;
 
   /**

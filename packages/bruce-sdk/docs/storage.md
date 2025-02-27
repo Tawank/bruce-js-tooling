@@ -120,23 +120,30 @@ The file content as:
 ## storage.write()
 
 ```ts
-storage.write(path: string | Path, data: string | Uint8Array): boolean;
+storage.write(
+  path: string | Path,
+  data: string | Uint8Array,
+  mode?: "write" | "append",
+  position?: string | number,
+): boolean;
 ```
 
-Writes data to a file.
+Writes data to a file, optionally inserting at a specific position.
 
 ### Parameters
 
-| Parameter | Type                                  | Description                                                                                                                                    |
-| --------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `path`    | `string` \| [`Path`](globals.md#path) | The path to the file. Supports: - A string path (e.g., `"/file.txt"`). - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`. |
-| `data`    | `string` \| `Uint8Array`              | The data to write. Supports both `string` and `Uint8Array`.                                                                                    |
+| Parameter   | Type                                  | Description                                                                                                                                                                                      |
+| ----------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `path`      | `string` \| [`Path`](globals.md#path) | The file path. Supports: - A string like `"/file.txt"`. - A `Path` object like `{ fs: "sd", path: "/file.txt" }`.                                                                                |
+| `data`      | `string` \| `Uint8Array`              | The content to write. Can be a `string` or `Uint8Array`.                                                                                                                                         |
+| `mode`?     | `"write"` \| `"append"`               | How to write: - `"write"` (default): Replace the file content. - `"append"`: Add to the end of the file.                                                                                         |
+| `position`? | `string` \| `number`                  | Where to insert the data: - A `number`: Insert at this byte position. - A `string`: Insert **before** the first time this text appears. - `"end"`: Add to the end (default for `"append"` mode). |
 
 ### Returns
 
 `boolean`
 
-`true` if the write operation was successful, otherwise `false`.
+`true` if writing was successful, otherwise `false`.
 
 ---
 

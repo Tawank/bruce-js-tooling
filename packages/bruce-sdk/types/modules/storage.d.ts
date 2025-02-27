@@ -53,16 +53,25 @@ declare module 'storage' {
   export function read(path: string | Path, binary: true): Uint8Array;
 
   /**
-   * Writes data to a file.
-   * @param path The path to the file. Supports:
-   *   - A string path (e.g., `"/file.txt"`).
-   *   - A `Path` object specifying storage `{ fs: "sd", path: "/file.txt" }`.
-   * @param data The data to write. Supports both `string` and `Uint8Array`.
-   * @returns `true` if the write operation was successful, otherwise `false`.
+   * Writes data to a file, optionally inserting at a specific position.
+   * @param path The file path. Supports:
+   *   - A string like `"/file.txt"`.
+   *   - A `Path` object like `{ fs: "sd", path: "/file.txt" }`.
+   * @param data The content to write. Can be a `string` or `Uint8Array`.
+   * @param mode How to write:
+   *   - `"write"` (default): Replace the file content.
+   *   - `"append"`: Add to the end of the file.
+   * @param position Where to insert the data:
+   *   - A `number`: Insert at this byte position.
+   *   - A `string`: Insert **before** the first time this text appears.
+   *   - `"end"`: Add to the end (default for `"append"` mode).
+   * @returns `true` if writing was successful, otherwise `false`.
    */
   export function write(
     path: string | Path,
     data: string | Uint8Array,
+    mode?: 'write' | 'append',
+    position?: number | string,
   ): boolean;
 
   /**
