@@ -7,18 +7,19 @@ import keyboard from 'keyboard';
 const tftWidth = display.width();
 const tftHeight = display.height();
 
-let request: ReturnType<typeof wifi.httpFetch> | undefined;
+let request: {
+  status: number;
+  ok: boolean;
+  body: string;
+} | undefined;
 
 function drawWindow(title: string) {
   display.fill(0);
-  // @ts-ignore
   display.drawRoundRect(5, 5, tftWidth - 10, tftHeight - 10, 5, BRUCE_PRICOLOR);
   display.setTextSize(2);
 
-  // @ts-ignore
   display.setTextAlign('center', 'top');
   display.drawText(title.length > 20 ? title.substring(0, 20): title, tftWidth / 2, 5);
-  // @ts-ignore
   display.setTextAlign('left', 'top');
   display.drawText('loading...', 20, 40);
 }
@@ -38,8 +39,6 @@ function goToPage(url: string) {
 
   request = wifi.httpFetch(`https://www.w3.org/services/html2txt?url=${url}&noinlinerefs=on&endrefs=on`, {
     method: 'GET',
-    // @ts-ignore
-    binaryResponse: true
   });
   textViewer.setText(request.body);
 }
@@ -48,6 +47,7 @@ const websites = [
   'https://aniagotuje.pl',
   'https://en.cppreference.com/w',
   'https://randomnerdtutorials.com',
+  // WEBSITES_INSERT
 ];
 
 function selectWebsite() {
@@ -58,7 +58,6 @@ function selectWebsite() {
     websitesStripped[website.substring(website.indexOf("://") + 3)] = website;
   }
   websitesStripped['Quit'] = 'Quit';
-  // @ts-ignore
   return dialog.choice(websitesStripped);
 }
 

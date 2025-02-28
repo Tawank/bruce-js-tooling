@@ -72,8 +72,8 @@ declare module 'display' {
    * @param baseline Vertical alignment of the text.
    */
   export function setTextAlign(
-    align: 'left' | 'center' | 'right',
-    baseline?: 'top' | 'middle' | 'bottom' | 'alphabetic',
+    align: 'left' | 'center' | 'right' | number,
+    baseline?: 'top' | 'middle' | 'bottom' | 'alphabetic' | number,
   ): void;
 
   /**
