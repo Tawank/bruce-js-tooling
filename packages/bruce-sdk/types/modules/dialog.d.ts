@@ -54,7 +54,9 @@ declare module 'dialog' {
    * @param values An array of options to choose from.
    * @returns The selected option as a string.
    */
-  export function choice(values: string[] | { [key: string]: string }): string;
+  export function choice(
+    values: string[] | Array<[string, string]> | { [key: string]: string },
+  ): string;
 
   /**
    * Opens a file picker dialog and returns the selected file path.
@@ -114,6 +116,7 @@ declare module 'dialog' {
       startY: number;
       width: number;
       height: number;
+      indentWrappedLines: boolean;
     },
   ): TextViewer;
 }
@@ -168,6 +171,11 @@ interface TextViewer {
    * @param text The new text to display.
    */
   setText(text: string): void;
+
+  /**
+   * Removes the text from the viewer.
+   */
+  clear(): void;
 
   /**
    * Closes and removes the text viewer from the screen.

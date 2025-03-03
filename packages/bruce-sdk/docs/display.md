@@ -179,8 +179,8 @@ Sets the text color.
 
 ```ts
 display.setTextAlign(
-  align: "left" | "center" | "right",
-  baseline?: "top" | "middle" | "bottom" | "alphabetic",
+  align: number | "left" | "center" | "right",
+  baseline?: number | "top" | "middle" | "bottom" | "alphabetic",
 ): void;
 ```
 
@@ -195,10 +195,10 @@ display.drawText(50, 50, "Hello!");
 
 ### Parameters
 
-| Parameter   | Type                                                  | Description                       |
-| ----------- | ----------------------------------------------------- | --------------------------------- |
-| `align`     | `"left"` \| `"center"` \| `"right"`                   | Horizontal alignment of the text. |
-| `baseline`? | `"top"` \| `"middle"` \| `"bottom"` \| `"alphabetic"` | Vertical alignment of the text.   |
+| Parameter   | Type                                                              | Description                       |
+| ----------- | ----------------------------------------------------------------- | --------------------------------- |
+| `align`     | `number` \| `"left"` \| `"center"` \| `"right"`                   | Horizontal alignment of the text. |
+| `baseline`? | `number` \| `"top"` \| `"middle"` \| `"bottom"` \| `"alphabetic"` | Vertical alignment of the text.   |
 
 ### Returns
 

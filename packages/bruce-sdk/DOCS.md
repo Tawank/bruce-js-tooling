@@ -954,16 +954,16 @@ Displays an error dialog.
 ## dialog.choice()
 
 ```ts
-dialog.choice(values: string[] | {}): string;
+dialog.choice(values: string[] | [string, string][] | {}): string;
 ```
 
 Displays a choice dialog and returns the selected option.
 
 ### Parameters
 
-| Parameter | Type               | Description                         |
-| --------- | ------------------ | ----------------------------------- |
-| `values`  | `string`[] \| \{\} | An array of options to choose from. |
+| Parameter | Type                                           | Description                         |
+| --------- | ---------------------------------------------- | ----------------------------------- |
+| `values`  | `string`[] \| \[`string`, `string`\][] \| \{\} | An array of options to choose from. |
 
 ### Returns
 
@@ -1076,6 +1076,7 @@ dialog.createTextViewer(
     startY: number;
     width: number;
     height: number;
+    indentWrappedLines: boolean;
   },
 ): TextViewer;
 ```
@@ -1086,15 +1087,16 @@ You must handle scrolling and closing yourself.
 
 ### Parameters
 
-| Parameter           | Type                                                                                                       | Description              |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------ |
-| `text`              | `string`                                                                                                   | The text to view.        |
-| `options`?          | \{ `fontSize`: `number`; `startX`: `number`; `startY`: `number`; `width`: `number`; `height`: `number`; \} | The text viewer options. |
-| `options.fontSize`? | `number`                                                                                                   | -                        |
-| `options.startX`?   | `number`                                                                                                   | -                        |
-| `options.startY`?   | `number`                                                                                                   | -                        |
-| `options.width`?    | `number`                                                                                                   | -                        |
-| `options.height`?   | `number`                                                                                                   | -                        |
+| Parameter                     | Type                                                                                                                                        | Description              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `text`                        | `string`                                                                                                                                    | The text to view.        |
+| `options`?                    | \{ `fontSize`: `number`; `startX`: `number`; `startY`: `number`; `width`: `number`; `height`: `number`; `indentWrappedLines`: `boolean`; \} | The text viewer options. |
+| `options.fontSize`?           | `number`                                                                                                                                    | -                        |
+| `options.startX`?             | `number`                                                                                                                                    | -                        |
+| `options.startY`?             | `number`                                                                                                                                    | -                        |
+| `options.width`?              | `number`                                                                                                                                    | -                        |
+| `options.height`?             | `number`                                                                                                                                    | -                        |
+| `options.indentWrappedLines`? | `boolean`                                                                                                                                   | -                        |
 
 ### Returns
 
@@ -1286,8 +1288,8 @@ Sets the text color.
 
 ```ts
 display.setTextAlign(
-  align: "left" | "center" | "right",
-  baseline?: "top" | "middle" | "bottom" | "alphabetic",
+  align: number | "left" | "center" | "right",
+  baseline?: number | "top" | "middle" | "bottom" | "alphabetic",
 ): void;
 ```
 
@@ -1302,10 +1304,10 @@ display.drawText(50, 50, "Hello!");
 
 ### Parameters
 
-| Parameter   | Type                                                  | Description                       |
-| ----------- | ----------------------------------------------------- | --------------------------------- |
-| `align`     | `"left"` \| `"center"` \| `"right"`                   | Horizontal alignment of the text. |
-| `baseline`? | `"top"` \| `"middle"` \| `"bottom"` \| `"alphabetic"` | Vertical alignment of the text.   |
+| Parameter   | Type                                                              | Description                       |
+| ----------- | ----------------------------------------------------------------- | --------------------------------- |
+| `align`     | `number` \| `"left"` \| `"center"` \| `"right"`                   | Horizontal alignment of the text. |
+| `baseline`? | `number` \| `"top"` \| `"middle"` \| `"bottom"` \| `"alphabetic"` | Vertical alignment of the text.   |
 
 ### Returns
 
@@ -3036,7 +3038,7 @@ wifi.httpFetch(
       | "CONNECT";
     body: string;
     binaryResponse: false;
-    headers: string[] | Record<string, string> | [string, string][];
+    headers: string[] | [string, string][] | Record<string, string>;
   },
 ): {
   status: number;
@@ -3052,11 +3054,11 @@ Performs an HTTP request.
 | Parameter                 | Type                                                                                                                                                                                                                                                                       | Description                                          |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | `url`                     | `string`                                                                                                                                                                                                                                                                   | The URL to fetch.                                    |
-| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `false`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
+| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `false`; `headers`: `string`[] \| \[`string`, `string`\][] \| `Record`&lt;`string`, `string`&gt;; \} | Request options including method, body, and headers. |
 | `options.method`?         | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                                                        | -                                                    |
 | `options.body`?           | `string`                                                                                                                                                                                                                                                                   | -                                                    |
 | `options.binaryResponse`? | `false`                                                                                                                                                                                                                                                                    | -                                                    |
-| `options.headers`?        | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                                               | -                                                    |
+| `options.headers`?        | `string`[] \| \[`string`, `string`\][] \| `Record`&lt;`string`, `string`&gt;                                                                                                                                                                                               | -                                                    |
 
 #### Returns
 
@@ -3098,7 +3100,7 @@ wifi.httpFetch(
       | "CONNECT";
     body: string;
     binaryResponse: true;
-    headers: string[] | Record<string, string> | [string, string][];
+    headers: string[] | [string, string][] | Record<string, string>;
   },
 ): {
   status: number;
@@ -3114,11 +3116,11 @@ Performs an HTTP request.
 | Parameter                 | Type                                                                                                                                                                                                                                                                      | Description                                          |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | `url`                     | `string`                                                                                                                                                                                                                                                                  | The URL to fetch.                                    |
-| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `true`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
+| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `true`; `headers`: `string`[] \| \[`string`, `string`\][] \| `Record`&lt;`string`, `string`&gt;; \} | Request options including method, body, and headers. |
 | `options.method`?         | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                                                       | -                                                    |
 | `options.body`?           | `string`                                                                                                                                                                                                                                                                  | -                                                    |
 | `options.binaryResponse`? | `true`                                                                                                                                                                                                                                                                    | -                                                    |
-| `options.headers`?        | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                                              | -                                                    |
+| `options.headers`?        | `string`[] \| \[`string`, `string`\][] \| `Record`&lt;`string`, `string`&gt;                                                                                                                                                                                              | -                                                    |
 
 #### Returns
 
@@ -3160,7 +3162,7 @@ wifi.httpFetch(
       | "CONNECT";
     body: string;
     binaryResponse: boolean;
-    headers: string[] | Record<string, string> | [string, string][];
+    headers: string[] | [string, string][] | Record<string, string>;
   },
 ): {
   status: number;
@@ -3176,11 +3178,11 @@ Performs an HTTP request.
 | Parameter                 | Type                                                                                                                                                                                                                                                                         | Description                                          |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | `url`                     | `string`                                                                                                                                                                                                                                                                     | The URL to fetch.                                    |
-| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `boolean`; `headers`: `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]; \} | Request options including method, body, and headers. |
+| `options`?                | \{ `method`: \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`; `body`: `string`; `binaryResponse`: `boolean`; `headers`: `string`[] \| \[`string`, `string`\][] \| `Record`&lt;`string`, `string`&gt;; \} | Request options including method, body, and headers. |
 | `options.method`?         | \| `"GET"` \| `"POST"` \| `"DELETE"` \| `"PATCH"` \| `"PUT"` \| `"HEAD"` \| `"OPTIONS"` \| `"TRACE"` \| `"CONNECT"`                                                                                                                                                          | -                                                    |
 | `options.body`?           | `string`                                                                                                                                                                                                                                                                     | -                                                    |
 | `options.binaryResponse`? | `boolean`                                                                                                                                                                                                                                                                    | -                                                    |
-| `options.headers`?        | `string`[] \| `Record`&lt;`string`, `string`&gt; \| \[`string`, `string`\][]                                                                                                                                                                                                 | -                                                    |
+| `options.headers`?        | `string`[] \| \[`string`, `string`\][] \| `Record`&lt;`string`, `string`&gt;                                                                                                                                                                                                 | -                                                    |
 
 #### Returns
 

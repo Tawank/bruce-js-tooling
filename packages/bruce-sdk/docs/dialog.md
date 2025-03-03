@@ -100,16 +100,16 @@ Displays an error dialog.
 ## dialog.choice()
 
 ```ts
-dialog.choice(values: string[] | {}): string;
+dialog.choice(values: string[] | [string, string][] | {}): string;
 ```
 
 Displays a choice dialog and returns the selected option.
 
 ### Parameters
 
-| Parameter | Type               | Description                         |
-| --------- | ------------------ | ----------------------------------- |
-| `values`  | `string`[] \| \{\} | An array of options to choose from. |
+| Parameter | Type                                           | Description                         |
+| --------- | ---------------------------------------------- | ----------------------------------- |
+| `values`  | `string`[] \| \[`string`, `string`\][] \| \{\} | An array of options to choose from. |
 
 ### Returns
 
@@ -222,6 +222,7 @@ dialog.createTextViewer(
     startY: number;
     width: number;
     height: number;
+    indentWrappedLines: boolean;
   },
 ): TextViewer;
 ```
@@ -232,15 +233,16 @@ You must handle scrolling and closing yourself.
 
 ### Parameters
 
-| Parameter           | Type                                                                                                       | Description              |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------ |
-| `text`              | `string`                                                                                                   | The text to view.        |
-| `options`?          | \{ `fontSize`: `number`; `startX`: `number`; `startY`: `number`; `width`: `number`; `height`: `number`; \} | The text viewer options. |
-| `options.fontSize`? | `number`                                                                                                   | -                        |
-| `options.startX`?   | `number`                                                                                                   | -                        |
-| `options.startY`?   | `number`                                                                                                   | -                        |
-| `options.width`?    | `number`                                                                                                   | -                        |
-| `options.height`?   | `number`                                                                                                   | -                        |
+| Parameter                     | Type                                                                                                                                        | Description              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `text`                        | `string`                                                                                                                                    | The text to view.        |
+| `options`?                    | \{ `fontSize`: `number`; `startX`: `number`; `startY`: `number`; `width`: `number`; `height`: `number`; `indentWrappedLines`: `boolean`; \} | The text viewer options. |
+| `options.fontSize`?           | `number`                                                                                                                                    | -                        |
+| `options.startX`?             | `number`                                                                                                                                    | -                        |
+| `options.startY`?             | `number`                                                                                                                                    | -                        |
+| `options.width`?              | `number`                                                                                                                                    | -                        |
+| `options.height`?             | `number`                                                                                                                                    | -                        |
+| `options.indentWrappedLines`? | `boolean`                                                                                                                                   | -                        |
 
 ### Returns
 
