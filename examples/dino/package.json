@@ -19,7 +19,7 @@
     }
   },
   "devDependencies": {
-    "bruce-sdk": "^0.1.4",
+    "bruce-sdk": "^0.1.5",
     "npm-watch": "^0.13.0",
     "typescript": "^5.7.2"
   }

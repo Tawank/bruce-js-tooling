@@ -5,6 +5,7 @@ import audio from 'audio';
 
 // I am putting all code in function to optimise, if variables are outside
 // functions they are put in global namespace, and it's slower to get
+// But if you store too much in one function you can cause stackoverflow
 function main() {
   // This is XBM format, you can convert images to this format using:
   // https://www.online-utility.org/image/convert/to/XBM
