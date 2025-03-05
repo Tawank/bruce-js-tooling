@@ -5,7 +5,7 @@
  * ```js
  * const dialog = require("dialog");
  *
- * dialog.message("Operation completed successfully.");
+ * dialog.success("Operation completed successfully.");
  * dialog.error("An error occurred!", true);
  *
  * const options = ["Yes", "No", "Cancel"];
@@ -37,11 +37,58 @@ declare module 'dialog' {
    */
   export function message(
     message: string,
-    options?: boolean | { left?: string; center?: string; right?: string },
+    buttons?: { left?: string; center?: string; right?: string },
   ): 'left' | 'center' | 'right' | void;
 
   /**
-   * Displays an error dialog.
+   * Displays an info notification (Blue background).
+   *
+   * ### Example
+   * ```js
+   * const dialog = require('dialog');
+   * dialog.info("Operation completed successfully.");
+   * ```
+   *
+   * @param message The info message to display.
+   * @param waitForKeyPress If `true`, waits for a key press before closing (default: `false`).
+   */
+  export function info(message: string, waitForKeyPress?: boolean): void;
+
+  /**
+   * Displays an success notification (Green background).
+   *
+   * ### Example
+   * ```js
+   * const dialog = require('dialog');
+   * dialog.success("Operation completed successfully.");
+   * ```
+   *
+   * @param message The success message to display.
+   * @param waitForKeyPress If `true`, waits for a key press before closing (default: `false`).
+   */
+  export function success(message: string, waitForKeyPress?: boolean): void;
+
+  /**
+   * Displays an warning notification (Yellow background).
+   *
+   * ### Example
+   * ```js
+   * const dialog = require('dialog');
+   * dialog.warning("Warning!");
+   * ```
+   *
+   * @param message The warning message to display.
+   * @param waitForKeyPress If `true`, waits for a key press before closing (default: `false`).
+   */
+  export function warning(message: string, waitForKeyPress?: boolean): void;
+
+  /**
+   * Displays an error notification (Red background).
+   * ### Example
+   * ```js
+   * const dialog = require('dialog');
+   * dialog.error("An error occurred!", true);
+   * ```
    *
    * @param message The error message to display.
    * @param waitForKeyPress If `true`, waits for a key press before closing (default: `false`).
@@ -50,6 +97,14 @@ declare module 'dialog' {
 
   /**
    * Displays a choice dialog and returns the selected option.
+   *
+   * ### Example
+   * ```js
+   * const dialog = require("dialog");
+   * const options = ["Yes", "No", "Cancel"];
+   * const selected = dialog.choice(options);
+   * console.log("Selected:", selected); // it should print "Yes", "No" or "Cancel"
+   * ```
    *
    * @param values An array of options to choose from.
    * @returns The selected option as a string.
@@ -60,6 +115,13 @@ declare module 'dialog' {
 
   /**
    * Opens a file picker dialog and returns the selected file path.
+   *
+   * ### Example
+   * ```js
+   * const dialog = require("dialog");
+   * const filePath = dialog.pickFile("/documents", "txt");
+   * dialog.viewFile(filePath);
+   * ```
    *
    * @param path The initial directory path (optional).
    * @param extension The file extension filter (optional).
@@ -75,15 +137,22 @@ declare module 'dialog' {
    * @returns User input.
    */
   export function prompt(
-    title: string,
-    valueLength: number,
-    value: string,
+    title?: string,
+    valueLength?: number,
+    value?: string,
   ): string;
 
   /**
    * Opens and displays a file in a viewer.
    * Displays a window where the user can scroll and exit.
    * Blocks execution until the user exits.
+   *
+   * ### Example
+   * ```js
+   * const dialog = require("dialog");
+   * const filePath = dialog.pickFile("/documents", "txt");
+   * dialog.viewFile(filePath);
+   * ```
    *
    * @param path The file path to view.
    */
@@ -94,6 +163,12 @@ declare module 'dialog' {
    * Displays a window where the user can scroll and exit.
    * Blocks execution until the user exits.
    *
+   * ### Example
+   * ```js
+   * const dialog = require("dialog");
+   * dialog.viewText("text to display");
+   * ```
+   *
    * @param text The text to view.
    * @param title The optional title of the viewer window.
    */
@@ -103,6 +178,26 @@ declare module 'dialog' {
    * Creates a `TextViewer` instance, allowing manual control.
    * Unlike `viewText`, this does **not** block execution.
    * You must handle scrolling and closing yourself.
+   * Thanks to this you can implement: scrolling to section,
+   * follow links in text, and much more.
+   * You can find example of the implementation here:
+   * https://github.com/Tawank/bruce-js-tooling/tree/master/examples/browser-bruce
+   *
+   * ### Example
+   * ```js
+   * const dialog = require("dialog");
+   * const textViewer = dialog.createTextViewer("long text");
+   * while (true) {
+   *   if (keyboard.getPrevPress()) {
+   *     textViewer.scrollUp();
+   *   }
+   *   if (keyboard.getNextPress()) {
+   *     textViewer.scrollDown();
+   *   }
+   *   textViewer.draw();
+   *   delay(100);
+   * }
+   * ```
    *
    * @param text The text to view.
    * @param options The text viewer options.

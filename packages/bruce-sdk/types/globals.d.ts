@@ -46,19 +46,19 @@ declare function to_string(value: any): string;
  * Converts a hex string to a number
  * @param text The hex string to convert to a number
  */
-declare function to_hex_string(text: string): number;
+declare function to_hex_string(text: string): string;
 
 /**
  * Converts a string to a number
  * @param text The string to convert to a number
  */
-declare function to_lower_case(text: string): number;
+declare function to_lower_case(text: string): string;
 
 /**
  * Converts a string to a number
  * @param text The string to convert to a number
  */
-declare function to_upper_case(text: string): number;
+declare function to_upper_case(text: string): string;
 
 /**
  * Returns a pseudo-random number
@@ -213,6 +213,16 @@ declare const console: {
  * @param module The name of the module to load
  */
 declare function require(module: string): any;
+
+/**
+ * Throws an error if the assertion is false.
+ * ### Example
+ * ```js
+ * assert(2 + 2 === 5); // Throws an error
+ * ```
+ * @param module The name of the module to load
+ */
+declare function assert(assertion: boolean, message?: string): boolean;
 
 /**
  * Represents the CommonJS module system.

@@ -16,7 +16,7 @@ declare module 'audio' {
    *
    * @param filename The path to the audio file (e.g., "/sound.wav").
    */
-  export function playAudioFile(filename: string): void;
+  export function playFile(filename: string): void;
 
   /**
    * Plays a tone at the specified frequency for a given duration.
