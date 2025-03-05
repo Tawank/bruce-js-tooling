@@ -119,9 +119,9 @@ import display from "display";
 assert(display.width() > 0, "Display width should be greater than 0");
 assert(display.height() > 0, "Display height should be greater than 0");
 // @ts-ignore legacy
-assert(width() = display.width(), "Display width legacy should be equal to new syntax");
+assert(width() === display.width(), "Display width legacy should be equal to new syntax");
 // @ts-ignore legacy
-assert(height() = display.height(), "Display height legacy should be equal to new syntax");
+assert(height() === display.height(), "Display height legacy should be equal to new syntax");
 
 // Test basic drawing
 display.fill(display.color(60, 60, 60)); // Clear the screen
