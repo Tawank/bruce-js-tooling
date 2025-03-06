@@ -36,6 +36,7 @@ println(__dirname); // prints current dirname
 - [random()](#random)
 - [println()](#println)
 - [require()](#require)
+- [assert()](#assert)
 <!-- index-end -->
 
 ## Path
@@ -211,7 +212,7 @@ Converts a value to a string
 ## to_hex_string()
 
 ```ts
-to_hex_string(text: string): number;
+to_hex_string(text: string): string;
 ```
 
 Converts a hex string to a number
@@ -224,14 +225,14 @@ Converts a hex string to a number
 
 ### Returns
 
-`number`
+`string`
 
 ---
 
 ## to_lower_case()
 
 ```ts
-to_lower_case(text: string): number;
+to_lower_case(text: string): string;
 ```
 
 Converts a string to a number
@@ -244,14 +245,14 @@ Converts a string to a number
 
 ### Returns
 
-`number`
+`string`
 
 ---
 
 ## to_upper_case()
 
 ```ts
-to_upper_case(text: string): number;
+to_upper_case(text: string): string;
 ```
 
 Converts a string to a number
@@ -264,7 +265,7 @@ Converts a string to a number
 
 ### Returns
 
-`number`
+`string`
 
 ---
 
@@ -353,3 +354,30 @@ dialog.message("Test.");
 ### Returns
 
 `any`
+
+---
+
+## assert()
+
+```ts
+assert(assertion: boolean, message?: string): boolean;
+```
+
+Throws an error if the assertion is false.
+
+### Example
+
+```js
+assert(2 + 2 === 5); // Throws an error
+```
+
+### Parameters
+
+| Parameter   | Type      |
+| ----------- | --------- |
+| `assertion` | `boolean` |
+| `message`?  | `string`  |
+
+### Returns
+
+`boolean`

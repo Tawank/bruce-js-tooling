@@ -7,7 +7,7 @@ Displays dialog messages and user interactions.
 ```js
 const dialog = require("dialog");
 
-dialog.message("Operation completed successfully.");
+dialog.success("Operation completed successfully.");
 dialog.error("An error occurred!", true);
 
 const options = ["Yes", "No", "Cancel"];
@@ -21,6 +21,9 @@ dialog.viewFile(filePath);
 ## dialog functions
 
 - [dialog.message()](#dialogmessage)
+- [dialog.info()](#dialoginfo)
+- [dialog.success()](#dialogsuccess)
+- [dialog.warning()](#dialogwarning)
 - [dialog.error()](#dialogerror)
 - [dialog.choice()](#dialogchoice)
 - [dialog.pickFile()](#dialogpickfile)
@@ -35,13 +38,11 @@ dialog.viewFile(filePath);
 ```ts
 dialog.message(
   message: string,
-  options?:
-    | boolean
-    | {
-        left: string;
-        center: string;
-        right: string;
-      },
+  buttons?: {
+    left: string;
+    center: string;
+    right: string;
+  },
 ): void | "left" | "center" | "right";
 ```
 
@@ -63,10 +64,13 @@ if (choice === "right") console.log("User chose Yes!");
 
 ### Parameters
 
-| Parameter  | Type                                                                           | Description                                                                                                                        |
-| ---------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `message`  | `string`                                                                       | The message to display.                                                                                                            |
-| `options`? | \| `boolean` \| \{ `left`: `string`; `center`: `string`; `right`: `string`; \} | If `true`, waits for a key press before closing (default: `false`). If an object, displays up to three buttons with custom labels. |
+| Parameter         | Type                                                           | Description             |
+| ----------------- | -------------------------------------------------------------- | ----------------------- |
+| `message`         | `string`                                                       | The message to display. |
+| `buttons`?        | \{ `left`: `string`; `center`: `string`; `right`: `string`; \} | -                       |
+| `buttons.left`?   | `string`                                                       | -                       |
+| `buttons.center`? | `string`                                                       | -                       |
+| `buttons.right`?  | `string`                                                       | -                       |
 
 ### Returns
 
@@ -76,13 +80,104 @@ The button pressed (`"left"`, `"center"`, or `"right"`), or `void` if no buttons
 
 ---
 
+## dialog.info()
+
+```ts
+dialog.info(message: string, waitForKeyPress?: boolean): void;
+```
+
+Displays an info notification (Blue background).
+
+### Example
+
+```js
+const dialog = require("dialog");
+dialog.info("Operation completed successfully.");
+```
+
+### Parameters
+
+| Parameter          | Type      | Description                                                         |
+| ------------------ | --------- | ------------------------------------------------------------------- |
+| `message`          | `string`  | The info message to display.                                        |
+| `waitForKeyPress`? | `boolean` | If `true`, waits for a key press before closing (default: `false`). |
+
+### Returns
+
+`void`
+
+---
+
+## dialog.success()
+
+```ts
+dialog.success(message: string, waitForKeyPress?: boolean): void;
+```
+
+Displays an success notification (Green background).
+
+### Example
+
+```js
+const dialog = require("dialog");
+dialog.success("Operation completed successfully.");
+```
+
+### Parameters
+
+| Parameter          | Type      | Description                                                         |
+| ------------------ | --------- | ------------------------------------------------------------------- |
+| `message`          | `string`  | The success message to display.                                     |
+| `waitForKeyPress`? | `boolean` | If `true`, waits for a key press before closing (default: `false`). |
+
+### Returns
+
+`void`
+
+---
+
+## dialog.warning()
+
+```ts
+dialog.warning(message: string, waitForKeyPress?: boolean): void;
+```
+
+Displays an warning notification (Yellow background).
+
+### Example
+
+```js
+const dialog = require("dialog");
+dialog.warning("Warning!");
+```
+
+### Parameters
+
+| Parameter          | Type      | Description                                                         |
+| ------------------ | --------- | ------------------------------------------------------------------- |
+| `message`          | `string`  | The warning message to display.                                     |
+| `waitForKeyPress`? | `boolean` | If `true`, waits for a key press before closing (default: `false`). |
+
+### Returns
+
+`void`
+
+---
+
 ## dialog.error()
 
 ```ts
 dialog.error(message: string, waitForKeyPress?: boolean): void;
 ```
 
-Displays an error dialog.
+Displays an error notification (Red background).
+
+### Example
+
+```js
+const dialog = require("dialog");
+dialog.error("An error occurred!", true);
+```
 
 ### Parameters
 
@@ -104,6 +199,15 @@ dialog.choice(values: string[] | [string, string][] | {}): string;
 ```
 
 Displays a choice dialog and returns the selected option.
+
+### Example
+
+```js
+const dialog = require("dialog");
+const options = ["Yes", "No", "Cancel"];
+const selected = dialog.choice(options);
+console.log("Selected:", selected); // it should print "Yes", "No" or "Cancel"
+```
 
 ### Parameters
 
@@ -127,6 +231,14 @@ dialog.pickFile(path?: string, extension?: string): string;
 
 Opens a file picker dialog and returns the selected file path.
 
+### Example
+
+```js
+const dialog = require("dialog");
+const filePath = dialog.pickFile("/documents", "txt");
+dialog.viewFile(filePath);
+```
+
 ### Parameters
 
 | Parameter    | Type     | Description                            |
@@ -145,18 +257,18 @@ The selected file path or `null` if no file is chosen.
 ## dialog.prompt()
 
 ```ts
-dialog.prompt(title: string, valueLength: number, value: string): string;
+dialog.prompt(title?: string, valueLength?: number, value?: string): string;
 ```
 
 Opens an on-screen keyboard for user input.
 
 ### Parameters
 
-| Parameter     | Type     | Description                        |
-| ------------- | -------- | ---------------------------------- |
-| `title`       | `string` | Title of the keyboard prompt.      |
-| `valueLength` | `number` | Maximum length of the input value. |
-| `value`       | `string` | Initial value to display.          |
+| Parameter      | Type     | Description                        |
+| -------------- | -------- | ---------------------------------- |
+| `title`?       | `string` | Title of the keyboard prompt.      |
+| `valueLength`? | `number` | Maximum length of the input value. |
+| `value`?       | `string` | Initial value to display.          |
 
 ### Returns
 
@@ -175,6 +287,14 @@ dialog.viewFile(path: string): void;
 Opens and displays a file in a viewer.
 Displays a window where the user can scroll and exit.
 Blocks execution until the user exits.
+
+### Example
+
+```js
+const dialog = require("dialog");
+const filePath = dialog.pickFile("/documents", "txt");
+dialog.viewFile(filePath);
+```
 
 ### Parameters
 
@@ -197,6 +317,13 @@ dialog.viewText(text: string, title?: string): void;
 Opens and displays text in a viewer.
 Displays a window where the user can scroll and exit.
 Blocks execution until the user exits.
+
+### Example
+
+```js
+const dialog = require("dialog");
+dialog.viewText("text to display");
+```
 
 ### Parameters
 
@@ -230,6 +357,27 @@ dialog.createTextViewer(
 Creates a `TextViewer` instance, allowing manual control.
 Unlike `viewText`, this does **not** block execution.
 You must handle scrolling and closing yourself.
+Thanks to this you can implement: scrolling to section,
+follow links in text, and much more.
+You can find example of the implementation here:
+https://github.com/Tawank/bruce-js-tooling/tree/master/examples/browser-bruce
+
+### Example
+
+```js
+const dialog = require("dialog");
+const textViewer = dialog.createTextViewer("long text");
+while (true) {
+  if (keyboard.getPrevPress()) {
+    textViewer.scrollUp();
+  }
+  if (keyboard.getNextPress()) {
+    textViewer.scrollDown();
+  }
+  textViewer.draw();
+  delay(100);
+}
+```
 
 ### Parameters
 

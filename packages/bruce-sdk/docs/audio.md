@@ -13,14 +13,14 @@ audio.tone(988, 2000); // Beeps buzzer for 2 seconds
 <!-- index-start -->
 ## audio functions
 
-- [audio.playAudioFile()](#audioplayaudiofile)
+- [audio.playFile()](#audioplayfile)
 - [audio.tone()](#audiotone)
 <!-- index-end -->
 
-## audio.playAudioFile()
+## audio.playFile()
 
 ```ts
-audio.playAudioFile(filename: string): void;
+audio.playFile(filename: string): void;
 ```
 
 Plays an audio file from storage.

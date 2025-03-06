@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
+    "docs": "lerna run docs",
     "publish": "lerna publish --no-private"
   },
   "devDependencies": {
