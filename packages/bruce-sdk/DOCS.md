@@ -928,7 +928,7 @@ dialog.message(
 ): void | "left" | "center" | "right";
 ```
 
-Displays a message dialog.
+Displays a message dialog with up to three choices.
 
 ### Example
 
@@ -1089,13 +1089,25 @@ const dialog = require("dialog");
 const options = ["Yes", "No", "Cancel"];
 const selected = dialog.choice(options);
 console.log("Selected:", selected); // it should print "Yes", "No" or "Cancel"
+
+const optionsNestedArray = [
+  ["Go Back", "go_back"],
+  ["Cancel", "cancel"],
+  ["Quit", "quit"],
+];
+const selectedNestedArray = dialog.choice(optionsNestedArray);
+console.log("selectedNestedArray:", selectedNestedArray); // it should print "go_back", "cancel" or "quit"
+
+const optionsObject = { "Go Back": "go_back", Cancel: "cancel", Quit: "quit" };
+const selectedObject = dialog.choice(optionsObject);
+console.log("selectedObject:", selectedObject); // it should print "go_back", "cancel" or "quit"
 ```
 
 ### Parameters
 
-| Parameter | Type                                           | Description                         |
-| --------- | ---------------------------------------------- | ----------------------------------- |
-| `values`  | `string`[] \| \[`string`, `string`\][] \| \{\} | An array of options to choose from. |
+| Parameter | Type                                           | Description                                                             |
+| --------- | ---------------------------------------------- | ----------------------------------------------------------------------- |
+| `values`  | `string`[] \| \[`string`, `string`\][] \| \{\} | An array of options to choose from. Can also be nested array or object. |
 
 ### Returns
 
@@ -1772,26 +1784,19 @@ Draws a filled round rectangle.
 ## display.drawCircle()
 
 ```ts
-display.drawCircle(
-  x: number,
-  y: number,
-  r: number,
-  color: number,
-  smooth?: boolean,
-): void;
+display.drawCircle(x: number, y: number, r: number, color: number): void;
 ```
 
 Draws a circle.
 
 ### Parameters
 
-| Parameter | Type      | Description                                                   |
-| --------- | --------- | ------------------------------------------------------------- |
-| `x`       | `number`  | X-coordinate.                                                 |
-| `y`       | `number`  | Y-coordinate.                                                 |
-| `r`       | `number`  | -                                                             |
-| `color`   | `number`  | Outline color (use `display.color(r, g, b)` to generate one). |
-| `smooth`? | `boolean` | -                                                             |
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `r`       | `number` | -                                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
 
@@ -2628,10 +2633,16 @@ Sends a message over the serial connection with a newline at the end.
 ## serial.readln()
 
 ```ts
-serial.readln(): string;
+serial.readln(timeoutInMiliseconds: number): string;
 ```
 
 Reads a line of input from the serial connection.
+
+### Parameters
+
+| Parameter              | Type     | Description                                                        |
+| ---------------------- | -------- | ------------------------------------------------------------------ |
+| `timeoutInMiliseconds` | `number` | The time (in miliseconds) to wait for a connection before failing. |
 
 ### Returns
 
@@ -3076,7 +3087,7 @@ if (!wifi.connected()) {
 const networks = wifi.scan();
 console.log("Available Networks:", networks);
 
-const response = wifi.fetch("https://example.com/api", {
+const response = wifi.httpFetch("https://example.com/api", {
   method: "GET",
   headers: { "Content-Type": "application/json" },
 });

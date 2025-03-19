@@ -12,7 +12,7 @@
  * const networks = wifi.scan();
  * console.log("Available Networks:", networks);
  *
- * const response = wifi.fetch("https://example.com/api", {
+ * const response = wifi.httpFetch("https://example.com/api", {
  *   method: "GET",
  *   headers: { "Content-Type": "application/json" }
  * });

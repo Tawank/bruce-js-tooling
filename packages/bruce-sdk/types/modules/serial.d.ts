@@ -27,7 +27,8 @@ declare module 'serial' {
 
   /**
    * Reads a line of input from the serial connection.
+   * @param timeoutInMiliseconds The time (in miliseconds) to wait for a connection before failing.
    * @returns The received string.
    */
-  export function readln(): string;
+  export function readln(timeoutInMiliseconds: number): string;
 }

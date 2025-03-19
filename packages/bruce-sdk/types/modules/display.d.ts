@@ -228,7 +228,6 @@ declare module 'display' {
     y: number,
     r: number,
     color: number,
-    smooth?: boolean,
   ): void;
 
   /**

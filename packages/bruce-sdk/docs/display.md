@@ -487,26 +487,19 @@ Draws a filled round rectangle.
 ## display.drawCircle()
 
 ```ts
-display.drawCircle(
-  x: number,
-  y: number,
-  r: number,
-  color: number,
-  smooth?: boolean,
-): void;
+display.drawCircle(x: number, y: number, r: number, color: number): void;
 ```
 
 Draws a circle.
 
 ### Parameters
 
-| Parameter | Type      | Description                                                   |
-| --------- | --------- | ------------------------------------------------------------- |
-| `x`       | `number`  | X-coordinate.                                                 |
-| `y`       | `number`  | Y-coordinate.                                                 |
-| `r`       | `number`  | -                                                             |
-| `color`   | `number`  | Outline color (use `display.color(r, g, b)` to generate one). |
-| `smooth`? | `boolean` | -                                                             |
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `x`       | `number` | X-coordinate.                                                 |
+| `y`       | `number` | Y-coordinate.                                                 |
+| `r`       | `number` | -                                                             |
+| `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
 

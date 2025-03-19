@@ -46,7 +46,7 @@ dialog.message(
 ): void | "left" | "center" | "right";
 ```
 
-Displays a message dialog.
+Displays a message dialog with up to three choices.
 
 ### Example
 
@@ -207,13 +207,25 @@ const dialog = require("dialog");
 const options = ["Yes", "No", "Cancel"];
 const selected = dialog.choice(options);
 console.log("Selected:", selected); // it should print "Yes", "No" or "Cancel"
+
+const optionsNestedArray = [
+  ["Go Back", "go_back"],
+  ["Cancel", "cancel"],
+  ["Quit", "quit"],
+];
+const selectedNestedArray = dialog.choice(optionsNestedArray);
+console.log("selectedNestedArray:", selectedNestedArray); // it should print "go_back", "cancel" or "quit"
+
+const optionsObject = { "Go Back": "go_back", Cancel: "cancel", Quit: "quit" };
+const selectedObject = dialog.choice(optionsObject);
+console.log("selectedObject:", selectedObject); // it should print "go_back", "cancel" or "quit"
 ```
 
 ### Parameters
 
-| Parameter | Type                                           | Description                         |
-| --------- | ---------------------------------------------- | ----------------------------------- |
-| `values`  | `string`[] \| \[`string`, `string`\][] \| \{\} | An array of options to choose from. |
+| Parameter | Type                                           | Description                                                             |
+| --------- | ---------------------------------------------- | ----------------------------------------------------------------------- |
+| `values`  | `string`[] \| \[`string`, `string`\][] \| \{\} | An array of options to choose from. Can also be nested array or object. |
 
 ### Returns
 

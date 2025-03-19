@@ -63,10 +63,16 @@ Sends a message over the serial connection with a newline at the end.
 ## serial.readln()
 
 ```ts
-serial.readln(): string;
+serial.readln(timeoutInMiliseconds: number): string;
 ```
 
 Reads a line of input from the serial connection.
+
+### Parameters
+
+| Parameter              | Type     | Description                                                        |
+| ---------------------- | -------- | ------------------------------------------------------------------ |
+| `timeoutInMiliseconds` | `number` | The time (in miliseconds) to wait for a connection before failing. |
 
 ### Returns
 
