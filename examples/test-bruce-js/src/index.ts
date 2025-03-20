@@ -299,15 +299,15 @@ assert(typeof display.height() === "number", "display.height() should be of type
 //////   IR MODULE   //////
 import ir from "ir";
 
-const irRead = ir.read(10);
-console.log("irRead:", irRead);
+const irReadValue = ir.read(10);
+console.log("ir.read:", irReadValue);
 
 // @ts-ignore legacy
 const irReadLegacy = irRead(10);
 console.log("irReadLegacy:", irReadLegacy);
 
-const irReadRaw = ir.readRaw(10);
-console.log("irReadRaw:", irReadRaw);
+const irReadRawValue = ir.readRaw(10);
+console.log("ir.readRaw:", irReadRawValue);
 
 // @ts-ignore legacy
 const irReadRawLegacy = irReadRaw(10);
@@ -368,7 +368,7 @@ storage.rename('/test', '/test2');
 storage.write('/test/test.txt', 'steststest');
 console.log("storage.read('/test/test.txt'):", storage.read('/test/test.txt'));
 
-storage.remove('text.txt');
+storage.remove('/test/text.txt');
 storage.rmdir('/test');
 console.log("storage.readdir('/'):", JSON.stringify(storage.readdir('/')));
 
