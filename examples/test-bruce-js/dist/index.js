@@ -58,11 +58,8 @@ console.log("Device module tests passed!");
 var dialog_1 = __importDefault(require("dialog"));
 var buttonSelected = dialog_1.default.message("Choose option:", { left: "back", center: "ok", right: "next" });
 console.log(buttonSelected);
-// @ts-ignore TODO
 dialog_1.default.info("Info (dialog.info).", true);
-// @ts-ignore TODO
 dialog_1.default.success("Success (dialog.success).", true);
-// @ts-ignore TODO
 dialog_1.default.warning("Warning (dialog.warning).", true);
 dialog_1.default.error("Error (dialog.error).", true);
 // @ts-ignore legacy
@@ -73,11 +70,9 @@ var options = ["Yes", "No", "Cancel"];
 var selected = dialog_1.default.choice(options);
 console.log("selected choice in dialog.choice(array):", selected);
 var optionsNestedArray = [["Yes", "yes"], ["No", "no"], ["Cancel", "cancel"]];
-// @ts-ignore TODO
 var selectedNestedArray = dialog_1.default.choice(optionsNestedArray);
 console.log("selected choice in dialog.choice(nestedArray):", selectedNestedArray);
 var optionsObject = { "Go Back": "go_back", "Cancel": "cancel", "Quit": "quit" };
-// @ts-ignore TODO
 var selectedObject = dialog_1.default.choice(optionsObject);
 console.log("selected choice in dialog.choice(object):", selectedObject);
 var optionsOld = ["Yes", "yes", "No", "no"]; // Cancel is last option in legacy mode, and cannot be removed
@@ -93,7 +88,6 @@ dialogViewFile(filePathOld);
 dialog_1.default.viewText("test1line1", "test1");
 dialog_1.default.viewText("test2line1\ntest2line2", "test2");
 dialog_1.default.viewText("test3line1\ntest3line2\n", "test3");
-// @ts-ignore TODO
 var prompt = dialog_1.default.prompt('mytitle', 5, 'zxc');
 console.log("User text prompt:", prompt);
 console.log("Dialog module tests passed!");
@@ -155,22 +149,21 @@ while (!keyboard_1.default.getAnyPress()) {
 assert(typeof display_1.default.width() === "number", "display.width() should be of type number");
 assert(typeof display_1.default.height() === "number", "display.height() should be of type number");
 //////  GPIO MODULE  //////
-var gpio_1 = __importDefault(require("gpio"));
-gpio_1.default.pinMode(26, OUTPUT);
-gpio_1.default.digitalWrite(26, HIGH);
-delay(100);
-var pin26ValueHigh = gpio_1.default.digitalRead(26);
-console.log(pin26ValueHigh);
+// import gpio from "gpio";
+// gpio.pinMode(26, OUTPUT);
+// gpio.digitalWrite(26, HIGH);
+// delay(100);
+// const pin26ValueHigh = gpio.digitalRead(26);
 // assert(pin26ValueHigh === HIGH, "pin26ValueHigh should be HIGH");
-while (!keyboard_1.default.getAnyPress()) {
-    delay(10);
-}
-gpio_1.default.digitalWrite(26, LOW);
-var pin26ValueLow = gpio_1.default.digitalRead(26);
-assert(pin26ValueLow === LOW, "pin26ValueHigh should be HIGH");
-gpio_1.default.dacWrite(26, 127);
-var pin26ValueHalf = gpio_1.default.analogRead(26);
-console.log("dacWrite(127):", pin26ValueHalf);
+// while (!keyboard.getAnyPress()) {
+//   delay(10);
+// }
+// gpio.digitalWrite(26, LOW);
+// const pin26ValueLow = gpio.digitalRead(26);
+// assert(pin26ValueLow === LOW, "pin26ValueHigh should be HIGH");
+// gpio.dacWrite(26, 127);
+// const pin26ValueHalf = gpio.analogRead(26);
+// console.log("dacWrite(127):", pin26ValueHalf);
 //////   IR MODULE   //////
 var ir_1 = __importDefault(require("ir"));
 var irRead = ir_1.default.read(10);
@@ -208,7 +201,6 @@ serial_1.default.println('serial.println');
 // @ts-ignore legacy
 serialPrintln('serialPrintln');
 console.log("serial.cmd('tone 500 500');");
-// @ts-ignore TODO
 serial_1.default.cmd('tone 500 500');
 console.log("serialCmd('tone 500 500'); // legacy");
 // @ts-ignore legacy

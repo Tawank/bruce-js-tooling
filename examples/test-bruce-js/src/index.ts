@@ -77,11 +77,8 @@ import dialog from "dialog";
 
 const buttonSelected = dialog.message("Choose option:", {left: "back", center: "ok", right: "next"});
 console.log(buttonSelected);
-// @ts-ignore TODO
 dialog.info("Info (dialog.info).", true);
-// @ts-ignore TODO
 dialog.success("Success (dialog.success).", true);
-// @ts-ignore TODO
 dialog.warning("Warning (dialog.warning).", true);
 dialog.error("Error (dialog.error).", true);
 // @ts-ignore legacy
@@ -94,12 +91,10 @@ const selected = dialog.choice(options);
 console.log("selected choice in dialog.choice(array):", selected);
 
 const optionsNestedArray = [["Yes", "yes"], ["No", "no"], ["Cancel", "cancel"]];
-// @ts-ignore TODO
 const selectedNestedArray = dialog.choice(optionsNestedArray);
 console.log("selected choice in dialog.choice(nestedArray):", selectedNestedArray);
 
 const optionsObject = {"Go Back": "go_back", "Cancel": "cancel", "Quit": "quit"};
-// @ts-ignore TODO
 const selectedObject = dialog.choice(optionsObject);
 console.log("selected choice in dialog.choice(object):", selectedObject);
 
@@ -120,7 +115,6 @@ dialog.viewText("test1line1", "test1");
 dialog.viewText("test2line1\ntest2line2", "test2");
 dialog.viewText("test3line1\ntest3line2\n", "test3");
 
-// @ts-ignore TODO
 const prompt = dialog.prompt('mytitle', 5, 'zxc');
 console.log("User text prompt:", prompt);
 
@@ -355,7 +349,6 @@ serial.println('serial.println');
 serialPrintln('serialPrintln');
 
 console.log("serial.cmd('tone 500 500');");
-// @ts-ignore TODO
 serial.cmd('tone 500 500');
 console.log("serialCmd('tone 500 500'); // legacy");
 // @ts-ignore legacy

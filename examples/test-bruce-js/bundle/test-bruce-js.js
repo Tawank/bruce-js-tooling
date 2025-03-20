@@ -199,21 +199,6 @@ while (!keyboard_1.default.getAnyPress()) {
 }
 assert(typeof display_1.default.width() === "number", "display.width() should be of type number");
 assert(typeof display_1.default.height() === "number", "display.height() should be of type number");
-var gpio_1 = __importDefault(require("gpio"));
-gpio_1.default.pinMode(26, OUTPUT);
-gpio_1.default.digitalWrite(26, HIGH);
-delay(100);
-var pin26ValueHigh = gpio_1.default.digitalRead(26);
-console.log(pin26ValueHigh);
-while (!keyboard_1.default.getAnyPress()) {
-  delay(10);
-}
-gpio_1.default.digitalWrite(26, LOW);
-var pin26ValueLow = gpio_1.default.digitalRead(26);
-assert(pin26ValueLow === LOW, "pin26ValueHigh should be HIGH");
-gpio_1.default.dacWrite(26, 127);
-var pin26ValueHalf = gpio_1.default.analogRead(26);
-console.log("dacWrite(127):", pin26ValueHalf);
 var ir_1 = __importDefault(require("ir"));
 var irRead = ir_1.default.read(10);
 console.log("irRead:", irRead);
