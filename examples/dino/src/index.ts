@@ -329,18 +329,18 @@ function main() {
   sprite.setTextSize(2);
   sprite.setTextAlign(2);
   while (true) {
-    if (keyboard.getPrevPress()) {
+    if (keyboard.getPrevPress(true)) {
       break; // Exits the game when a prev button is pressed.
     }
 
-    const selPressed = keyboard.getSelPress();
+    const selPressed = keyboard.getSelPress(true);
     if (selPressed && !dinoIsJumping && !dinoIsDucking) {
       dinoVelocity = dinoJumpStrength; // Start the jump
       dinoIsJumping = true;
       audio.tone(494, 40, true);
     }
 
-    const nextPressed = keyboard.getNextPress();
+    const nextPressed = keyboard.getNextPress(true);
     if (nextPressed && !dinoIsJumping) {
       dinoIsDucking = true;
     }
