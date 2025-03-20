@@ -1,8 +1,3 @@
-declare function assert(assertion: boolean, message?: string): boolean;
-declare function to_hex_string(text: string): string;
-declare function to_upper_case(text: string): string;
-declare function to_lower_case(text: string): string;
-
 import keyboard from "keyboard";
 
 //////     GLOBALS    //////
