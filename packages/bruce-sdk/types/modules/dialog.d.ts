@@ -118,7 +118,11 @@ declare module 'dialog' {
    * @returns The selected option as a string.
    */
   export function choice(
-    values: string[] | Array<[string, string]> | { [key: string]: string },
+    values:
+      | string[]
+      | Array<[string, string]>
+      | { [key: string]: string }
+      | string[][],
   ): string;
 
   /**

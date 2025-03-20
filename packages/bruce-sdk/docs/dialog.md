@@ -195,7 +195,9 @@ dialog.error("An error occurred!", true);
 ## dialog.choice()
 
 ```ts
-dialog.choice(values: string[] | [string, string][] | {}): string;
+dialog.choice(
+  values: string[] | [string, string][] | {} | string[][],
+): string;
 ```
 
 Displays a choice dialog and returns the selected option.
@@ -223,9 +225,9 @@ console.log("selectedObject:", selectedObject); // it should print "go_back", "c
 
 ### Parameters
 
-| Parameter | Type                                           | Description                                                             |
-| --------- | ---------------------------------------------- | ----------------------------------------------------------------------- |
-| `values`  | `string`[] \| \[`string`, `string`\][] \| \{\} | An array of options to choose from. Can also be nested array or object. |
+| Parameter | Type                                                           | Description                                                             |
+| --------- | -------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `values`  | `string`[] \| \[`string`, `string`\][] \| \{\} \| `string`[][] | An array of options to choose from. Can also be nested array or object. |
 
 ### Returns
 

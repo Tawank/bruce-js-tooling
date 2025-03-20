@@ -18,6 +18,7 @@ console.log("Received:", input);
 - [serial.print()](#serialprint)
 - [serial.println()](#serialprintln)
 - [serial.readln()](#serialreadln)
+- [serial.cmd()](#serialcmd)
 <!-- index-end -->
 
 ## serial.print()
@@ -63,19 +64,41 @@ Sends a message over the serial connection with a newline at the end.
 ## serial.readln()
 
 ```ts
-serial.readln(timeoutInMiliseconds: number): string;
+serial.readln(timeoutInMiliseconds?: number): string;
 ```
 
 Reads a line of input from the serial connection.
 
 ### Parameters
 
-| Parameter              | Type     | Description                                                        |
-| ---------------------- | -------- | ------------------------------------------------------------------ |
-| `timeoutInMiliseconds` | `number` | The time (in miliseconds) to wait for a connection before failing. |
+| Parameter               | Type     | Description                                                        |
+| ----------------------- | -------- | ------------------------------------------------------------------ |
+| `timeoutInMiliseconds`? | `number` | The time (in miliseconds) to wait for a connection before failing. |
 
 ### Returns
 
 `string`
 
 The received string.
+
+---
+
+## serial.cmd()
+
+```ts
+serial.cmd(command: string): boolean;
+```
+
+Executes a serial command list: https://github.com/pr3y/Bruce/wiki/Serial.
+
+### Parameters
+
+| Parameter | Type     |
+| --------- | -------- |
+| `command` | `string` |
+
+### Returns
+
+`boolean`
+
+`true` if the command was successful, otherwise `false`.

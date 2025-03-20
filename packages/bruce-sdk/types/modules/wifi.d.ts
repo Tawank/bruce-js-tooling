@@ -110,7 +110,26 @@ declare module 'wifi' {
         | 'TRACE'
         | 'CONNECT';
       body?: string;
-      binaryResponse: true;
+      responseType?: 'string';
+      headers?: Record<string, string> | [string, string][] | string[];
+    },
+  ): { status: number; ok: boolean; body: string };
+
+  export function httpFetch(
+    url: string,
+    options?: {
+      method:
+        | 'GET'
+        | 'POST'
+        | 'DELETE'
+        | 'PATCH'
+        | 'PUT'
+        | 'HEAD'
+        | 'OPTIONS'
+        | 'TRACE'
+        | 'CONNECT';
+      body?: string;
+      responseType: 'binary';
       headers?: Record<string, string> | [string, string][] | string[];
     },
   ): { status: number; ok: boolean; body: Uint8Array };
@@ -129,7 +148,7 @@ declare module 'wifi' {
         | 'TRACE'
         | 'CONNECT';
       body?: string;
-      binaryResponse: boolean;
+      responseType?: 'string' | 'binary';
       headers?: Record<string, string> | [string, string][] | string[];
     },
   ): { status: number; ok: boolean; body: string | Uint8Array };
