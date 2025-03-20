@@ -141,10 +141,10 @@ dialog.pickFile({ fs: "user", path: "/" });
 
 ### Properties
 
-| Property                   | Type                                  | Description                                      |
-| -------------------------- | ------------------------------------- | ------------------------------------------------ |
+| Property                   | Type                        | Description                                      |
+| -------------------------- | --------------------------- | ------------------------------------------------ |
 | <a id="fs"></a> `fs`       | [`FileSystem`](#filesystem) | The storage medium where the file is located     |
-| <a id="path-1"></a> `path` | `string`                              | The file path within the selected storage medium |
+| <a id="path-1"></a> `path` | `string`                    | The file path within the selected storage medium |
 
 ---
 
@@ -363,24 +363,6 @@ Converts a string to a number
 ### Call Signature
 
 ```ts
-random(max: number): number;
-```
-
-Returns a pseudo-random number
-
-#### Parameters
-
-| Parameter | Type     | Description                                |
-| --------- | -------- | ------------------------------------------ |
-| `max`     | `number` | Upper bound of the random value, exclusive |
-
-#### Returns
-
-`number`
-
-### Call Signature
-
-```ts
 random(min: number, max: number): number;
 ```
 
@@ -392,6 +374,24 @@ Returns a pseudo-random number
 | --------- | -------- | ----------------------------------------------------- |
 | `min`     | `number` | Lower bound of the random value, inclusive (optional) |
 | `max`     | `number` | Upper bound of the random value, exclusive            |
+
+#### Returns
+
+`number`
+
+### Call Signature
+
+```ts
+random(max: number): number;
+```
+
+Returns a pseudo-random number
+
+#### Parameters
+
+| Parameter | Type     | Description                                |
+| --------- | -------- | ------------------------------------------ |
+| `max`     | `number` | Upper bound of the random value, exclusive |
 
 #### Returns
 
@@ -462,10 +462,10 @@ assert(2 + 2 === 5); // Throws an error
 
 ### Parameters
 
-| Parameter   | Type      |
-| ----------- | --------- |
-| `assertion` | `boolean` |
-| `message`?  | `string`  |
+| Parameter   | Type      | Description                             |
+| ----------- | --------- | --------------------------------------- |
+| `assertion` | `boolean` | Any boolean expression                  |
+| `message`?  | `string`  | The Error message if assertion is false |
 
 ### Returns
 
@@ -946,13 +946,13 @@ if (choice === "right") console.log("User chose Yes!");
 
 ### Parameters
 
-| Parameter         | Type                                                           | Description             |
-| ----------------- | -------------------------------------------------------------- | ----------------------- |
-| `message`         | `string`                                                       | The message to display. |
-| `buttons`?        | \{ `left`: `string`; `center`: `string`; `right`: `string`; \} | -                       |
-| `buttons.left`?   | `string`                                                       | -                       |
-| `buttons.center`? | `string`                                                       | -                       |
-| `buttons.right`?  | `string`                                                       | -                       |
+| Parameter         | Type                                                           | Description                                                                                                                        |
+| ----------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `message`         | `string`                                                       | The message to display.                                                                                                            |
+| `buttons`?        | \{ `left`: `string`; `center`: `string`; `right`: `string`; \} | If `true`, waits for a key press before closing (default: `false`). If an object, displays up to three buttons with custom labels. |
+| `buttons.left`?   | `string`                                                       | -                                                                                                                                  |
+| `buttons.center`? | `string`                                                       | -                                                                                                                                  |
+| `buttons.right`?  | `string`                                                       | -                                                                                                                                  |
 
 ### Returns
 
@@ -1288,7 +1288,7 @@ while (true) {
 
 ### Returns
 
-[`TextViewer`](#textviewer)
+`TextViewer`
 
 A `TextViewer` instance with manual controls.
 
@@ -1795,7 +1795,7 @@ Draws a circle.
 | --------- | -------- | ------------------------------------------------------------- |
 | `x`       | `number` | X-coordinate.                                                 |
 | `y`       | `number` | Y-coordinate.                                                 |
-| `r`       | `number` | -                                                             |
+| `r`       | `number` | Circle radius.                                                |
 | `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
@@ -1818,7 +1818,7 @@ Draws a filled circle.
 | --------- | -------- | ----------------------------------------------------- |
 | `x`       | `number` | X-coordinate.                                         |
 | `y`       | `number` | Y-coordinate.                                         |
-| `r`       | `number` | -                                                     |
+| `r`       | `number` | Circle radius.                                        |
 | `color`   | `number` | Color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
@@ -1971,7 +1971,7 @@ Opens a GIF for manual frame playback.
 
 ### Returns
 
-[`Gif`](#gif)
+`Gif`
 
 A `Gif` object for controlling playback.
 

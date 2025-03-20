@@ -219,8 +219,7 @@ declare module 'display' {
    * Draws a circle.
    * @param x X-coordinate.
    * @param y Y-coordinate.
-   * @param width Rectangle width.
-   * @param height Rectangle height.
+   * @param r Circle radius.
    * @param color Outline color (use `display.color(r, g, b)` to generate one).
    */
   export function drawCircle(
@@ -234,8 +233,7 @@ declare module 'display' {
    * Draws a filled circle.
    * @param x X-coordinate.
    * @param y Y-coordinate.
-   * @param width Rectangle width.
-   * @param height Rectangle height.
+   * @param r Circle radius.
    * @param color Color (use `display.color(r, g, b)` to generate one).
    */
   export function drawFillCircle(
@@ -406,35 +404,36 @@ declare module 'display' {
    * @ignore
    */
   export default display;
-}
-
-/**
- * Represents a GIF animation object.
- */
-interface Gif {
-  /**
-   * Plays the next frame of the GIF.
-   * @param x X-coordinate.
-   * @param y Y-coordinate.
-   * @param sync If `false`, the frame will be played as fast as possible, ignoring any frame delays.
-   *             If `true` or omitted, the frame will follow the GIF’s natural timing.
-   *             Default: `true`.
-   */
-  playFrame(x?: number, y?: number, sync?: boolean): void;
 
   /**
-   * Gets the dimensions of the GIF.
-   * @returns An object containing width and height.
+   * Represents a GIF animation object.
+   * @ignore
    */
-  dimensions(): { width: number; height: number };
+  interface Gif {
+    /**
+     * Plays the next frame of the GIF.
+     * @param x X-coordinate.
+     * @param y Y-coordinate.
+     * @param sync If `false`, the frame will be played as fast as possible, ignoring any frame delays.
+     *             If `true` or omitted, the frame will follow the GIF’s natural timing.
+     *             Default: `true`.
+     */
+    playFrame(x?: number, y?: number, sync?: boolean): void;
 
-  /**
-   * Resets the GIF animation.
-   */
-  reset(): void;
+    /**
+     * Gets the dimensions of the GIF.
+     * @returns An object containing width and height.
+     */
+    dimensions(): { width: number; height: number };
 
-  /**
-   * Closes and releases the GIF object.
-   */
-  close(): void;
+    /**
+     * Resets the GIF animation.
+     */
+    reset(): void;
+
+    /**
+     * Closes and releases the GIF object.
+     */
+    close(): void;
+  }
 }

@@ -31,7 +31,7 @@ declare module 'dialog' {
    * ```
    *
    * @param message The message to display.
-   * @param options If `true`, waits for a key press before closing (default: `false`).
+   * @param buttons If `true`, waits for a key press before closing (default: `false`).
    *                If an object, displays up to three buttons with custom labels.
    * @returns The button pressed (`"left"`, `"center"`, or `"right"`), or `void` if no buttons are used.
    */
@@ -222,66 +222,67 @@ declare module 'dialog' {
       indentWrappedLines: boolean;
     },
   ): TextViewer;
-}
-
-/**
- * Represents a manually controlled text viewer.
- */
-interface TextViewer {
-  /**
-   * Renders or updates the text viewer on the screen.
-   */
-  draw(): void;
 
   /**
-   * Scrolls the text viewer up by one step.
+   * Represents a manually controlled text viewer.
+   * @ignore
    */
-  scrollUp(): void;
+  interface TextViewer {
+    /**
+     * Renders or updates the text viewer on the screen.
+     */
+    draw(): void;
 
-  /**
-   * Scrolls the text viewer down by one step.
-   */
-  scrollDown(): void;
+    /**
+     * Scrolls the text viewer up by one step.
+     */
+    scrollUp(): void;
 
-  /**
-   * Instantly scrolls to a specific line in the text viewer.
-   * @param lineNumber The target line index (0-based).
-   */
-  scrollToLine(lineNumber: number): void;
+    /**
+     * Scrolls the text viewer down by one step.
+     */
+    scrollDown(): void;
 
-  /**
-   * Retrieves the content of a specific line.
-   * @param lineNumber The line index (0-based).
-   * @returns The text content of the specified line.
-   */
-  getLine(lineNumber: number): string;
+    /**
+     * Instantly scrolls to a specific line in the text viewer.
+     * @param lineNumber The target line index (0-based).
+     */
+    scrollToLine(lineNumber: number): void;
 
-  /**
-   * Gets the total number of lines in the text viewer.
-   * @returns The total line count.
-   */
-  getMaxLines(): number;
+    /**
+     * Retrieves the content of a specific line.
+     * @param lineNumber The line index (0-based).
+     * @returns The text content of the specified line.
+     */
+    getLine(lineNumber: number): string;
 
-  /**
-   * Retrieves the currently visible portion of the text.
-   * @returns A string containing all visible lines.
-   */
-  getVisibleText(): string;
+    /**
+     * Gets the total number of lines in the text viewer.
+     * @returns The total line count.
+     */
+    getMaxLines(): number;
 
-  /**
-   * Sets new text content for the text viewer, replacing the existing content.
-   * This resets the scroll position to the top.
-   * @param text The new text to display.
-   */
-  setText(text: string): void;
+    /**
+     * Retrieves the currently visible portion of the text.
+     * @returns A string containing all visible lines.
+     */
+    getVisibleText(): string;
 
-  /**
-   * Removes the text from the viewer.
-   */
-  clear(): void;
+    /**
+     * Sets new text content for the text viewer, replacing the existing content.
+     * This resets the scroll position to the top.
+     * @param text The new text to display.
+     */
+    setText(text: string): void;
 
-  /**
-   * Closes and removes the text viewer from the screen.
-   */
-  close(): void;
+    /**
+     * Removes the text from the viewer.
+     */
+    clear(): void;
+
+    /**
+     * Closes and removes the text viewer from the screen.
+     */
+    close(): void;
+  }
 }

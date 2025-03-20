@@ -11,7 +11,7 @@ function getModuleName(path) {
 // Remove bugged function in docs/display.md
 replaceInFileSync({
   files: 'docs/display.md',
-  from: /\n## default\n\n```ts\nconst default: {} & display;\n```\n\n---/g,
+  from: /\n## default\n\n```ts\nconst default: {} & __module;\n```\n\n---/g,
   to: '',
 });
 

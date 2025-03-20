@@ -64,13 +64,13 @@ if (choice === "right") console.log("User chose Yes!");
 
 ### Parameters
 
-| Parameter         | Type                                                           | Description             |
-| ----------------- | -------------------------------------------------------------- | ----------------------- |
-| `message`         | `string`                                                       | The message to display. |
-| `buttons`?        | \{ `left`: `string`; `center`: `string`; `right`: `string`; \} | -                       |
-| `buttons.left`?   | `string`                                                       | -                       |
-| `buttons.center`? | `string`                                                       | -                       |
-| `buttons.right`?  | `string`                                                       | -                       |
+| Parameter         | Type                                                           | Description                                                                                                                        |
+| ----------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `message`         | `string`                                                       | The message to display.                                                                                                            |
+| `buttons`?        | \{ `left`: `string`; `center`: `string`; `right`: `string`; \} | If `true`, waits for a key press before closing (default: `false`). If an object, displays up to three buttons with custom labels. |
+| `buttons.left`?   | `string`                                                       | -                                                                                                                                  |
+| `buttons.center`? | `string`                                                       | -                                                                                                                                  |
+| `buttons.right`?  | `string`                                                       | -                                                                                                                                  |
 
 ### Returns
 
@@ -406,6 +406,6 @@ while (true) {
 
 ### Returns
 
-[`TextViewer`](dialog.md#textviewer)
+`TextViewer`
 
 A `TextViewer` instance with manual controls.

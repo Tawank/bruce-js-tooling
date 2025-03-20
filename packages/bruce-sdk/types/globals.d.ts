@@ -65,8 +65,8 @@ declare function to_upper_case(text: string): string;
  * @param min Lower bound of the random value, inclusive (optional)
  * @param max Upper bound of the random value, exclusive
  */
-declare function random(max: number): number;
 declare function random(min: number, max: number): number;
+declare function random(max: number): number;
 
 /**
  * Prints text to serial monitor and display. Alias to [display.println](#displayprintln)().
@@ -220,7 +220,8 @@ declare function require(module: string): any;
  * ```js
  * assert(2 + 2 === 5); // Throws an error
  * ```
- * @param module The name of the module to load
+ * @param assertion Any boolean expression
+ * @param message The Error message if assertion is false
  */
 declare function assert(assertion: boolean, message?: string): boolean;
 

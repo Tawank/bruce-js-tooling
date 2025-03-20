@@ -498,7 +498,7 @@ Draws a circle.
 | --------- | -------- | ------------------------------------------------------------- |
 | `x`       | `number` | X-coordinate.                                                 |
 | `y`       | `number` | Y-coordinate.                                                 |
-| `r`       | `number` | -                                                             |
+| `r`       | `number` | Circle radius.                                                |
 | `color`   | `number` | Outline color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
@@ -521,7 +521,7 @@ Draws a filled circle.
 | --------- | -------- | ----------------------------------------------------- |
 | `x`       | `number` | X-coordinate.                                         |
 | `y`       | `number` | Y-coordinate.                                         |
-| `r`       | `number` | -                                                     |
+| `r`       | `number` | Circle radius.                                        |
 | `color`   | `number` | Color (use `display.color(r, g, b)` to generate one). |
 
 ### Returns
@@ -674,7 +674,7 @@ Opens a GIF for manual frame playback.
 
 ### Returns
 
-[`Gif`](display.md#gif)
+`Gif`
 
 A `Gif` object for controlling playback.
 

@@ -199,7 +199,7 @@ Lists the contents of a directory.
 
 #### Returns
 
-[`Dirent`](storage.md#dirent)[]
+[`Dirent`](#dirent)[]
 
 An array of filenames or `Dirent` objects if `withFileTypes` is `true`.
 

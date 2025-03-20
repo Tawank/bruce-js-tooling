@@ -52,10 +52,10 @@ dialog.pickFile({ fs: "user", path: "/" });
 
 ### Properties
 
-| Property                   | Type                                  | Description                                      |
-| -------------------------- | ------------------------------------- | ------------------------------------------------ |
-| <a id="fs"></a> `fs`       | [`FileSystem`](globals.md#filesystem) | The storage medium where the file is located     |
-| <a id="path-1"></a> `path` | `string`                              | The file path within the selected storage medium |
+| Property                   | Type                        | Description                                      |
+| -------------------------- | --------------------------- | ------------------------------------------------ |
+| <a id="fs"></a> `fs`       | [`FileSystem`](#filesystem) | The storage medium where the file is located     |
+| <a id="path-1"></a> `path` | `string`                    | The file path within the selected storage medium |
 
 ---
 
@@ -274,24 +274,6 @@ Converts a string to a number
 ### Call Signature
 
 ```ts
-random(max: number): number;
-```
-
-Returns a pseudo-random number
-
-#### Parameters
-
-| Parameter | Type     | Description                                |
-| --------- | -------- | ------------------------------------------ |
-| `max`     | `number` | Upper bound of the random value, exclusive |
-
-#### Returns
-
-`number`
-
-### Call Signature
-
-```ts
 random(min: number, max: number): number;
 ```
 
@@ -303,6 +285,24 @@ Returns a pseudo-random number
 | --------- | -------- | ----------------------------------------------------- |
 | `min`     | `number` | Lower bound of the random value, inclusive (optional) |
 | `max`     | `number` | Upper bound of the random value, exclusive            |
+
+#### Returns
+
+`number`
+
+### Call Signature
+
+```ts
+random(max: number): number;
+```
+
+Returns a pseudo-random number
+
+#### Parameters
+
+| Parameter | Type     | Description                                |
+| --------- | -------- | ------------------------------------------ |
+| `max`     | `number` | Upper bound of the random value, exclusive |
 
 #### Returns
 
@@ -373,10 +373,10 @@ assert(2 + 2 === 5); // Throws an error
 
 ### Parameters
 
-| Parameter   | Type      |
-| ----------- | --------- |
-| `assertion` | `boolean` |
-| `message`?  | `string`  |
+| Parameter   | Type      | Description                             |
+| ----------- | --------- | --------------------------------------- |
+| `assertion` | `boolean` | Any boolean expression                  |
+| `message`?  | `string`  | The Error message if assertion is false |
 
 ### Returns
 
