@@ -49,6 +49,15 @@ declare module 'keyboard' {
   export function getNextPress(hold?: boolean): boolean;
 
   /**
+   * Checks if the "esc" button was pressed.
+   * @param hold If `true`, returns `true` as long as any button is held down.
+   *             If `false` or omitted, returns `true` only on press and repeats every X ms.
+   *             Default: `false`.
+   * @returns `true` if the button was pressed, otherwise `false`.
+   */
+  export function getEscPress(hold?: boolean): boolean;
+
+  /**
    * Checks if any button was pressed.
    * @param hold If `true`, returns `true` as long as any button is held down.
    *             If `false` or omitted, returns `true` only on press and repeats every X ms.

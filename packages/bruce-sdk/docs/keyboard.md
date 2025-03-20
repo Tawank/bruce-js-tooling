@@ -21,6 +21,7 @@ while (true) {
 - [keyboard.getPrevPress()](#keyboardgetprevpress)
 - [keyboard.getSelPress()](#keyboardgetselpress)
 - [keyboard.getNextPress()](#keyboardgetnextpress)
+- [keyboard.getEscPress()](#keyboardgetescpress)
 - [keyboard.getAnyPress()](#keyboardgetanypress)
 - [keyboard.keyboard()](#keyboardkeyboard)
 <!-- index-end -->
@@ -92,6 +93,28 @@ keyboard.getNextPress(hold?: boolean): boolean;
 ```
 
 Checks if the "next" button was pressed.
+
+### Parameters
+
+| Parameter | Type      | Description                                                                                                                                                 |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hold`?   | `boolean` | If `true`, returns `true` as long as any button is held down. If `false` or omitted, returns `true` only on press and repeats every X ms. Default: `false`. |
+
+### Returns
+
+`boolean`
+
+`true` if the button was pressed, otherwise `false`.
+
+---
+
+## keyboard.getEscPress()
+
+```ts
+keyboard.getEscPress(hold?: boolean): boolean;
+```
+
+Checks if the "esc" button was pressed.
 
 ### Parameters
 
