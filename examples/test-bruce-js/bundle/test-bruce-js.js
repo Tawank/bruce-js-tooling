@@ -200,12 +200,12 @@ while (!keyboard_1.default.getAnyPress()) {
 assert(typeof display_1.default.width() === "number", "display.width() should be of type number");
 assert(typeof display_1.default.height() === "number", "display.height() should be of type number");
 var ir_1 = __importDefault(require("ir"));
-var irRead = ir_1.default.read(10);
-console.log("irRead:", irRead);
+var irReadValue = ir_1.default.read(10);
+console.log("ir.read:", irReadValue);
 var irReadLegacy = irRead(10);
 console.log("irReadLegacy:", irReadLegacy);
-var irReadRaw = ir_1.default.readRaw(10);
-console.log("irReadRaw:", irReadRaw);
+var irReadRawValue = ir_1.default.readRaw(10);
+console.log("ir.readRaw:", irReadRawValue);
 var irReadRawLegacy = irReadRaw(10);
 console.log("irReadRawLegacy:", irReadRawLegacy);
 console.log("ir.transmitFile click any key to continue");
@@ -239,7 +239,7 @@ console.log("storage.readdir('/'):", JSON.stringify(storage_1.default.readdir("/
 storage_1.default.rename("/test", "/test2");
 storage_1.default.write("/test/test.txt", "steststest");
 console.log("storage.read('/test/test.txt'):", storage_1.default.read("/test/test.txt"));
-storage_1.default.remove("text.txt");
+storage_1.default.remove("/test/test.txt");
 storage_1.default.rmdir("/test");
 console.log("storage.readdir('/'):", JSON.stringify(storage_1.default.readdir("/")));
 var subghz_1 = __importDefault(require("subghz"));
@@ -258,8 +258,17 @@ wifi_1.default.connectDialog();
 }
 var response;
 {
+  response = wifi_1.default.httpFetch("https://echo.free.beeceptor.com", ["asd", "dsa"]);
+  console.log("httpFetch legacy:", response.body);
+}
+var response;
+{
   response = wifi_1.default.httpFetch("https://echo.free.beeceptor.com", {
-    method: "POST"
+    method: "POST",
+    body: "asd",
+    headers: {
+      "asd": "dsa"
+    }
   });
   console.log("response.body (POST):", response.body);
 }

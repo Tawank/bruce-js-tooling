@@ -27,7 +27,6 @@ var textViewer = dialog_1.default.createTextViewer(request.body, {
   startY: 25,
   width: tftWidth - 2 * 10,
   height: tftHeight - 25 - 10,
-  // @ts-ignore
   indentWrappedLines: true
 });
 var history = [];
@@ -47,10 +46,10 @@ function goToPage(url) {
   textViewer.setText(request.body);
 }
 var websites = [
-  "https://aniagotuje.pl",
+  "https://github.com/pr3y/Bruce/wiki",
   "https://en.cppreference.com/w",
   "https://randomnerdtutorials.com"
-  // WEBSITES_INSERT
+  // insert websites here
 ];
 function selectWebsite() {
   drawWindow("Select Website");
@@ -96,7 +95,6 @@ function main() {
       choicesMatch.push("Cancel");
       choicesMatch.push("Quit");
       var choice = dialog_1.default.choice(choicesMatch);
-      console.log("history:", JSON.stringify(history, null, 2));
       if (choice === "Quit") {
         break;
       }

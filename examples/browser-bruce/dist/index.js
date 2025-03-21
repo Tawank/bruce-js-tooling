@@ -25,14 +25,12 @@ var textViewer = dialog_1.default.createTextViewer(request.body, {
     startY: 25,
     width: tftWidth - 2 * 10,
     height: tftHeight - 25 - 10,
-    // @ts-ignore
     indentWrappedLines: true
 });
 var history = [];
 function goToPage(url) {
     console.log(url);
     drawWindow(url.substring(url.indexOf("://") + 3));
-    // @ts-ignore
     textViewer.clear();
     try {
         request = wifi_1.default.httpFetch("https://www.w3.org/services/html2txt?url=".concat(url, "&noinlinerefs=on&endrefs=on"), {
@@ -46,11 +44,12 @@ function goToPage(url) {
     history.push(url);
     textViewer.setText(request.body);
 }
+/// TODO: Use storage.write('browser.js', 'https://newsite.com,\n  ', 'append', '// insert websites here') to add new websites
 var websites = [
-    'https://aniagotuje.pl',
+    'https://github.com/pr3y/Bruce/wiki',
     'https://en.cppreference.com/w',
     'https://randomnerdtutorials.com',
-    // WEBSITES_INSERT
+    // insert websites here
 ];
 function selectWebsite() {
     drawWindow('Select Website');
@@ -96,7 +95,6 @@ function main() {
             choicesMatch.push('Cancel');
             choicesMatch.push('Quit');
             var choice = dialog_1.default.choice(choicesMatch);
-            console.log('history:', JSON.stringify(history, null, 2));
             if (choice === 'Quit') {
                 break;
             }

@@ -390,8 +390,18 @@ wifi.connectDialog();
 }
 
 {
+  // @ts-ignore legacy
+  const response = wifi.httpFetch('https://echo.free.beeceptor.com', ['asd', 'dsa']);
+  console.log("httpFetch legacy:", response.body);
+}
+
+{
   const response = wifi.httpFetch('https://echo.free.beeceptor.com', {
-    method: "POST"
+    method: "POST",
+    body: 'asd',
+    headers: {
+      'asd': 'dsa'
+    }
   });
   console.log("response.body (POST):", response.body);
 }
