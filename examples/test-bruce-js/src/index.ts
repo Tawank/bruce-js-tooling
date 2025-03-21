@@ -363,7 +363,7 @@ storage.rename('/test', '/test2');
 storage.write('/test/test.txt', 'steststest');
 console.log("storage.read('/test/test.txt'):", storage.read('/test/test.txt'));
 
-storage.remove('/test/text.txt');
+storage.remove('/test/test.txt');
 storage.rmdir('/test');
 console.log("storage.readdir('/'):", JSON.stringify(storage.readdir('/')));
 
