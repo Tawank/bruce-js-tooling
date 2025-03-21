@@ -62,7 +62,19 @@ declare module 'wifi' {
    *   - `MAC`: The MAC address of the access point.
    */
   export function scan(): Array<{
-    encryptionType: string;
+    encryptionType:
+      | 'OPEN'
+      | 'WEP'
+      | 'WPA_PSK'
+      | 'WPA2_PSK'
+      | 'WPA_WPA2_PSK'
+      | 'ENTERPRISE'
+      | 'WPA2_ENTERPRISE'
+      | 'WPA3_PSK'
+      | 'WPA2_WPA3_PSK'
+      | 'WAPI_PSK'
+      | 'WPA3_ENT_192'
+      | 'MAX';
     SSID: string;
     MAC: string;
   }>;

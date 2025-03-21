@@ -108,7 +108,19 @@ Disconnects from the current Wi-Fi network.
 
 ```ts
 wifi.scan(): {
-  encryptionType: string;
+  encryptionType:
+    | "OPEN"
+    | "WEP"
+    | "WPA_PSK"
+    | "WPA2_PSK"
+    | "WPA_WPA2_PSK"
+    | "ENTERPRISE"
+    | "WPA2_ENTERPRISE"
+    | "WPA3_PSK"
+    | "WPA2_WPA3_PSK"
+    | "WAPI_PSK"
+    | "WPA3_ENT_192"
+    | "MAX";
   SSID: string;
   MAC: string;
 }[];
@@ -119,7 +131,18 @@ Scans for available Wi-Fi networks.
 ### Returns
 
 \{
-`encryptionType`: `string`;
+`encryptionType`: \| `"OPEN"`
+\| `"WEP"`
+\| `"WPA_PSK"`
+\| `"WPA2_PSK"`
+\| `"WPA_WPA2_PSK"`
+\| `"ENTERPRISE"`
+\| `"WPA2_ENTERPRISE"`
+\| `"WPA3_PSK"`
+\| `"WPA2_WPA3_PSK"`
+\| `"WAPI_PSK"`
+\| `"WPA3_ENT_192"`
+\| `"MAX"`;
 `SSID`: `string`;
 `MAC`: `string`;
 \}[]
