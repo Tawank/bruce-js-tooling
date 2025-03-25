@@ -20,6 +20,7 @@ dialog.viewFile(filePath);
 <!-- index-start -->
 ## dialog functions
 
+- [dialog.drawStatusBar()](#dialogdrawstatusbar)
 - [dialog.message()](#dialogmessage)
 - [dialog.info()](#dialoginfo)
 - [dialog.success()](#dialogsuccess)
@@ -32,6 +33,20 @@ dialog.viewFile(filePath);
 - [dialog.viewText()](#dialogviewtext)
 - [dialog.createTextViewer()](#dialogcreatetextviewer)
 <!-- index-end -->
+
+## dialog.drawStatusBar()
+
+```ts
+dialog.drawStatusBar(): void;
+```
+
+Draws Bruce's status bar
+
+### Returns
+
+`void`
+
+---
 
 ## dialog.message()
 
