@@ -18,6 +18,12 @@
  * @module dialog
  */
 declare module 'dialog' {
+  
+  /**
+   * Draws Bruce's status bar
+   */
+  export function drawStatusBar():void;
+
   /**
    * Displays a message dialog with up to three choices.
    *

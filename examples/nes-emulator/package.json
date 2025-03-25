@@ -2,11 +2,11 @@
   "name": "nes-emulator-bruce",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc && node node_modules/bruce-sdk/sdk.js build",
-    "start": "tsc && node node_modules/bruce-sdk/sdk.js start",
+    "build": "tsc && node ../../node_modules/bruce-sdk/sdk.js build",
+    "start": "tsc && node ../../node_modules/bruce-sdk/sdk.js start",
     "optimise": "google-closure-compiler --js bundle/bruce-app.js --js_output_file bundle/bruce-app.out.js",
     "dev": "npm-watch",
-    "upload": "tsc && node node_modules/bruce-sdk/sdk.js upload",
+    "upload": "tsc && node ../../node_modules/bruce-sdk/sdk.js upload",
     "test": "vitest"
   },
   "watch": {
@@ -21,7 +21,7 @@
     }
   },
   "devDependencies": {
-    "bruce-sdk": "^0.0.4",
+    "bruce-sdk": "*",
     "google-closure-compiler": "^20240317.0.0",
     "npm-watch": "^0.13.0",
     "typescript": "^5.7.2",
