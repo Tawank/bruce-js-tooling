@@ -6,3 +6,7 @@ packages/create-bruce-app/template/package-lock.json
 
 examples/dino/package-lock.json
 examples/nes-emulator/package-lock.json
+examples/*
+!examples/dino
+!examples/nes-emulator
+!examples/test-bruce-js
