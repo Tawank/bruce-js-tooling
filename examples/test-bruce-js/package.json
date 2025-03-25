@@ -2,10 +2,10 @@
   "name": "test-bruce-js",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc && node node_modules/bruce-sdk/sdk.js build",
-    "start": "tsc && node node_modules/bruce-sdk/sdk.js start",
+    "build": "tsc && node ../../node_modules/bruce-sdk/sdk.js build",
+    "start": "tsc && node ../../node_modules/bruce-sdk/sdk.js start",
     "dev": "npm-watch",
-    "upload": "tsc && node node_modules/bruce-sdk/sdk.js upload",
+    "upload": "tsc && node ../../node_modules/bruce-sdk/sdk.js upload",
     "test": "vitest"
   },
   "watch": {
@@ -20,7 +20,7 @@
     }
   },
   "devDependencies": {
-    "bruce-sdk": "^0.1.7",
+    "bruce-sdk": "*",
     "npm-watch": "^0.13.0",
     "typescript": "^5.7.2",
     "vitest": "^3.0.5"
