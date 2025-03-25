@@ -27,6 +27,11 @@ declare module 'display' {
   export function color(r: number, g: number, b: number): number;
 
   /**
+   * Draws Bruce's status bar
+   */
+  export function drawStatusBar():void;
+
+  /**
    * Fills the entire screen with the specified color.
    * @param color Color value (use `display.color(r, g, b)` to generate one).
    */
